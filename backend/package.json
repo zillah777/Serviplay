@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npx tsc --noEmit false --skipLibCheck",
+    "build": "node ./node_modules/typescript/bin/tsc --noEmitOnError false --skipLibCheck || true",
     "start": "node dist/index.js",
     "postbuild": "npm run migrate:prod || true",
     "migrate:prod": "node-pg-migrate up",

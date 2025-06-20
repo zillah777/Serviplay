@@ -5,12 +5,21 @@ const path = require('path');
 async function runMigrations() {
   console.log('🚀 Starting database migrations...');
   
+  if (!process.env.DATABASE_URL) {
+    console.log('⚠️  DATABASE_URL not found, skipping migrations');
+    return;
+  }
+  
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   });
 
   try {
+    console.log('🔗 Connecting to database...');
+    const client = await pool.connect();
+    console.log('✅ Database connection established');
+    client.release();
     // Create migrations table if it doesn't exist
     await pool.query(`
       CREATE TABLE IF NOT EXISTS pgmigrations (

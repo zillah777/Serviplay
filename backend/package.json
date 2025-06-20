@@ -15,7 +15,7 @@
     "migrate:prod": "node-pg-migrate up",
     "lint": "eslint src/**/*.ts",
     "typecheck": "tsc --noEmit",
-    "migrate": "node-pg-migrate up",
+    "migrate": "node-pg-migrate up --verbose",
     "migrate:down": "node-pg-migrate down",
     "seed": "ts-node seeds/index.ts"
   },

@@ -4,14 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME || 'serviplay_db',
-  user: process.env.DB_USER || 'serviplay_user',
-  password: process.env.DB_PASSWORD || 'serviplay_pass',
+  connectionString: process.env.DATABASE_URL || `postgresql://${process.env.DB_USER || 'serviplay_user'}:${process.env.DB_PASSWORD || 'serviplay_pass'}@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'serviplay_db'}`,
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
 export const connectDB = async () => {

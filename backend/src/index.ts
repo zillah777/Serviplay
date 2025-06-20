@@ -1,9 +1,10 @@
+import 'module-alias/register';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import { connectDB, initializeDB } from './config/database-sqlite';
+import { connectDB } from './config/database';
 import { errorHandler } from './middleware/errorHandler';
 
 // Routes
@@ -59,7 +60,6 @@ async function startServer() {
   try {
     // Connect to databases
     await connectDB();
-    await initializeDB();
     console.log('⚡ Skipping Redis connection for development');
     
     app.listen(PORT, () => {

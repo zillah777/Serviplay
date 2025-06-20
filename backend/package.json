@@ -11,11 +11,10 @@
     "dev": "nodemon src/index.ts",
     "build": "node ./node_modules/typescript/bin/tsc --noEmitOnError false --skipLibCheck || true",
     "start": "node dist/index.js",
-    "postbuild": "npm run migrate:prod || true",
-    "migrate:prod": "node-pg-migrate up",
+    "postbuild": "npm run migrate || true",
     "lint": "eslint src/**/*.ts",
     "typecheck": "tsc --noEmit",
-    "migrate": "node-pg-migrate up --verbose",
+    "migrate": "node migrate.js",
     "migrate:down": "node-pg-migrate down",
     "seed": "ts-node seeds/index.ts"
   },

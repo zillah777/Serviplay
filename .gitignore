@@ -61,4 +61,4 @@ temp/
 .vercel
 
 # Railway
-railway.json
+.railway/

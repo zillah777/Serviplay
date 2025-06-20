@@ -4,7 +4,7 @@ import {
   MagnifyingGlassIcon, 
   XMarkIcon,
   ClockIcon,
-  TrendingUpIcon,
+  FireIcon,
   MapPinIcon 
 } from '@heroicons/react/24/outline';
 import { SearchFilters, SearchSuggestion } from '@/types/search';
@@ -264,7 +264,7 @@ const SearchBar = ({
             {filters.query.length === 0 && searchHistory.length === 0 && (
               <div className="p-4">
                 <h4 className="text-sm font-medium text-neutral-500 mb-3 flex items-center space-x-2">
-                  <TrendingUpIcon className="w-4 h-4" />
+                  <FireIcon className="w-4 h-4" />
                   <span>Búsquedas populares</span>
                 </h4>
                 <div className="space-y-1">
@@ -280,7 +280,7 @@ const SearchBar = ({
                       onClick={() => handleSearch(popular)}
                       className="w-full flex items-center space-x-3 p-2 text-left hover:bg-neutral-50 rounded-lg transition-colors"
                     >
-                      <TrendingUpIcon className="w-4 h-4 text-secondary-orange" />
+                      <FireIcon className="w-4 h-4 text-secondary-orange" />
                       <span className="text-neutral-600">{popular}</span>
                     </button>
                   ))}

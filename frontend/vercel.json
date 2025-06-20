@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://serviplay-backend.railway.app/api/:path*"
+      "destination": "https://serviplay-production.up.railway.app/api/:path*"
     }
   ],
   "headers": [
@@ -31,6 +31,6 @@
   ],
   "env": {
     "NEXT_PUBLIC_APP_NAME": "Serviplay",
-    "NEXT_PUBLIC_APP_URL": "https://serviplay.vercel.app"
+    "NEXT_PUBLIC_APP_URL": "https://serviplay-zillah777.vercel.app"
   }
 }

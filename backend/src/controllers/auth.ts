@@ -175,6 +175,10 @@ export const login = asyncHandler(async (req: Request, res: Response, next: Next
       tokens
     }
   });
+  } catch (error) {
+    console.error('Login error:', error);
+    next(error);
+  }
 });
 
 export const verifyEmail = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {

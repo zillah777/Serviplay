@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { MulterRequest } from '@/types';
 import { body, query, param, validationResult } from 'express-validator';
 import { createError } from './errorHandler';
 
@@ -372,7 +373,7 @@ export const validatePagination = [
 ];
 
 // Validación para subida de archivos
-export const validateFileUpload = (req: Request, res: Response, next: NextFunction) => {
+export const validateFileUpload = (req: MulterRequest, res: Response, next: NextFunction) => {
   if (!req.file && !req.files) {
     return res.status(400).json({
       error: 'No se ha subido ningún archivo',

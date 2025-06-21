@@ -198,3 +198,11 @@ export interface Pago {
   metodo_pago?: string;
   created_at: Date;
 }
+
+// Tipos para multer
+import { Request } from 'express';
+
+export interface MulterRequest extends Request {
+  file?: any;
+  files?: any;
+}

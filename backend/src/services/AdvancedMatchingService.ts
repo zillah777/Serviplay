@@ -126,7 +126,7 @@ export class AdvancedMatchingService {
     categoriaId?: string
   ) {
     let whereClause = 's.activo = true AND s.disponible = true AND pa.suscripcion_activa = true';
-    const params = [lat, lng, radio];
+    const params: any[] = [lat, lng, radio];
     let paramIndex = 4;
 
     if (categoriaId) {

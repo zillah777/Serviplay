@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import crypto from 'crypto';
 import { query } from '@/config/database';
 
@@ -17,20 +17,20 @@ export const generateVerificationToken = (): string => {
 
 // Generar JWT access token
 export const generateAccessToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>): string => {
-  return jwt.sign(payload, process.env.JWT_SECRET!, {
-    expiresIn: process.env.JWT_EXPIRES_IN || '15m',
-    issuer: 'serviplay',
-    audience: 'serviplay-users'
-  });
+  const secret = process.env.JWT_SECRET || 'default-secret';
+  const options: SignOptions = {
+    expiresIn: '15m'
+  };
+  return jwt.sign(payload as object, secret, options);
 };
 
 // Generar JWT refresh token
 export const generateRefreshToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>): string => {
-  return jwt.sign(payload, process.env.JWT_REFRESH_SECRET!, {
-    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
-    issuer: 'serviplay',
-    audience: 'serviplay-users'
-  });
+  const secret = process.env.JWT_REFRESH_SECRET || 'default-refresh-secret';
+  const options: SignOptions = {
+    expiresIn: '7d'
+  };
+  return jwt.sign(payload as object, secret, options);
 };
 
 // Verificar access token

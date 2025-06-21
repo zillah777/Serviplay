@@ -9,7 +9,7 @@ import { AuthRequest } from '@/middleware/auth';
  */
 export const obtenerNotificaciones = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.user!;
+    const userId = req.user!.id;
     const limite = parseInt(req.query.limite as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
 
@@ -43,7 +43,7 @@ export const obtenerNotificaciones = async (req: AuthRequest, res: Response) => 
  */
 export const marcarComoLeida = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.user!;
+    const userId = req.user!.id;
     const { notification_id } = req.params;
 
     if (!notification_id) {
@@ -84,7 +84,7 @@ export const marcarComoLeida = async (req: AuthRequest, res: Response) => {
  */
 export const marcarTodasComoLeidas = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.user!;
+    const userId = req.user!.id;
 
     const resultado = await NotificationService.marcarTodasComoLeidas(userId);
 
@@ -108,7 +108,7 @@ export const marcarTodasComoLeidas = async (req: AuthRequest, res: Response) => 
  */
 export const contarNoLeidas = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.user!;
+    const userId = req.user!.id;
 
     const count = await NotificationService.contarNoLeidas(userId);
 
@@ -133,7 +133,7 @@ export const contarNoLeidas = async (req: AuthRequest, res: Response) => {
  */
 export const eliminarNotificacion = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.user!;
+    const userId = req.user!.id;
     const { notification_id } = req.params;
 
     if (!notification_id) {
@@ -174,7 +174,7 @@ export const eliminarNotificacion = async (req: AuthRequest, res: Response) => {
  */
 export const registrarTokenFCM = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.user!;
+    const userId = req.user!.id;
     const { fcm_token } = req.body;
 
     if (!fcm_token) {
@@ -214,7 +214,7 @@ export const registrarTokenFCM = async (req: AuthRequest, res: Response) => {
  */
 export const eliminarTokenFCM = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.user!;
+    const userId = req.user!.id;
 
     const resultado = await NotificationService.eliminarFCMToken(userId);
 
@@ -266,7 +266,7 @@ export const enviarNotificacionPrueba = async (req: AuthRequest, res: Response) 
       });
     }
 
-    const { userId } = req.user!;
+    const userId = req.user!.id;
     const { title, body, type = 'sistema' } = req.body;
 
     if (!title || !body) {

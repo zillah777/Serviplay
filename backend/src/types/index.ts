@@ -10,6 +10,8 @@ export interface Usuario {
   token_verificacion?: string;
   reset_password_token?: string;
   reset_password_expires?: Date;
+  intentos_fallidos: number;
+  bloqueado_hasta?: Date;
   created_at: Date;
   updated_at: Date;
 }

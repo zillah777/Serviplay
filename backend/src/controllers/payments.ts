@@ -42,8 +42,7 @@ export const crearPreferenciaPago = asyncHandler(async (req: AuthRequest, res: R
       data: {
         preference_id: preference.id,
         init_point: preference.init_point,
-        plan_id,
-        amount: preference.items[0].unit_price
+        plan_id
       }
     });
 

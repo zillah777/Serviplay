@@ -117,7 +117,7 @@ export const login = asyncHandler(async (req: Request, res: Response, next: Next
       await recordFailedAttempt(ip, email);
       
       // Incrementar intentos fallidos del usuario
-      await User.incrementFailedAttempts(user.id);
+      await User.incrementFailedAttempts(email);
       
       throw createError('Email o contraseña incorrectos', 401);
     }
@@ -132,23 +132,23 @@ export const login = asyncHandler(async (req: Request, res: Response, next: Next
       throw createError('Tu cuenta ha sido suspendida. Contactá al soporte.', 401);
     }
 
-    if (user.estado === 'inactivo') {
-      throw createError('Tu cuenta está inactiva. Contactá al soporte.', 401);
-    }
+    // Comentamos esta validación ya que 'inactivo' no está en el enum
+    // if (user.estado === 'inactivo') {
+    //   throw createError('Tu cuenta está inactiva. Contactá al soporte.', 401);
+    // }
 
     // Login exitoso - limpiar intentos fallidos
     await clearFailedAttempts(ip, email);
-    await User.resetFailedAttempts(user.id);
+    await User.resetFailedAttempts(email);
 
     // Crear sesión
     const sessionId = await createSession(user.id);
 
-    // Generar tokens con sessionId
+    // Generar tokens
     const tokens = await generateTokenPair({
       id: user.id,
       email: user.email,
-      tipo_usuario: user.tipo_usuario,
-      sessionId
+      tipo_usuario: user.tipo_usuario
     });
 
     // Actualizar último acceso

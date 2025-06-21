@@ -97,6 +97,29 @@ export class User {
     );
   }
 
+  static async incrementFailedAttempts(email: string): Promise<void> {
+    await query(
+      `UPDATE usuarios 
+       SET intentos_fallidos = intentos_fallidos + 1,
+           bloqueado_hasta = CASE 
+             WHEN intentos_fallidos >= 4 THEN NOW() + INTERVAL '15 minutes'
+             ELSE bloqueado_hasta
+           END,
+           updated_at = NOW()
+       WHERE email = $1`,
+      [email]
+    );
+  }
+
+  static async resetFailedAttempts(email: string): Promise<void> {
+    await query(
+      `UPDATE usuarios 
+       SET intentos_fallidos = 0, bloqueado_hasta = null, updated_at = NOW()
+       WHERE email = $1`,
+      [email]
+    );
+  }
+
   static async getUserWithProfiles(userId: string): Promise<{
     user: Usuario;
     perfilAs?: PerfilAs;

@@ -2,9 +2,9 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "cd backend && npm install && npm run build && node check-db.js && npm run migrate"
+    "buildCommand": "cd backend && npm install && npm run build"
   },
   "deploy": {
-    "startCommand": "cd backend && node dist/index.js"
+    "startCommand": "cd backend && node check-db.js && npm run migrate && node dist/index.js"
   }
 }

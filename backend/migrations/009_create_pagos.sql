@@ -136,8 +136,8 @@ SELECT
     s.plan_id,
     COUNT(*) as total_pagos,
     SUM(p.monto) as ingresos_brutos,
-    SUM(p.fee_mercadopago) as fees_mercadopago,
-    SUM(p.monto_neto) as ingresos_netos,
+    SUM(COALESCE(p.fee_mercadopago, 0)) as fees_mercadopago,
+    SUM(COALESCE(p.monto_neto, p.monto)) as ingresos_netos,
     AVG(p.monto) as ticket_promedio
 FROM pagos p
 INNER JOIN suscripciones s ON p.suscripcion_id = s.id

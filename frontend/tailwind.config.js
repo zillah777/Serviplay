@@ -54,7 +54,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    // Temporarily disabled for Vercel deployment
+    // require('@tailwindcss/forms'),
+    // require('@tailwindcss/typography'),
   ],
 }

@@ -33,7 +33,7 @@ const Layout = ({
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_APP_URL || 'https://serviplay.vercel.app'} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />

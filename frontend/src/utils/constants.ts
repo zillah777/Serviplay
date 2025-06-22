@@ -70,8 +70,9 @@ export const CATEGORY_COLORS = [
   '#6b7280', '#7c3aed', '#ef4444', '#f59e0b', '#1f2937'
 ];
 
-// Iconos de categorías por defecto  
+// Iconos de categorías modernos y atractivos
 export const CATEGORY_ICONS = [
-  '🧹', '🔧', '⚡', '🌱', '🎨', '🪚', '🧱', '💻', 
-  '💅', '🐕', '🚚', '📚', '🏥', '🎉', '📸'
+  '✨', '🚰', '💡', '🌿', '🎨', '🔨', '🏗️', '👨‍💻', 
+  '💅', '🐕', '📦', '📚', '🏥', '🎉', '📸', '👶', 
+  '💆‍♀️', '💪', '🛵', '🔧', '👨‍🍳', '🎵', '🛡️', '📐'
 ];

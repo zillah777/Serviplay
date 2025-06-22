@@ -10,18 +10,31 @@ import {
   CheckIcon
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
+import { CategoryIcon } from '@/components/common/ModernIcon';
 import toast from 'react-hot-toast';
 
-// Mock categories basado en estructura real de DB
+// Mock categories con iconos modernos y atractivos
 const mockCategories = [
-  { id: '1', nombre: 'Limpieza', icono: '🧹', color: '#10b981' },
-  { id: '2', nombre: 'Plomería', icono: '🔧', color: '#3b82f6' },
-  { id: '3', nombre: 'Electricidad', icono: '⚡', color: '#f59e0b' },
-  { id: '4', nombre: 'Jardinería', icono: '🌱', color: '#22c55e' },
+  { id: '1', nombre: 'Limpieza', icono: '✨', color: '#10b981' },
+  { id: '2', nombre: 'Plomería', icono: '🚰', color: '#3b82f6' },
+  { id: '3', nombre: 'Electricidad', icono: '💡', color: '#f59e0b' },
+  { id: '4', nombre: 'Jardinería', icono: '🌿', color: '#22c55e' },
   { id: '5', nombre: 'Pintura', icono: '🎨', color: '#8b5cf6' },
-  { id: '6', nombre: 'Carpintería', icono: '🪚', color: '#a3a3a3' },
-  { id: '7', nombre: 'Albañilería', icono: '🧱', color: '#dc2626' },
-  { id: '8', nombre: 'Programación', icono: '💻', color: '#06b6d4' }
+  { id: '6', nombre: 'Carpintería', icono: '🔨', color: '#a3a3a3' },
+  { id: '7', nombre: 'Albañilería', icono: '🏗️', color: '#dc2626' },
+  { id: '8', nombre: 'Programación', icono: '👨‍💻', color: '#06b6d4' },
+  { id: '9', nombre: 'Niñera', icono: '👶', color: '#f97316' },
+  { id: '10', nombre: 'Belleza', icono: '💅', color: '#ec4899' },
+  { id: '11', nombre: 'Masajes', icono: '💆‍♀️', color: '#a855f7' },
+  { id: '12', nombre: 'Fitness', icono: '💪', color: '#ef4444' },
+  { id: '13', nombre: 'Cocina', icono: '👨‍🍳', color: '#f59e0b' },
+  { id: '14', nombre: 'Delivery', icono: '🛵', color: '#06b6d4' },
+  { id: '15', nombre: 'Mudanzas', icono: '📦', color: '#6b7280' },
+  { id: '16', nombre: 'Mecánica', icono: '🔧', color: '#374151' },
+  { id: '17', nombre: 'Veterinaria', icono: '🐕', color: '#059669' },
+  { id: '18', nombre: 'Música', icono: '🎵', color: '#7c3aed' },
+  { id: '19', nombre: 'Fotografía', icono: '📸', color: '#be185d' },
+  { id: '20', nombre: 'Seguridad', icono: '🛡️', color: '#1f2937' }
 ];
 
 const tiposPrecio = [
@@ -212,19 +225,16 @@ export default function NewService() {
                   </label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {categories.map((category) => (
-                      <button
-                        key={category.id}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, categoria_id: category.id })}
-                        className={`p-4 border-2 rounded-xl transition-all text-center ${
-                          formData.categoria_id === category.id
-                            ? 'border-primary-blue bg-primary-blue/5'
-                            : 'border-neutral-200 hover:border-neutral-300'
-                        }`}
-                      >
-                        <div className="text-2xl mb-2">{category.icono}</div>
-                        <div className="text-sm font-medium text-neutral-900">{category.nombre}</div>
-                      </button>
+                      <div key={category.id} className="text-center">
+                        <CategoryIcon
+                          emoji={category.icono}
+                          color={category.color}
+                          size="lg"
+                          active={formData.categoria_id === category.id}
+                          onClick={() => setFormData({ ...formData, categoria_id: category.id })}
+                        />
+                        <div className="text-sm font-medium text-neutral-900 mt-2">{category.nombre}</div>
+                      </div>
                     ))}
                   </div>
                 </div>

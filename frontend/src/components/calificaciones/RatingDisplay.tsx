@@ -116,7 +116,7 @@ export default function RatingDisplay({
     return (
       <div className="text-center py-12">
         <div className="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <StarIcon className="w-8 h-8 text-neutral-400" />
+          <span className="text-2xl">⭐</span>
         </div>
         <p className="text-neutral-600 mb-2">No hay reseñas aún</p>
         <p className="text-sm text-neutral-500">

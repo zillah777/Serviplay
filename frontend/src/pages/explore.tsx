@@ -67,10 +67,10 @@ const mockServices: Servicio[] = [
 ];
 
 const mockCategories: Categoria[] = [
-  { id: '1', nombre: 'Limpieza', icono: '🧹', color: '#10b981', activa: true, orden: 1 },
-  { id: '2', nombre: 'Plomería', icono: '🔧', color: '#3b82f6', activa: true, orden: 2 },
-  { id: '3', nombre: 'Electricidad', icono: '⚡', color: '#f59e0b', activa: true, orden: 3 },
-  { id: '4', nombre: 'Jardinería', icono: '🌱', color: '#22c55e', activa: true, orden: 4 },
+  { id: '1', nombre: 'Limpieza', icono: '✨', color: '#10b981', activa: true, orden: 1 },
+  { id: '2', nombre: 'Plomería', icono: '🚰', color: '#3b82f6', activa: true, orden: 2 },
+  { id: '3', nombre: 'Electricidad', icono: '💡', color: '#f59e0b', activa: true, orden: 3 },
+  { id: '4', nombre: 'Jardinería', icono: '🌿', color: '#22c55e', activa: true, orden: 4 },
 ];
 
 export default function ExplorePage() {
@@ -202,7 +202,7 @@ export default function ExplorePage() {
               Explorá {BRAND_TERMS.ASES} Increíbles
             </h1>
             <p className="text-xl text-neutral-600 mb-8">
-              {BRAND_TERMS.EXPLORERS_FIND} ✨
+              {BRAND_TERMS.EXPLORERS_FIND} 🔍✨
             </p>
 
             {/* Search Bar Principal */}

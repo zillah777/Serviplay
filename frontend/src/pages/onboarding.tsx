@@ -267,9 +267,9 @@ export default function Onboarding() {
               </div>
               
               <div className="space-y-2 text-sm">
-                <p>✓ Completa tu perfil al 100%</p>
-                <p>✓ Publica tu primer servicio</p>
-                <p>✓ Conecta con {BRAND_TERMS.EXPLORADORES}</p>
+                <p>✅ Completa tu perfil al 100%</p>
+                <p>💼 Publica tu primer servicio</p>
+                <p>🤝 Conecta con {BRAND_TERMS.EXPLORADORES}</p>
               </div>
             </div>
           </div>

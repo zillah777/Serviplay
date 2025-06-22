@@ -103,7 +103,7 @@ const mockUser = {
       destacado: true,
       categoria: {
         nombre: 'Plomería',
-        icono: '🔧',
+        icono: '🚰',
         color: '#3b82f6'
       },
       tags: ['emergencia', 'plomería', '24hs', 'urgente']
@@ -125,7 +125,7 @@ const mockUser = {
       destacado: false,
       categoria: {
         nombre: 'Plomería',
-        icono: '🔧',
+        icono: '🚰',
         color: '#3b82f6'
       },
       tags: ['instalación', 'sanitarios', 'grifería']
@@ -457,14 +457,14 @@ export default function Profile() {
                     
                     {perfil.nivel_educativo && (
                       <div className="flex items-center space-x-3 text-neutral-600">
-                        <span className="text-sm">📚</span>
+                        <span className="text-sm">🎓</span>
                         <span className="capitalize">{perfil.nivel_educativo}</span>
                       </div>
                     )}
                     
                     {perfil.tiene_movilidad && (
                       <div className="flex items-center space-x-3 text-neutral-600">
-                        <span className="text-sm">🚗</span>
+                        <span className="text-sm">🚙</span>
                         <span>Movilidad propia</span>
                       </div>
                     )}
@@ -476,7 +476,7 @@ export default function Profile() {
                     
                     {perfil.suscripcion_activa && (
                       <div className="flex items-center space-x-3 text-neutral-600">
-                        <span className="text-sm">⭐</span>
+                        <span className="text-sm">💎</span>
                         <span className="capitalize font-medium text-secondary-green">Plan {perfil.plan_actual}</span>
                       </div>
                     )}
@@ -609,7 +609,7 @@ export default function Profile() {
                 {user.servicios.length === 0 && (
                   <div className="text-center py-12">
                     <div className="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">📝</span>
+                      <span className="text-2xl">💼</span>
                     </div>
                     <p className="text-neutral-600 mb-4">
                       Aún no has publicado ningún servicio

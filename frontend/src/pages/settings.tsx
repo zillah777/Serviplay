@@ -323,7 +323,9 @@ export default function Settings() {
             <div>
               <h3 className="text-lg font-semibold text-neutral-900 mb-4">Historial de Pagos</h3>
               <div className="text-center py-8">
-                <CreditCardIcon className="w-12 h-12 text-neutral-300 mx-auto mb-3" />
+                <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-3xl">💳</span>
+                </div>
                 <p className="text-neutral-600">No hay historial de pagos</p>
                 <p className="text-sm text-neutral-500">Los pagos aparecerán aquí cuando upgradeees tu plan</p>
               </div>

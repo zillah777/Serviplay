@@ -58,6 +58,7 @@ export default function Home() {
                 <span className="text-gradient">Conectando</span>
                 <br />
                 <span className="text-primary-blue">{BRAND_TERMS.ASES}</span> y <span className="text-secondary-green">{BRAND_TERMS.EXPLORADORES}</span>
+                <div className="mt-4 text-4xl">🤝✨</div>
               </h2>
               
               <p className="text-xl md:text-2xl text-neutral-600 mb-12 max-w-3xl mx-auto">

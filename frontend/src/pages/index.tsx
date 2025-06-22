@@ -147,12 +147,12 @@ export default function Home() {
                 className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-6 py-3 mb-8 shadow-lg"
               >
                 <SparklesIcon className="w-5 h-5 text-primary-blue" />
-                <span className="text-sm font-semibold text-gray-700">La plataforma #1 de servicios</span>
+                <span className="text-base font-semibold text-gray-700">La plataforma #1 de servicios</span>
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               </motion.div>
 
               {/* Main Headline */}
-              <h2 className="font-display text-6xl md:text-8xl font-bold mb-8 leading-tight">
+              <h2 className="font-display text-4xl sm:text-6xl md:text-8xl font-bold mb-8 leading-tight px-4">
                 <span className="bg-gradient-to-r from-gray-900 via-primary-blue to-secondary-green bg-clip-text text-transparent">
                   Conectando
                 </span>
@@ -170,7 +170,7 @@ export default function Home() {
               
               {/* Subtitle */}
               <motion.p 
-                className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed"
+                className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed px-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
@@ -189,7 +189,7 @@ export default function Home() {
               >
                 <motion.button
                   onClick={() => router.push('/categories')}
-                  className="group px-10 py-4 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-primary-blue/30 transition-all duration-300 flex items-center space-x-3"
+                  className="group px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-2xl text-base sm:text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-primary-blue/30 transition-all duration-300 flex items-center space-x-3"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -205,7 +205,7 @@ export default function Home() {
                 
                 <motion.button
                   onClick={() => router.push('/pricing')}
-                  className="group px-10 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 flex items-center space-x-3"
+                  className="group px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl text-base sm:text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 flex items-center space-x-3"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -228,20 +228,20 @@ export default function Home() {
                 transition={{ delay: 0.8, duration: 0.6 }}
               >
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary-blue mb-1">1,200+</div>
-                  <div className="text-sm text-gray-600 font-medium">{BRAND_TERMS.ASES} suscritos</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary-blue mb-1">1,200+</div>
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium">{BRAND_TERMS.ASES} suscritos</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-secondary-green mb-1">15K+</div>
-                  <div className="text-sm text-gray-600 font-medium">{BRAND_TERMS.EXPLORADORES} activos</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-secondary-green mb-1">15K+</div>
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium">{BRAND_TERMS.EXPLORADORES} activos</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-500 mb-1">$2900</div>
-                  <div className="text-sm text-gray-600 font-medium">Suscripción mensual</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-orange-500 mb-1">$2900</div>
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium">Suscripción mensual</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-secondary-orange mb-1">0%</div>
-                  <div className="text-sm text-gray-600 font-medium">Comisiones</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-secondary-orange mb-1">0%</div>
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium">Comisiones</div>
                 </div>
               </motion.div>
             </motion.div>
@@ -259,13 +259,13 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h3 className="font-display text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+              <h3 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6 px-4">
                 ¿Cómo <span className="bg-gradient-to-r from-primary-blue to-secondary-green bg-clip-text text-transparent">funciona</span>?
               </h3>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4 px-4">
                 Si sos el mejor en tu oficio, tu profesión o el trabajo en el que te desempeñes o simplemente buscas una oportunidad de demostrar tu trabajo
               </p>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
+              <p className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium px-4">
                 Conectamos {BRAND_TERMS.ASES} con {BRAND_TERMS.EXPLORADORES} de forma <strong>inteligente y directa</strong>
               </p>
             </motion.div>
@@ -289,11 +289,11 @@ export default function Home() {
                     <MagnifyingGlassIcon className="w-10 h-10 text-white" />
                   </div>
                   
-                  <h4 className="font-display text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary-blue transition-colors duration-300">
+                  <h4 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary-blue transition-colors duration-300">
                     Explorá Servicios
                   </h4>
                   
-                  <p className="text-gray-600 leading-relaxed mb-6">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
                     Buscá <strong>{BRAND_TERMS.ASES} verificados</strong> cerca tuyo. Filtrá por categoría, precio y distancia con nuestra búsqueda inteligente.
                   </p>
                   
@@ -333,11 +333,11 @@ export default function Home() {
                     <StarIcon className="w-10 h-10 text-white" />
                   </div>
                   
-                  <h4 className="font-display text-2xl font-bold text-gray-900 mb-4 group-hover:text-secondary-green transition-colors duration-300">
+                  <h4 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-4 group-hover:text-secondary-green transition-colors duration-300">
                     Match Inteligente
                   </h4>
                   
-                  <p className="text-gray-600 leading-relaxed mb-6">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
                     Nuestro <strong>algoritmo inteligente</strong> conecta {BRAND_TERMS.EXPLORADORES} con los {BRAND_TERMS.ASES} más adecuados según sus necesidades.
                   </p>
                   
@@ -376,7 +376,7 @@ export default function Home() {
                     Conectá Directo
                   </h4>
                   
-                  <p className="text-gray-600 leading-relaxed mb-6">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
                     Contactá <strong>directamente</strong> con {BRAND_TERMS.ASES} verificados. Sin intermediarios, sin comisiones extra.
                   </p>
                   

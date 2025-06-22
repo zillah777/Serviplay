@@ -200,22 +200,22 @@ export default function About() {
           >
             <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 rounded-full px-6 py-3 mb-8">
               <SparklesIcon className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-semibold text-blue-800">Nuestra Historia</span>
+              <span className="text-base font-semibold text-blue-800">Nuestra Historia</span>
             </div>
 
-            <h1 className="font-display text-5xl md:text-7xl font-bold text-gray-900 mb-8">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-gray-900 mb-8 px-4">
               Sobre <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{APP_CONFIG.NAME}</span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed px-4">
               Somos una plataforma argentina que conecta <strong>{BRAND_TERMS.ASES}</strong> con <strong>{BRAND_TERMS.EXPLORADORES}</strong> 
               de forma directa, transparente y sin comisiones. Creemos en el poder de las conexiones humanas genuinas.
             </p>
 
             {/* Mission Statement */}
             <div className="bg-gradient-to-r from-primary-blue to-secondary-green rounded-3xl p-12 text-white max-w-4xl mx-auto">
-              <h2 className="font-display text-3xl font-bold mb-6">Nuestra Misión</h2>
-              <p className="text-xl leading-relaxed">
+              <h2 className="font-display text-2xl sm:text-3xl font-bold mb-6">Nuestra Misión</h2>
+              <p className="text-lg sm:text-xl leading-relaxed px-4">
                 "Democratizar el acceso a servicios de calidad, empoderando a profesionales independientes 
                 y facilitando que las personas encuentren exactamente lo que necesitan, cuando lo necesitan."
               </p>
@@ -230,7 +230,7 @@ export default function About() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="font-display text-4xl font-bold text-center text-gray-900 mb-16">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16 px-4">
               Nuestro <span className="text-green-600">Impacto</span>
             </h2>
             
@@ -245,9 +245,9 @@ export default function About() {
                   className="bg-white rounded-3xl p-8 shadow-xl text-center hover:shadow-2xl transition-shadow duration-300"
                 >
                   <div className="text-4xl mb-4">{stat.emoji}</div>
-                  <div className="text-4xl font-bold text-gray-900 mb-2">{stat.number}</div>
-                  <div className="font-semibold text-gray-900 mb-1">{stat.label}</div>
-                  <div className="text-sm text-gray-600 mb-3">{stat.description}</div>
+                  <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{stat.number}</div>
+                  <div className="text-base sm:text-lg font-semibold text-gray-900 mb-1">{stat.label}</div>
+                  <div className="text-sm sm:text-base text-gray-600 mb-3">{stat.description}</div>
                   <div className="inline-flex items-center space-x-1 text-green-600 text-sm font-medium">
                     <ArrowTrendingUpIcon className="w-4 h-4" />
                     <span>{stat.growth}</span>
@@ -265,7 +265,7 @@ export default function About() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="font-display text-4xl font-bold text-center text-gray-900 mb-16">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16 px-4">
               Nuestros <span className="text-purple-600">Valores</span>
             </h2>
             
@@ -281,16 +281,16 @@ export default function About() {
                 >
                   <div className="flex items-center space-x-4 mb-6">
                     <div className="text-4xl">{value.emoji}</div>
-                    <h3 className="font-display text-2xl font-bold text-gray-900">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-gray-900">
                       {value.title}
                     </h3>
                   </div>
                   
-                  <p className="text-gray-600 mb-4 text-lg">
+                  <p className="text-gray-600 mb-4 text-base sm:text-lg">
                     {value.description}
                   </p>
                   
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
                     {value.details}
                   </p>
                 </motion.div>
@@ -306,7 +306,7 @@ export default function About() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="font-display text-4xl font-bold text-center text-gray-900 mb-16">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16 px-4">
               Nuestra <span className="text-blue-600">Historia</span>
             </h2>
             
@@ -328,10 +328,10 @@ export default function About() {
                       <div className="bg-white rounded-2xl p-6 shadow-lg">
                         <div className="text-2xl mb-3">{item.emoji}</div>
                         <div className="text-sm font-bold text-blue-600 mb-1">{item.milestone}</div>
-                        <h3 className="font-display text-xl font-bold text-gray-900 mb-2">
+                        <h3 className="font-display text-lg sm:text-xl font-bold text-gray-900 mb-2">
                           {item.title}
                         </h3>
-                        <p className="text-gray-600">{item.description}</p>
+                        <p className="text-sm sm:text-base text-gray-600">{item.description}</p>
                       </div>
                     </div>
                     
@@ -358,7 +358,7 @@ export default function About() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="font-display text-4xl font-bold text-center text-gray-900 mb-16">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16 px-4">
               Nuestro <span className="text-orange-600">Equipo</span>
             </h2>
             
@@ -374,19 +374,19 @@ export default function About() {
                 >
                   <div className="text-4xl mb-4">{member.emoji}</div>
                   
-                  <h3 className="font-display text-xl font-bold text-gray-900 mb-1">
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-gray-900 mb-1">
                     {member.name}
                   </h3>
                   
-                  <div className="text-sm font-medium text-blue-600 mb-3">
+                  <div className="text-sm sm:text-base font-medium text-blue-600 mb-3">
                     {member.role}
                   </div>
                   
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-gray-600 text-sm sm:text-base mb-4">
                     {member.description}
                   </p>
                   
-                  <p className="text-xs text-gray-500 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
                     {member.background}
                   </p>
                 </motion.div>

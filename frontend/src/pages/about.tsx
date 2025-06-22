@@ -118,7 +118,7 @@ const team = [
     role: 'Fundador & CEO',
     description: 'Visionario que creó Serviplay para democratizar el acceso a servicios de calidad',
     emoji: '👨‍💼',
-    background: 'Con experiencia en tecnología y emprendimiento, lidera la visión estratégica de la plataforma.',
+    background: 'Con experiencia en tecnología y emprendimientos, lidera la visión estratégica de la plataforma.',
     linkedin: '#'
   },
   {
@@ -147,32 +147,6 @@ const team = [
   }
 ];
 
-const achievements = [
-  {
-    title: 'Startup del Año',
-    organization: 'Argentina Tech Awards',
-    year: '2024',
-    emoji: '🏆'
-  },
-  {
-    title: 'Mejor App de Servicios',
-    organization: 'Mobile Excellence Awards',
-    year: '2024',
-    emoji: '📱'
-  },
-  {
-    title: 'Innovación Social',
-    organization: 'Impact Awards',
-    year: '2024',
-    emoji: '💝'
-  },
-  {
-    title: 'Mejor UX Design',
-    organization: 'Design Awards',
-    year: '2024',
-    emoji: '🎨'
-  }
-];
 
 export default function About() {
   const [activeTimelineItem, setActiveTimelineItem] = useState(0);
@@ -201,6 +175,9 @@ export default function About() {
               <div className="flex items-center space-x-4">
                 <Link href="/help" className="px-5 py-2.5 text-gray-600 hover:text-primary-blue transition-colors font-medium rounded-xl hover:bg-gray-100/50">
                   Centro de Ayuda
+                </Link>
+                <Link href="/pricing" className="px-5 py-2.5 text-gray-600 hover:text-purple-600 transition-colors font-medium rounded-xl hover:bg-gray-100/50">
+                  Planes
                 </Link>
                 <Link href="/contact" className="px-5 py-2.5 text-gray-600 hover:text-secondary-green transition-colors font-medium rounded-xl hover:bg-gray-100/50">
                   Contacto
@@ -417,29 +394,6 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Achievements */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-16"
-          >
-            <h2 className="font-display text-4xl font-bold text-center text-gray-900 mb-16">
-              Nuestros <span className="text-yellow-600">Logros</span>
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {achievements.map((achievement, index) => (
-                <div key={index} className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-white text-center shadow-lg">
-                  <div className="text-3xl mb-3">{achievement.emoji}</div>
-                  <h3 className="font-bold mb-1">{achievement.title}</h3>
-                  <p className="text-yellow-100 text-sm mb-1">{achievement.organization}</p>
-                  <p className="text-yellow-200 text-xs">{achievement.year}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
 
           {/* CTA Section */}
           <motion.div
@@ -453,18 +407,19 @@ export default function About() {
               emoji="🚀" 
               text="¿Listo para ser parte de la revolución?"
               subtext="Únete a miles de usuarios que ya están transformando la forma de conectar servicios"
+              theme="dark"
             />
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center mt-8">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mt-8 px-4">
               <Link
                 href="/auth/register"
-                className="px-10 py-4 bg-white text-blue-600 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-xl"
+                className="px-6 sm:px-10 py-3 sm:py-4 bg-white text-blue-600 rounded-2xl font-bold text-base sm:text-lg hover:bg-gray-100 transition-colors shadow-xl text-center"
               >
-                Únete Gratis
+                Únete a Nosotros
               </Link>
               <Link
                 href="/contact"
-                className="px-10 py-4 border-2 border-white text-white rounded-2xl font-bold text-lg hover:bg-white hover:text-blue-600 transition-colors"
+                className="px-6 sm:px-10 py-3 sm:py-4 border-2 border-white text-white rounded-2xl font-bold text-base sm:text-lg hover:bg-white hover:text-blue-600 transition-colors text-center"
               >
                 Contáctanos
               </Link>

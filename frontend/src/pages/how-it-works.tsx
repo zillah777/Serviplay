@@ -154,8 +154,8 @@ export default function HowItWorks() {
           <div className="max-w-7xl mx-auto px-4 py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-primary-blue rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
+                <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-xl">S</span>
                 </div>
                 <span className="font-display text-2xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}
@@ -163,6 +163,9 @@ export default function HowItWorks() {
               </Link>
               
               <div className="flex items-center space-x-4">
+                <Link href="/pricing" className="px-4 py-2 text-neutral-600 hover:text-purple-600 transition-colors">
+                  Planes
+                </Link>
                 <Link href="/auth/login" className="px-4 py-2 text-neutral-600 hover:text-primary-blue transition-colors">
                   Iniciar Sesión
                 </Link>

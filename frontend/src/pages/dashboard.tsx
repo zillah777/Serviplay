@@ -67,8 +67,8 @@ export default function Dashboard() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary-blue rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">S</span>
+                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-lg">S</span>
                 </div>
                 <span className="font-display text-xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}

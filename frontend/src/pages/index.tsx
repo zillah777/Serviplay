@@ -41,7 +41,7 @@ export default function Home() {
           animate={{ y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
             <div className="flex items-center justify-between">
               <motion.div 
                 className="flex items-center space-x-3"
@@ -56,30 +56,56 @@ export default function Home() {
                 </h1>
               </motion.div>
               
-              <div className="flex items-center space-x-3">
-                <motion.button 
-                  onClick={() => router.push('/auth/login')}
-                  className="px-5 py-2.5 text-gray-600 hover:text-primary-blue transition-all duration-300 font-medium rounded-xl hover:bg-gray-100/50"
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Iniciar Sesión
-                </motion.button>
-                <motion.button 
-                  onClick={() => router.push('/contact')}
-                  className="px-5 py-2.5 text-gray-600 hover:text-secondary-green transition-all duration-300 font-medium rounded-xl hover:bg-gray-100/50"
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Contacto
-                </motion.button>
+              <div className="flex items-center space-x-1 sm:space-x-3">
+                {/* Desktop Navigation */}
+                <div className="hidden sm:flex items-center space-x-3">
+                  <motion.button 
+                    onClick={() => router.push('/auth/login')}
+                    className="px-5 py-2.5 text-gray-600 hover:text-primary-blue transition-all duration-300 font-medium rounded-xl hover:bg-gray-100/50"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Iniciar Sesión
+                  </motion.button>
+                  <motion.button 
+                    onClick={() => router.push('/pricing')}
+                    className="px-5 py-2.5 text-gray-600 hover:text-purple-600 transition-all duration-300 font-medium rounded-xl hover:bg-gray-100/50"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Planes
+                  </motion.button>
+                  <motion.button 
+                    onClick={() => router.push('/contact')}
+                    className="px-5 py-2.5 text-gray-600 hover:text-secondary-green transition-all duration-300 font-medium rounded-xl hover:bg-gray-100/50"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Contacto
+                  </motion.button>
+                </div>
+                
+                {/* Mobile Navigation */}
+                <div className="flex sm:hidden items-center space-x-2">
+                  <motion.button 
+                    onClick={() => router.push('/contact')}
+                    className="px-3 py-2 text-gray-600 hover:text-secondary-green transition-all duration-300 font-medium rounded-lg hover:bg-gray-100/50 text-sm"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Contacto
+                  </motion.button>
+                </div>
+                
+                {/* Register Button - Always Visible */}
                 <motion.button 
                   onClick={() => router.push('/auth/register')}
-                  className="px-8 py-3 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-full font-semibold hover:shadow-xl hover:shadow-primary-blue/25 transition-all duration-300 transform hover:scale-105"
+                  className="px-4 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-full font-semibold hover:shadow-xl hover:shadow-primary-blue/25 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Registrarse Gratis
+                  <span className="hidden sm:inline">Registrarse</span>
+                  <span className="sm:hidden">Registro</span>
                 </motion.button>
               </div>
             </div>
@@ -141,7 +167,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
               >
-                La plataforma que <strong>conecta</strong> a los mejores profesionales con personas que necesitan servicios de calidad. 
+                La plataforma que <strong>conecta</strong> a los mejores y más profesionales con personas que necesitan servicios de calidad. 
                 <span className="text-primary-blue font-semibold"> Sin comisiones</span>, <span className="text-secondary-green font-semibold">sin intermediarios</span>.
               </motion.p>
 
@@ -153,7 +179,7 @@ export default function Home() {
                 transition={{ delay: 0.6, duration: 0.6 }}
               >
                 <motion.button
-                  onClick={() => router.push('/explore')}
+                  onClick={() => router.push('/categories')}
                   className="group px-10 py-4 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-primary-blue/30 transition-all duration-300 flex items-center space-x-3"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -169,13 +195,13 @@ export default function Home() {
                 </motion.button>
                 
                 <motion.button
-                  onClick={() => router.push('/auth/register?tipo=as')}
+                  onClick={() => router.push('/become-as')}
                   className="group px-10 py-4 bg-gradient-to-r from-secondary-green to-green-600 text-white rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-secondary-green/30 transition-all duration-300 flex items-center space-x-3"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <RocketLaunchIcon className="w-6 h-6" />
-                  <span>Publicar Servicio Gratis</span>
+                  <span>Convertite en As</span>
                   <motion.div
                     animate={{ rotate: [0, 15, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
@@ -223,7 +249,10 @@ export default function Home() {
               <h3 className="font-display text-5xl md:text-6xl font-bold text-gray-900 mb-6">
                 ¿Cómo <span className="bg-gradient-to-r from-primary-blue to-secondary-green bg-clip-text text-transparent">funciona</span>?
               </h3>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
+                Si sos el mejor en tu oficio, tu profesión o el trabajo en el que te desempeñes o simplemente buscas una oportunidad de demostrar tu trabajo
+              </p>
+              <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
                 Conectamos {BRAND_TERMS.ASES} con {BRAND_TERMS.EXPLORADORES} de forma <strong>inteligente y directa</strong>
               </p>
             </motion.div>
@@ -469,6 +498,129 @@ export default function Home() {
                   <span className="font-medium">Ingresos ilimitados</span>
                 </div>
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Clasificados del Futuro Section */}
+        <section className="px-6 py-24 bg-gradient-to-br from-purple-600 via-blue-600 to-primary-blue">
+          <div className="max-w-7xl mx-auto">
+            <motion.div 
+              className="text-center mb-20"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 mb-8">
+                <span className="text-3xl">🚀</span>
+                <span className="text-sm font-semibold text-white">El Futuro de los Servicios</span>
+              </div>
+
+              <h3 className="font-display text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+                Somos los <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">clasificados</span>
+                <br />
+                y <span className="bg-gradient-to-r from-green-300 to-blue-300 bg-clip-text text-transparent">páginas amarillas</span>
+                <br />
+                del <span className="bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">futuro</span>
+              </h3>
+              
+              <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-12">
+                Revolucionamos la forma en que las personas se conectan con servicios. Sin intermediarios, sin comisiones,
+                solo <strong>conexiones directas y auténticas</strong> entre profesionales y clientes.
+              </p>
+
+              {/* Features Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
+                >
+                  <div className="text-4xl mb-4">📱</div>
+                  <h4 className="font-display text-2xl font-bold text-white mb-4">Digital & Moderno</h4>
+                  <p className="text-white/80 leading-relaxed">
+                    Tecnología de vanguardia que conecta profesionales con clientes de forma inteligente y eficiente.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
+                >
+                  <div className="text-4xl mb-4">🤝</div>
+                  <h4 className="font-display text-2xl font-bold text-white mb-4">Conexión Directa</h4>
+                  <p className="text-white/80 leading-relaxed">
+                    Eliminamos los intermediarios. Los {BRAND_TERMS.ASES} se conectan directamente con {BRAND_TERMS.EXPLORADORES}.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
+                >
+                  <div className="text-4xl mb-4">🌟</div>
+                  <h4 className="font-display text-2xl font-bold text-white mb-4">Calidad Garantizada</h4>
+                  <p className="text-white/80 leading-relaxed">
+                    Sistema de verificación y calificaciones que garantiza profesionales confiables y servicios de calidad.
+                  </p>
+                </motion.div>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">100%</div>
+                  <div className="text-white/80 text-sm">Digital</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">0%</div>
+                  <div className="text-white/80 text-sm">Comisiones</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">24/7</div>
+                  <div className="text-white/80 text-sm">Disponible</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">∞</div>
+                  <div className="text-white/80 text-sm">Posibilidades</div>
+                </div>
+              </div>
+
+              {/* Call to Action */}
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-6 justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <motion.button
+                  onClick={() => router.push('/categories')}
+                  className="px-8 py-4 bg-white text-purple-600 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:bg-gray-100 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  🔍 Explorar Servicios
+                </motion.button>
+                
+                <motion.button
+                  onClick={() => router.push('/become-as')}
+                  className="px-8 py-4 border-2 border-white text-white rounded-2xl text-lg font-bold hover:bg-white hover:text-purple-600 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  ⭐ Convertite en As
+                </motion.button>
+              </motion.div>
             </motion.div>
           </div>
         </section>

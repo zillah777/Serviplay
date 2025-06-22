@@ -12,73 +12,74 @@ import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 const plans = [
   {
     id: 'basico',
-    name: 'Básico',
-    emoji: '📋',
-    price: 0,
-    period: 'Gratis para siempre',
-    description: 'Perfecto para comenzar como As en Serviplay',
-    color: 'neutral',
-    popular: false,
+    name: 'Plan Básico',
+    emoji: '🚀',
+    price: 2900,
+    period: 'por mes',
+    description: 'Plan mínimo requerido para publicar servicios en Serviplay',
+    color: 'blue',
+    popular: true,
+    required: true,
     features: [
-      { text: 'Hasta 3 servicios publicados', included: true },
-      { text: 'Perfil básico visible', included: true },
+      { text: 'Hasta 5 servicios publicados', included: true },
+      { text: 'Perfil profesional completo', included: true },
       { text: 'Contacto directo con Exploradores', included: true },
       { text: 'Sistema de calificaciones', included: true },
       { text: 'Soporte por email', included: true },
-      { text: 'Notificaciones básicas', included: true },
+      { text: 'Notificaciones en tiempo real', included: true },
+      { text: 'Estadísticas básicas', included: true },
+      { text: 'Sin comisiones por servicios', included: true },
       { text: 'Servicios destacados', included: false },
-      { text: 'Estadísticas avanzadas', included: false },
-      { text: 'Soporte prioritario', included: false },
-      { text: 'Badge de verificación premium', included: false }
+      { text: 'Análisis avanzados', included: false }
     ],
-    limitations: [
-      'Máximo 3 servicios activos',
-      'Sin promoción destacada',
-      'Estadísticas limitadas'
+    benefits: [
+      'Acceso completo a la plataforma',
+      'Sin comisiones adicionales',
+      'Conexión directa con clientes'
     ],
-    ctaText: 'Comenzar Gratis',
-    ctaAction: '/auth/register?tipo=as'
+    ctaText: 'Comenzar con Plan Básico',
+    ctaAction: '/auth/register?tipo=as&plan=basico'
   },
   {
     id: 'profesional',
-    name: 'Profesional',
+    name: 'Plan Profesional',
     emoji: '💎',
-    price: 2500,
+    price: 4900,
     period: 'por mes',
-    description: 'Para Ases que quieren hacer crecer su negocio',
-    color: 'blue',
-    popular: true,
+    description: 'Para Ases que quieren destacar y crecer su negocio',
+    color: 'purple',
+    popular: false,
     features: [
+      { text: 'Todo lo del Plan Básico', included: true },
       { text: 'Servicios ilimitados', included: true },
-      { text: 'Perfil destacado', included: true },
+      { text: 'Perfil destacado en búsquedas', included: true },
       { text: 'Badge de As Profesional', included: true },
       { text: '3 servicios destacados incluidos', included: true },
       { text: 'Estadísticas detalladas', included: true },
       { text: 'Notificaciones prioritarias', included: true },
       { text: 'Aparición en búsquedas prioritarias', included: true },
       { text: 'Soporte prioritario', included: true },
-      { text: 'Herramientas de marketing', included: true },
-      { text: 'Análisis de competencia', included: false }
+      { text: 'Herramientas de marketing', included: true }
     ],
     benefits: [
-      '5x más visibilidad',
-      'Soporte 24/7',
-      'Herramientas profesionales'
+      '3x más visibilidad',
+      'Herramientas profesionales',
+      'Soporte prioritario'
     ],
-    ctaText: 'Upgrade a Profesional',
+    ctaText: 'Elegir Plan Profesional',
     ctaAction: '/auth/register?tipo=as&plan=profesional'
   },
   {
     id: 'premium',
-    name: 'Premium',
+    name: 'Plan Premium',
     emoji: '👑',
-    price: 4500,
+    price: 7900,
     period: 'por mes',
     description: 'Para Ases establecidos que buscan dominar su mercado',
     color: 'gold',
     popular: false,
     features: [
-      { text: 'Todo lo del plan Profesional', included: true },
+      { text: 'Todo lo del Plan Profesional', included: true },
       { text: 'Servicios destacados ilimitados', included: true },
       { text: 'Badge de As Premium', included: true },
       { text: 'Análisis de competencia', included: true },
@@ -90,11 +91,11 @@ const plans = [
       { text: 'Revenue insights', included: true }
     ],
     benefits: [
-      '10x más visibilidad',
+      '5x más visibilidad',
       'Consultor personal',
-      'Acceso VIP'
+      'Acceso VIP exclusivo'
     ],
-    ctaText: 'Ser Premium',
+    ctaText: 'Elegir Plan Premium',
     ctaAction: '/auth/register?tipo=as&plan=premium'
   }
 ];
@@ -106,7 +107,7 @@ const faqs = [
   },
   {
     question: '¿Qué pasa si cancelo mi suscripción?',
-    answer: 'Si cancelas, mantienes el acceso hasta el final del período pagado. Después, tu cuenta pasa automáticamente al plan Básico gratuito.'
+    answer: 'Si cancelas, mantienes el acceso hasta el final del período pagado. Después, no podrás publicar nuevos servicios hasta renovar la suscripción.'
   },
   {
     question: '¿Hay descuentos por pago anual?',
@@ -114,7 +115,7 @@ const faqs = [
   },
   {
     question: '¿Los Exploradores también pagan?',
-    answer: 'No, Serviplay es completamente gratuito para los Exploradores. Solo los Ases que quieren funciones avanzadas pagan por planes premium.'
+    answer: 'No, Serviplay es completamente gratuito para los Exploradores. Los Ases requieren una suscripción mensual mínima de $2900 para publicar servicios.'
   },
   {
     question: '¿Puedo facturar mis servicios a través de Serviplay?',
@@ -175,8 +176,8 @@ export default function Pricing() {
           <div className="max-w-7xl mx-auto px-4 py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-primary-blue rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
+                <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-xl">S</span>
                 </div>
                 <span className="font-display text-2xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}
@@ -207,8 +208,8 @@ export default function Pricing() {
               Planes para {BRAND_TERMS.ASES}
             </h1>
             <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto">
-              Comienza gratis y haz crecer tu negocio con nuestros planes diseñados 
-              para {BRAND_TERMS.ASES} ambiciosos 🚀
+              Para publicar servicios en Serviplay, los {BRAND_TERMS.ASES} requieren una suscripción mensual. 
+              Sin comisiones adicionales, solo el costo de anunciar en la plataforma 🚀
             </p>
 
             {/* Billing Toggle */}
@@ -311,19 +312,6 @@ export default function Pricing() {
                   </div>
                 )}
 
-                {/* Limitations */}
-                {plan.limitations && (
-                  <div className="bg-red-50 rounded-lg p-4 mb-6">
-                    <h4 className="font-semibold text-red-900 mb-2">⚠️ Limitaciones:</h4>
-                    <ul className="space-y-1">
-                      {plan.limitations.map((limitation, limitIndex) => (
-                        <li key={limitIndex} className="text-sm text-red-700">
-                          • {limitation}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
 
                 {/* CTA Button */}
                 <Link
@@ -416,7 +404,7 @@ export default function Pricing() {
                 href="/auth/register?tipo=as"
                 className="px-8 py-4 bg-primary-blue text-white rounded-lg font-semibold hover:bg-primary-blue-dark transition-colors"
               >
-                Comenzar Gratis
+                Comenzar con Plan Básico
               </Link>
               <Link
                 href="/how-it-works"

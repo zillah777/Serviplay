@@ -26,11 +26,11 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
             <motion.div 
-              className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center"
+              className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="text-white font-bold text-lg">S</span>
+              <span className="text-white font-bold text-xl">S</span>
             </motion.div>
             <h1 className="font-display text-xl font-bold text-neutral-900 group-hover:text-primary-blue transition-colors">
               {APP_CONFIG.NAME}
@@ -59,6 +59,10 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                 {/* User is logged in */}
                 <Link href="/explore" className="text-neutral-600 hover:text-primary-blue transition-colors">
                   Explorar
+                </Link>
+                
+                <Link href="/pricing" className="text-neutral-600 hover:text-purple-600 transition-colors">
+                  Planes
                 </Link>
                 
                 {user.tipo_usuario === 'as' && (
@@ -130,6 +134,9 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                 {/* User is not logged in */}
                 <Link href="/explore" className="text-neutral-600 hover:text-primary-blue transition-colors">
                   Explorar
+                </Link>
+                <Link href="/pricing" className="text-neutral-600 hover:text-purple-600 transition-colors">
+                  Planes
                 </Link>
                 <Link href="/login" className="text-neutral-600 hover:text-primary-blue transition-colors">
                   Iniciar Sesión
@@ -203,6 +210,10 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                     Explorar
                   </Link>
                   
+                  <Link href="/pricing" className="block py-2 text-neutral-700">
+                    Planes
+                  </Link>
+                  
                   {user.tipo_usuario === 'as' && (
                     <Link href="/my-services" className="block py-2 text-neutral-700">
                       Mis Servicios
@@ -221,6 +232,9 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                 <>
                   <Link href="/explore" className="block py-2 text-neutral-700">
                     Explorar
+                  </Link>
+                  <Link href="/pricing" className="block py-2 text-neutral-700">
+                    Planes
                   </Link>
                   <Link href="/login" className="block py-2 text-neutral-700">
                     Iniciar Sesión

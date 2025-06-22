@@ -306,19 +306,20 @@ export default function Settings() {
               <h3 className="text-lg font-semibold text-neutral-900 mb-4">Plan Actual</h3>
               <div className="p-6 border border-neutral-200 rounded-lg">
                 <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-xl font-bold text-neutral-900">Plan Gratuito</h4>
-                  <span className="px-3 py-1 bg-neutral-100 text-neutral-700 rounded-full text-sm">Activo</span>
+                  <h4 className="text-xl font-bold text-neutral-900">Plan Básico</h4>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">$2900/mes</span>
                 </div>
                 <p className="text-neutral-600 mb-4">
-                  Acceso básico a la plataforma con funciones limitadas
+                  Suscripción requerida para publicar servicios en la plataforma
                 </p>
                 <ul className="space-y-2 text-sm text-neutral-600 mb-6">
-                  <li>• Hasta 3 servicios publicados</li>
-                  <li>• Búsquedas limitadas</li>
+                  <li>• Hasta 5 servicios publicados</li>
+                  <li>• Sin comisiones por transacciones</li>
                   <li>• Soporte por email</li>
+                  <li>• Perfil verificado</li>
                 </ul>
                 <button className="w-full px-6 py-3 bg-secondary-green text-white rounded-lg hover:bg-green-600 transition-colors">
-                  Upgrade a Pro
+                  Upgrade a Profesional
                 </button>
               </div>
             </div>
@@ -329,8 +330,8 @@ export default function Settings() {
                 <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
                   <span className="text-3xl">💳</span>
                 </div>
-                <p className="text-neutral-600">No hay historial de pagos</p>
-                <p className="text-sm text-neutral-500">Los pagos aparecerán aquí cuando upgradeees tu plan</p>
+                <p className="text-neutral-600">Plan Básico - $2900/mes</p>
+                <p className="text-sm text-neutral-500">Próximo pago: 22 Enero 2025</p>
               </div>
             </div>
           </div>
@@ -424,8 +425,8 @@ export default function Settings() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary-blue rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">S</span>
+                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">S</span>
                 </div>
                 <span className="font-display text-xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}

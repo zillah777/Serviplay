@@ -177,7 +177,7 @@ const faqSecurity = [
   },
   {
     question: '¿Cómo maneja Serviplay los pagos de forma segura?',
-    answer: 'Los pagos se realizan directamente entre As y Explorador, Serviplay no procesa pagos de servicios. Recomendamos usar métodos de pago seguros como transferencias bancarias o efectivo contra entrega. Nunca solicites o realices pagos por métodos no verificables.'
+    answer: 'Los pagos se realizan directamente entre As y Explorador, Serviplay no procesa pagos de servicios. Los Ases solo pagan una suscripción mensual para acceder a la plataforma. Recomendamos usar métodos de pago seguros como transferencias bancarias o efectivo contra entrega.'
   }
 ];
 
@@ -209,6 +209,9 @@ export default function Security() {
               <div className="flex items-center space-x-4">
                 <Link href="/help" className="px-5 py-2.5 text-gray-600 hover:text-primary-blue transition-colors font-medium rounded-xl hover:bg-gray-100/50">
                   Centro de Ayuda
+                </Link>
+                <Link href="/pricing" className="px-5 py-2.5 text-gray-600 hover:text-purple-600 transition-colors font-medium rounded-xl hover:bg-gray-100/50">
+                  Planes
                 </Link>
                 <Link href="/contact" className="px-5 py-2.5 text-gray-600 hover:text-secondary-green transition-colors font-medium rounded-xl hover:bg-gray-100/50">
                   Contacto

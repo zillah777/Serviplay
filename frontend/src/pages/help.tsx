@@ -105,7 +105,7 @@ const popularFaqs = [
   },
   {
     question: '¿Serviplay cobra comisiones?',
-    answer: 'No, Serviplay es gratuito para Exploradores. Los Ases pueden usar el plan básico gratis o elegir planes premium para mayor visibilidad. No cobramos comisiones sobre los pagos entre As y Explorador.',
+    answer: 'Serviplay es gratuito para Exploradores. Los Ases requieren una suscripción mensual mínima de $2900 para publicar servicios. No cobramos comisiones sobre los pagos entre As y Explorador.',
     category: 'payments-billing',
     views: 980
   },
@@ -220,6 +220,9 @@ export default function Help() {
               </Link>
               
               <div className="flex items-center space-x-4">
+                <Link href="/pricing" className="px-5 py-2.5 text-gray-600 hover:text-purple-600 transition-colors font-medium rounded-xl hover:bg-gray-100/50">
+                  Planes
+                </Link>
                 <Link href="/contact" className="px-5 py-2.5 text-gray-600 hover:text-secondary-green transition-colors font-medium rounded-xl hover:bg-gray-100/50">
                   Contacto
                 </Link>

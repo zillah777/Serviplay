@@ -91,8 +91,8 @@ const Layout = ({
             
             <div className="border-t border-neutral-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center space-x-2 mb-4 md:mb-0">
-                <div className="w-8 h-8 bg-primary-blue rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">S</span>
+                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-lg">S</span>
                 </div>
                 <span className="font-display text-lg font-bold text-neutral-900">{APP_CONFIG.NAME}</span>
               </div>

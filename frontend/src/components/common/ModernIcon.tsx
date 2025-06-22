@@ -142,13 +142,15 @@ interface AnimatedStatusProps {
   text: string;
   subtext?: string;
   animate?: 'pulse' | 'bounce' | 'spin' | 'none';
+  theme?: 'light' | 'dark';
 }
 
 export function AnimatedStatus({ 
   emoji, 
   text, 
   subtext, 
-  animate = 'none' 
+  animate = 'none',
+  theme = 'light'
 }: AnimatedStatusProps) {
   const animations = {
     pulse: 'animate-pulse',
@@ -157,14 +159,25 @@ export function AnimatedStatus({
     none: ''
   };
 
+  const textColors = {
+    light: {
+      title: 'text-neutral-900',
+      subtitle: 'text-neutral-500'
+    },
+    dark: {
+      title: 'text-white',
+      subtitle: 'text-white/80'
+    }
+  };
+
   return (
     <div className="text-center">
       <div className={`text-4xl mb-3 ${animations[animate]}`}>
         {emoji}
       </div>
-      <h3 className="font-semibold text-neutral-900 mb-1">{text}</h3>
+      <h3 className={`font-semibold mb-1 ${textColors[theme].title}`}>{text}</h3>
       {subtext && (
-        <p className="text-sm text-neutral-500">{subtext}</p>
+        <p className={`text-sm ${textColors[theme].subtitle}`}>{subtext}</p>
       )}
     </div>
   );

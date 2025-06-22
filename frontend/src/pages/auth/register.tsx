@@ -18,12 +18,27 @@ export default function Register() {
   );
   
   const [formData, setFormData] = useState({
-    nombre: '',
-    apellido: '',
+    // Usuario base
     email: '',
-    telefono: '',
     password: '',
     confirmPassword: '',
+    tipo_usuario: userType, // 'as' | 'explorador' | 'ambos'
+    
+    // Perfil específico (aplica tanto a As como Explorador)
+    nombre: '',
+    apellido: '',
+    dni: '',
+    telefono: '',
+    direccion: '',
+    localidad: '',
+    provincia: '',
+    codigo_postal: '',
+    
+    // Solo para As
+    fecha_nacimiento: '',
+    nivel_educativo: '',
+    tiene_movilidad: false,
+    
     terminos: false
   });
 
@@ -53,11 +68,22 @@ export default function Register() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = 'checked' in e.target ? e.target.checked : false;
+    
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : value
+    });
+  };
+
+  // Actualizar tipo de usuario cuando cambie
+  const handleUserTypeChange = (newType: 'explorador' | 'as') => {
+    setUserType(newType);
+    setFormData({
+      ...formData,
+      tipo_usuario: newType
     });
   };
 
@@ -102,7 +128,7 @@ export default function Register() {
             <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
-                onClick={() => setUserType('explorador')}
+                onClick={() => handleUserTypeChange('explorador')}
                 className={`p-4 border-2 rounded-xl transition-all ${
                   userType === 'explorador'
                     ? 'border-primary-blue bg-primary-blue/5'
@@ -120,7 +146,7 @@ export default function Register() {
               
               <button
                 type="button"
-                onClick={() => setUserType('as')}
+                onClick={() => handleUserTypeChange('as')}
                 className={`p-4 border-2 rounded-xl transition-all ${
                   userType === 'as'
                     ? 'border-secondary-green bg-secondary-green/5'
@@ -191,20 +217,160 @@ export default function Register() {
                 />
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="dni" className="block text-sm font-medium text-neutral-700 mb-1">
+                    DNI
+                  </label>
+                  <input
+                    type="text"
+                    id="dni"
+                    name="dni"
+                    value={formData.dni}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
+                    placeholder="12.345.678"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="telefono" className="block text-sm font-medium text-neutral-700 mb-1">
+                    Teléfono
+                  </label>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    name="telefono"
+                    value={formData.telefono}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
+                    placeholder="+54 9 11 1234-5678"
+                  />
+                </div>
+              </div>
+
+              {/* Campos adicionales para As */}
+              {userType === 'as' && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="fecha_nacimiento" className="block text-sm font-medium text-neutral-700 mb-1">
+                        Fecha de Nacimiento
+                      </label>
+                      <input
+                        type="date"
+                        id="fecha_nacimiento"
+                        name="fecha_nacimiento"
+                        value={formData.fecha_nacimiento}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="nivel_educativo" className="block text-sm font-medium text-neutral-700 mb-1">
+                        Nivel Educativo
+                      </label>
+                      <select
+                        id="nivel_educativo"
+                        name="nivel_educativo"
+                        value={formData.nivel_educativo}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
+                      >
+                        <option value="">Seleccionar</option>
+                        <option value="primario">Primario</option>
+                        <option value="secundario">Secundario</option>
+                        <option value="terciario">Terciario</option>
+                        <option value="universitario">Universitario</option>
+                        <option value="posgrado">Posgrado</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="tiene_movilidad"
+                      name="tiene_movilidad"
+                      checked={formData.tiene_movilidad}
+                      onChange={handleChange}
+                      className="rounded border-neutral-300 text-primary-blue focus:ring-primary-blue"
+                    />
+                    <label htmlFor="tiene_movilidad" className="ml-2 text-sm text-neutral-600">
+                      Tengo movilidad propia (auto, moto, etc.)
+                    </label>
+                  </div>
+                </>
+              )}
+
+              {/* Información de ubicación */}
               <div>
-                <label htmlFor="telefono" className="block text-sm font-medium text-neutral-700 mb-1">
-                  Teléfono
+                <label htmlFor="direccion" className="block text-sm font-medium text-neutral-700 mb-1">
+                  Dirección
                 </label>
                 <input
-                  type="tel"
-                  id="telefono"
-                  name="telefono"
-                  value={formData.telefono}
+                  type="text"
+                  id="direccion"
+                  name="direccion"
+                  value={formData.direccion}
                   onChange={handleChange}
                   required
                   className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
-                  placeholder="+54 9 11 1234-5678"
+                  placeholder="Av. Corrientes 1234"
                 />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <label htmlFor="localidad" className="block text-sm font-medium text-neutral-700 mb-1">
+                    Localidad
+                  </label>
+                  <input
+                    type="text"
+                    id="localidad"
+                    name="localidad"
+                    value={formData.localidad}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
+                    placeholder="CABA"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="provincia" className="block text-sm font-medium text-neutral-700 mb-1">
+                    Provincia
+                  </label>
+                  <input
+                    type="text"
+                    id="provincia"
+                    name="provincia"
+                    value={formData.provincia}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
+                    placeholder="Buenos Aires"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="codigo_postal" className="block text-sm font-medium text-neutral-700 mb-1">
+                    C.P.
+                  </label>
+                  <input
+                    type="text"
+                    id="codigo_postal"
+                    name="codigo_postal"
+                    value={formData.codigo_postal}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
+                    placeholder="1234"
+                  />
+                </div>
               </div>
 
               <div>

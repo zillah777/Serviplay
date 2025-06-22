@@ -193,7 +193,7 @@ export default function Home() {
               {APP_CONFIG.TAGLINE}
             </p>
             <p className="text-neutral-500 text-sm">
-              © 2024 {APP_CONFIG.NAME}. Todos los derechos reservados.
+              © 2024 {APP_CONFIG.NAME} - Marcelo Mata. Todos los derechos reservados.
             </p>
           </div>
         </footer>

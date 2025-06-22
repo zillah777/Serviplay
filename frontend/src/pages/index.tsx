@@ -1,9 +1,12 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { MagnifyingGlassIcon, StarIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { BRAND_TERMS, APP_CONFIG } from '@/utils/constants';
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -27,10 +30,16 @@ export default function Home() {
             </div>
             
             <div className="flex items-center space-x-4">
-              <button className="px-4 py-2 text-neutral-600 hover:text-primary-blue transition-colors">
+              <button 
+                onClick={() => router.push('/auth/login')}
+                className="px-4 py-2 text-neutral-600 hover:text-primary-blue transition-colors"
+              >
                 Iniciar Sesión
               </button>
-              <button className="px-6 py-2 bg-primary-blue text-white rounded-full hover:bg-primary-blue-dark transition-colors">
+              <button 
+                onClick={() => router.push('/auth/register')}
+                className="px-6 py-2 bg-primary-blue text-white rounded-full hover:bg-primary-blue-dark transition-colors"
+              >
                 Registrarse
               </button>
             </div>
@@ -59,7 +68,8 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-primary-blue text-white rounded-full text-lg font-semibold hover:bg-primary-blue-dark transition-all shadow-lg"
+                  onClick={() => router.push('/explore')}
+                  className="px-8 py-4 bg-primary-blue text-white rounded-full text-lg font-semibold hover:bg-primary-blue-dark transition-all shadow-lg cursor-pointer"
                 >
                   {BRAND_TERMS.START_EXPLORING}
                 </motion.button>
@@ -67,7 +77,8 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-secondary-green text-white rounded-full text-lg font-semibold hover:bg-green-600 transition-all shadow-lg"
+                  onClick={() => router.push('/auth/register?tipo=as')}
+                  className="px-8 py-4 bg-secondary-green text-white rounded-full text-lg font-semibold hover:bg-green-600 transition-all shadow-lg cursor-pointer"
                 >
                   {BRAND_TERMS.JOIN_AS_AS}
                 </motion.button>
@@ -160,6 +171,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/auth/register?tipo=as')}
                 className="px-8 py-4 bg-white text-primary-blue rounded-full text-lg font-semibold hover:bg-neutral-100 transition-all shadow-lg"
               >
                 Empezar Ahora

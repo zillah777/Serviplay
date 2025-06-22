@@ -5,8 +5,7 @@ import { motion } from 'framer-motion';
 import { 
   CheckIcon,
   XMarkIcon,
-  StarIcon,
-  CrownIcon
+  StarIcon
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 

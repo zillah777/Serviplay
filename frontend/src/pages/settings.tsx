@@ -53,13 +53,16 @@ export default function Settings() {
   ];
 
   const handleToggleSetting = (section: string, key: string) => {
-    setSettings(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section as keyof typeof prev],
-        [key]: !prev[section as keyof typeof prev][key as keyof typeof prev[section as keyof typeof prev]]
-      }
-    }));
+    setSettings(prev => {
+      const currentSection = (prev as any)[section];
+      return {
+        ...prev,
+        [section]: {
+          ...currentSection,
+          [key]: !currentSection[key]
+        }
+      };
+    });
     toast.success('Configuración actualizada');
   };
 

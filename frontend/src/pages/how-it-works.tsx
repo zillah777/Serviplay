@@ -200,7 +200,7 @@ export default function HowItWorks() {
                     : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                 }`}
               >
-                🧭 Soy {BRAND_TERMS.EXPLORER}
+                🧭 Soy {BRAND_TERMS.EXPLORADOR}
               </button>
               <button
                 onClick={() => setUserType('as')}

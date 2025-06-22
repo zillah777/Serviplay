@@ -224,7 +224,7 @@ export default function Profile() {
   }
 
   const isAs = user.tipo_usuario === 'as' || user.tipo_usuario === 'ambos';
-  const perfil = isAs ? user.perfil_as : user.perfil_explorador;
+  const perfil = isAs ? user.perfil_as : null;
 
   return (
     <>
@@ -281,7 +281,7 @@ export default function Profile() {
                     {perfil?.foto_perfil ? (
                       <img
                         src={perfil.foto_perfil}
-                        alt={`${perfil.nombre} ${perfil.apellido}`}
+                        alt={`${perfil?.nombre} ${perfil?.apellido}`}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -455,14 +455,14 @@ export default function Profile() {
                       <span>{user.stats.total_views} visualizaciones</span>
                     </div>
                     
-                    {perfil.nivel_educativo && (
+                    {perfil?.nivel_educativo && (
                       <div className="flex items-center space-x-3 text-neutral-600">
                         <span className="text-sm">🎓</span>
-                        <span className="capitalize">{perfil.nivel_educativo}</span>
+                        <span className="capitalize">{perfil?.nivel_educativo}</span>
                       </div>
                     )}
                     
-                    {perfil.tiene_movilidad && (
+                    {perfil?.tiene_movilidad && (
                       <div className="flex items-center space-x-3 text-neutral-600">
                         <span className="text-sm">🚙</span>
                         <span>Movilidad propia</span>
@@ -471,13 +471,13 @@ export default function Profile() {
                     
                     <div className="flex items-center space-x-3 text-neutral-600">
                       <span className="text-sm">🔔</span>
-                      <span>Radio de notificaciones: {perfil.radio_notificaciones}km</span>
+                      <span>Radio de notificaciones: {perfil?.radio_notificaciones}km</span>
                     </div>
                     
-                    {perfil.suscripcion_activa && (
+                    {perfil?.suscripcion_activa && (
                       <div className="flex items-center space-x-3 text-neutral-600">
                         <span className="text-sm">💎</span>
-                        <span className="capitalize font-medium text-secondary-green">Plan {perfil.plan_actual}</span>
+                        <span className="capitalize font-medium text-secondary-green">Plan {perfil?.plan_actual}</span>
                       </div>
                     )}
                   </>

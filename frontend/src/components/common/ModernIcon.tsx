@@ -116,7 +116,7 @@ export function EmojiB({
   text, 
   color,
   variant = 'default' 
-}: EmojiB) {
+}: EmojiBadge) {
   const variantClasses = {
     default: 'bg-neutral-100 text-neutral-700',
     success: 'bg-green-100 text-green-800',

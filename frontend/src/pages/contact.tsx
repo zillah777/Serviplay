@@ -500,7 +500,7 @@ export default function Contact() {
               <div className="text-center">
                 <div className="text-3xl mb-3">🚨</div>
                 <h3 className="font-semibold text-neutral-900 mb-2">Emergencias</h3>
-                <p className="text-2xl font-bold text-red-600 mb-1">< 1 hora</p>
+                <p className="text-2xl font-bold text-red-600 mb-1">&lt; 1 hora</p>
                 <p className="text-sm text-neutral-600">Problemas críticos de seguridad</p>
               </div>
               

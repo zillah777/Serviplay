@@ -187,7 +187,7 @@ export default function RatingForm({
                   <div className="flex items-center space-x-3">
                     {renderStars(aspecto.key, formData[aspecto.key] as number)}
                     <span className="text-sm font-medium text-neutral-700 w-8">
-                      {formData[aspecto.key] > 0 && formData[aspecto.key]}
+                      {(formData[aspecto.key] as number) > 0 && formData[aspecto.key]}
                     </span>
                   </div>
                 </div>

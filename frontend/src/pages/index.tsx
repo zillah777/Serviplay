@@ -83,17 +83,25 @@ export default function Home() {
                   >
                     Contacto
                   </motion.button>
+                  <motion.button 
+                    onClick={() => router.push('/pricing')}
+                    className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 transition-all duration-300 font-semibold rounded-xl shadow-lg hover:shadow-xl"
+                    whileHover={{ y: -1, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Suscribirse
+                  </motion.button>
                 </div>
                 
                 {/* Mobile Navigation */}
                 <div className="flex sm:hidden items-center space-x-2">
                   <motion.button 
-                    onClick={() => router.push('/contact')}
-                    className="px-3 py-2 text-gray-600 hover:text-secondary-green transition-all duration-300 font-medium rounded-lg hover:bg-gray-100/50 text-sm"
+                    onClick={() => router.push('/pricing')}
+                    className="px-3 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold text-sm shadow-lg"
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Contacto
+                    Suscribirse
                   </motion.button>
                 </div>
                 
@@ -168,7 +176,8 @@ export default function Home() {
                 transition={{ delay: 0.4, duration: 0.8 }}
               >
                 La plataforma que <strong>conecta</strong> a los mejores y más profesionales con personas que necesitan servicios de calidad. 
-                <span className="text-primary-blue font-semibold"> Sin comisiones</span>, <span className="text-secondary-green font-semibold">sin intermediarios</span>.
+                <span className="text-primary-blue font-semibold"> Sin comisiones</span>, <span className="text-secondary-green font-semibold">sin intermediarios</span>, 
+                <span className="text-orange-500 font-semibold">solo suscripción mensual</span>.
               </motion.p>
 
               {/* CTA Buttons */}
@@ -195,36 +204,40 @@ export default function Home() {
                 </motion.button>
                 
                 <motion.button
-                  onClick={() => router.push('/become-as')}
-                  className="group px-10 py-4 bg-gradient-to-r from-secondary-green to-green-600 text-white rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-secondary-green/30 transition-all duration-300 flex items-center space-x-3"
+                  onClick={() => router.push('/pricing')}
+                  className="group px-10 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 flex items-center space-x-3"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <RocketLaunchIcon className="w-6 h-6" />
-                  <span>Convertite en As</span>
+                  <span>Suscribirse como As</span>
                   <motion.div
                     animate={{ rotate: [0, 15, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    🚀
+                    💳
                   </motion.div>
                 </motion.button>
               </motion.div>
 
               {/* Stats */}
               <motion.div 
-                className="grid grid-cols-3 gap-8 max-w-2xl mx-auto mt-16"
+                className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mt-16"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
               >
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary-blue mb-1">1,200+</div>
-                  <div className="text-sm text-gray-600 font-medium">{BRAND_TERMS.ASES} verificados</div>
+                  <div className="text-sm text-gray-600 font-medium">{BRAND_TERMS.ASES} suscritos</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-secondary-green mb-1">15K+</div>
                   <div className="text-sm text-gray-600 font-medium">{BRAND_TERMS.EXPLORADORES} activos</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-500 mb-1">$2900</div>
+                  <div className="text-sm text-gray-600 font-medium">Suscripción mensual</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-secondary-orange mb-1">0%</div>
@@ -498,6 +511,111 @@ export default function Home() {
                   <span className="font-medium">Ingresos ilimitados</span>
                 </div>
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Subscription Section */}
+        <section className="px-6 py-24 bg-gradient-to-r from-orange-500 to-red-500">
+          <div className="max-w-7xl mx-auto">
+            <motion.div 
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 mb-8">
+                <span className="text-2xl">💳</span>
+                <span className="text-sm font-semibold text-white">Modelo de Suscripción</span>
+              </div>
+
+              <h3 className="font-display text-4xl md:text-6xl font-bold text-white mb-8">
+                Solo <span className="bg-gradient-to-r from-yellow-200 to-yellow-100 bg-clip-text text-transparent">$2900</span> por mes
+              </h3>
+              
+              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-12">
+                Para publicar tus servicios en Serviplay, solo necesitas una <strong>suscripción mensual</strong>. 
+                Sin comisiones por cada trabajo, sin costos ocultos.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+                >
+                  <div className="text-4xl mb-4">✅</div>
+                  <h4 className="font-display text-xl font-bold text-white mb-3">Suscripción Única</h4>
+                  <p className="text-white/90">
+                    Solo pagas $2900 mensuales para acceder a la plataforma. Sin comisiones por cada servicio.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+                >
+                  <div className="text-4xl mb-4">🚫</div>
+                  <h4 className="font-display text-xl font-bold text-white mb-3">Sin Comisiones</h4>
+                  <p className="text-white/90">
+                    Cobra el 100% de tus servicios. No descontamos nada de tus ganancias.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+                >
+                  <div className="text-4xl mb-4">💰</div>
+                  <h4 className="font-display text-xl font-bold text-white mb-3">Ingresos Ilimitados</h4>
+                  <p className="text-white/90">
+                    Publica todos los servicios que quieras y genera ingresos sin límite.
+                  </p>
+                </motion.div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 max-w-4xl mx-auto">
+                <h4 className="font-display text-2xl font-bold text-white mb-4">¿Por qué cobramos suscripción?</h4>
+                <p className="text-white/90 text-lg leading-relaxed">
+                  A diferencia de otras plataformas que cobran comisiones altas (20-30%), nosotros creemos en un modelo más justo. 
+                  Tu suscripción nos permite mantener la plataforma funcionando mientras <strong>tú te quedas con el 100% de tus ganancias</strong>.
+                </p>
+              </div>
+
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-6 justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <motion.button
+                  onClick={() => router.push('/pricing')}
+                  className="px-10 py-4 bg-white text-orange-600 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:bg-gray-100 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  💳 Ver Planes de Suscripción
+                </motion.button>
+                
+                <motion.button
+                  onClick={() => router.push('/help')}
+                  className="px-10 py-4 border-2 border-white text-white rounded-2xl text-lg font-bold hover:bg-white hover:text-orange-600 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  ❓ Preguntas Frecuentes
+                </motion.button>
+              </motion.div>
             </motion.div>
           </div>
         </section>

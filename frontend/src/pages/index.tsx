@@ -108,8 +108,8 @@ export default function Home() {
                 {/* Register Button - Always Visible */}
                 <motion.button 
                   onClick={() => router.push('/auth/register')}
-                  className="px-4 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-full font-semibold hover:shadow-xl hover:shadow-primary-blue/25 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
-                  whileHover={{ y: -2 }}
+                  className="px-4 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-primary-blue/25 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+                  whileHover={{ y: -1, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span className="hidden sm:inline">Registrarse</span>

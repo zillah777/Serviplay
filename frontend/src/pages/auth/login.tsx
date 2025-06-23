@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { APP_CONFIG } from '@/utils/constants';
 import toast from 'react-hot-toast';
+import { authService, LoginData } from '@/services/api';
 
 export default function Login() {
   const router = useRouter();
@@ -21,11 +22,27 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // TODO: Implementar lógica de login con backend
-      toast.success('¡Bienvenido de vuelta!');
-      router.push('/dashboard');
-    } catch (error) {
-      toast.error('Error al iniciar sesión');
+      // Preparar datos para el backend
+      const loginData: LoginData = {
+        email: formData.email,
+        password: formData.password
+      };
+
+      // Llamar al servicio de login
+      const response = await authService.login(loginData);
+      
+      if (response.success && response.data) {
+        // Redirigir según el tipo de usuario
+        const userType = response.data.user.tipo_usuario;
+        if (userType === 'as') {
+          router.push('/dashboard/as');
+        } else {
+          router.push('/dashboard');
+        }
+      }
+    } catch (error: any) {
+      // Los errores ya se muestran en el servicio authService
+      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }

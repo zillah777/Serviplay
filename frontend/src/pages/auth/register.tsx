@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { EyeIcon, EyeSlashIcon, UserIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 import toast from 'react-hot-toast';
+import { authService, RegisterData } from '@/services/api';
 
 export default function Register() {
   const router = useRouter();
@@ -58,11 +59,39 @@ export default function Register() {
     setLoading(true);
 
     try {
-      // TODO: Implementar lógica de registro con backend
-      toast.success(`¡Bienvenido/a al equipo de ${userType === 'as' ? 'Ases' : 'Exploradores'}!`);
-      router.push('/onboarding');
-    } catch (error) {
-      toast.error('Error al crear la cuenta');
+      // Preparar datos para el backend
+      const registerData: RegisterData = {
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        tipo_usuario: userType,
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        telefono: formData.telefono,
+        provincia: formData.provincia,
+        ciudad: formData.localidad,
+        // Para AS agregar campos específicos si están disponibles
+        ...(userType === 'as' && {
+          especialidad: '', // Esto se puede agregar en el onboarding
+          descripcion: '',
+          experiencia: '',
+        })
+      };
+
+      // Llamar al servicio de registro
+      const response = await authService.register(registerData);
+      
+      if (response.success) {
+        // Redirigir según el tipo de usuario
+        if (userType === 'as') {
+          router.push('/onboarding?tipo=as');
+        } else {
+          router.push('/dashboard');
+        }
+      }
+    } catch (error: any) {
+      // Los errores ya se muestran en el servicio authService
+      console.error('Registration error:', error);
     } finally {
       setLoading(false);
     }

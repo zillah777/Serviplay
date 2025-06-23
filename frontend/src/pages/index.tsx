@@ -85,7 +85,7 @@ export default function Home() {
                   </motion.button>
                   <motion.button 
                     onClick={() => router.push('/pricing')}
-                    className="px-5 py-2.5 bg-gradient-to-r from-secondary-green to-primary-blue text-white hover:from-green-600 hover:to-blue-600 transition-all duration-300 font-semibold rounded-xl shadow-lg hover:shadow-xl"
+                    className="px-4 py-2 bg-gradient-to-r from-secondary-green to-primary-blue text-white hover:from-green-600 hover:to-blue-600 transition-all duration-300 font-semibold rounded-xl shadow-lg hover:shadow-xl"
                     whileHover={{ y: -1, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -97,7 +97,7 @@ export default function Home() {
                 <div className="flex sm:hidden items-center space-x-2">
                   <motion.button 
                     onClick={() => router.push('/pricing')}
-                    className="px-5 py-2.5 bg-gradient-to-r from-secondary-green to-primary-blue text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="px-4 py-2 bg-gradient-to-r from-secondary-green to-primary-blue text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                     whileHover={{ y: -1, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -108,7 +108,7 @@ export default function Home() {
                 {/* Register Button - Always Visible */}
                 <motion.button 
                   onClick={() => router.push('/auth/register')}
-                  className="px-5 py-2.5 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="px-4 py-2 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   whileHover={{ y: -1, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

@@ -94,7 +94,7 @@ export default function Home() {
                 </div>
                 
                 {/* Mobile Navigation */}
-                <div className="flex sm:hidden items-center space-x-2">
+                <div className="flex sm:hidden items-center space-x-2 mx-2">
                   <motion.button 
                     onClick={() => router.push('/pricing')}
                     className="px-4 py-2 bg-gradient-to-r from-secondary-green to-primary-blue text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
@@ -108,7 +108,7 @@ export default function Home() {
                 {/* Register Button - Always Visible */}
                 <motion.button 
                   onClick={() => router.push('/auth/register')}
-                  className="px-4 py-2 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="px-4 py-2 bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
                   whileHover={{ y: -1, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

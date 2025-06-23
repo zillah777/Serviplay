@@ -138,7 +138,7 @@ const reportReasons = [
     icon: CreditCardIcon,
     title: 'Fraude o Estafa',
     description: 'Solicitudes de dinero sospechosas o servicios falsos',
-    color: 'orange'
+    color: 'green'
   },
   {
     icon: UserGroupIcon,
@@ -261,7 +261,7 @@ export default function Security() {
                 <div className="text-sm text-gray-600">Respuesta a reportes</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-orange-600 mb-2">0%</div>
+                <div className="text-4xl font-bold text-primary-blue mb-2">0%</div>
                 <div className="text-sm text-gray-600">Tolerancia a fraudes</div>
               </div>
             </div>
@@ -354,7 +354,7 @@ export default function Security() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mb-24 bg-gradient-to-r from-red-500 to-orange-500 rounded-3xl p-12 text-white"
+            className="mb-24 bg-gradient-to-r from-primary-blue to-secondary-green rounded-3xl p-12 text-white"
           >
             <div className="text-center mb-12">
               <h2 className="font-display text-4xl font-bold mb-6">

@@ -59,7 +59,7 @@ const steps = [
     ],
     forExplorers: 'Chateá con varios Ases para comparar y elegir',
     forAses: 'Recibí consultas directamente de Exploradores interesados',
-    color: 'from-orange-500 to-red-600'
+    color: 'from-secondary-green to-primary-blue'
   },
   {
     id: 4,
@@ -74,7 +74,7 @@ const steps = [
     ],
     forExplorers: 'Tu opinión ayuda a otros Exploradores a elegir mejor',
     forAses: 'Las buenas reseñas aumentan tu visibilidad',
-    color: 'from-yellow-500 to-orange-600'
+    color: 'from-primary-blue to-secondary-green'
   }
 ];
 

@@ -85,7 +85,7 @@ export default function Home() {
                   </motion.button>
                   <motion.button 
                     onClick={() => router.push('/pricing')}
-                    className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 transition-all duration-300 font-semibold rounded-xl shadow-lg hover:shadow-xl"
+                    className="px-5 py-2.5 bg-gradient-to-r from-secondary-green to-primary-blue text-white hover:from-green-600 hover:to-blue-600 transition-all duration-300 font-semibold rounded-xl shadow-lg hover:shadow-xl"
                     whileHover={{ y: -1, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -97,7 +97,7 @@ export default function Home() {
                 <div className="flex sm:hidden items-center space-x-2">
                   <motion.button 
                     onClick={() => router.push('/pricing')}
-                    className="px-3 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold text-sm shadow-lg"
+                    className="px-3 py-2 bg-gradient-to-r from-secondary-green to-primary-blue text-white rounded-lg font-semibold text-sm shadow-lg"
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -177,7 +177,7 @@ export default function Home() {
               >
                 La plataforma que <strong>conecta</strong> a los mejores y más profesionales con personas que necesitan servicios de calidad. 
                 <span className="text-primary-blue font-semibold"> Sin comisiones</span>, <span className="text-secondary-green font-semibold">sin intermediarios</span>, 
-                <span className="text-orange-500 font-semibold">solo suscripción mensual</span>.
+                <span className="text-primary-blue font-semibold">solo suscripción mensual</span>.
               </motion.p>
 
               {/* CTA Buttons */}
@@ -205,7 +205,7 @@ export default function Home() {
                 
                 <motion.button
                   onClick={() => router.push('/pricing')}
-                  className="group px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl text-base sm:text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 flex items-center space-x-3"
+                  className="group px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-secondary-green to-primary-blue text-white rounded-2xl text-base sm:text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-secondary-green/30 transition-all duration-300 flex items-center space-x-3"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -236,7 +236,7 @@ export default function Home() {
                   <div className="text-xs sm:text-sm text-gray-600 font-medium">{BRAND_TERMS.EXPLORADORES} activos</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-orange-500 mb-1">$2900</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-secondary-green mb-1">$2900</div>
                   <div className="text-xs sm:text-sm text-gray-600 font-medium">Suscripción mensual</div>
                 </div>
                 <div className="text-center">
@@ -516,7 +516,7 @@ export default function Home() {
         </section>
 
         {/* Subscription Section */}
-        <section className="px-6 py-24 bg-gradient-to-r from-orange-500 to-red-500">
+        <section className="px-6 py-24 bg-gradient-to-r from-secondary-green to-primary-blue">
           <div className="max-w-7xl mx-auto">
             <motion.div 
               className="text-center"
@@ -600,7 +600,7 @@ export default function Home() {
               >
                 <motion.button
                   onClick={() => router.push('/pricing')}
-                  className="px-10 py-4 bg-white text-orange-600 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:bg-gray-100 transition-all duration-300"
+                  className="px-10 py-4 bg-white text-secondary-green rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:bg-gray-100 transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -609,7 +609,7 @@ export default function Home() {
                 
                 <motion.button
                   onClick={() => router.push('/help')}
-                  className="px-10 py-4 border-2 border-white text-white rounded-2xl text-lg font-bold hover:bg-white hover:text-orange-600 transition-all duration-300"
+                  className="px-10 py-4 border-2 border-white text-white rounded-2xl text-lg font-bold hover:bg-white hover:text-primary-blue transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >

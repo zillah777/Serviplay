@@ -155,9 +155,9 @@ export default function Settings() {
               <div className="space-y-4">
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-3 w-full p-4 border border-neutral-200 rounded-lg hover:border-orange-300 hover:bg-orange-50 transition-colors text-left"
+                  className="flex items-center space-x-3 w-full p-4 border border-neutral-200 rounded-lg hover:border-primary-blue hover:bg-blue-50 transition-colors text-left"
                 >
-                  <ArrowRightOnRectangleIcon className="w-5 h-5 text-orange-600" />
+                  <ArrowRightOnRectangleIcon className="w-5 h-5 text-primary-blue" />
                   <div>
                     <h4 className="font-medium text-neutral-900">Cerrar Sesión</h4>
                     <p className="text-sm text-neutral-600">Cerrar sesión en este dispositivo</p>

@@ -279,7 +279,7 @@ const categories = [
 
 const demandaColors = {
   'muy alta': 'bg-red-100 text-red-800',
-  'alta': 'bg-orange-100 text-orange-800',
+  'alta': 'bg-green-100 text-green-800',
   'media': 'bg-yellow-100 text-yellow-800',
   'baja': 'bg-green-100 text-green-800'
 };
@@ -394,7 +394,7 @@ export default function Categories() {
                 <div className="text-sm text-neutral-600">{BRAND_TERMS.ASES} activos</div>
               </div>
               <div className="bg-white rounded-xl p-4 shadow-lg">
-                <div className="text-2xl font-bold text-secondary-orange">${Math.round(avgPrice).toLocaleString()}</div>
+                <div className="text-2xl font-bold text-secondary-green">${Math.round(avgPrice).toLocaleString()}</div>
                 <div className="text-sm text-neutral-600">Precio promedio</div>
               </div>
             </div>

@@ -218,6 +218,7 @@ export default function Register() {
                     name="nombre"
                     value={formData.nombre}
                     onChange={handleChange}
+                    autoComplete="given-name"
                     required
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                     placeholder="Juan"
@@ -234,6 +235,7 @@ export default function Register() {
                     name="apellido"
                     value={formData.apellido}
                     onChange={handleChange}
+                    autoComplete="family-name"
                     required
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                     placeholder="Pérez"
@@ -251,6 +253,7 @@ export default function Register() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  autoComplete="email"
                   required
                   className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                   placeholder="tu@email.com"
@@ -284,6 +287,7 @@ export default function Register() {
                     name="telefono"
                     value={formData.telefono}
                     onChange={handleChange}
+                    autoComplete="tel"
                     required
                     className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                     placeholder="+54 9 11 1234-5678"
@@ -424,6 +428,7 @@ export default function Register() {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
+                    autoComplete="new-password"
                     required
                     className="w-full px-3 py-2 pr-10 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                     placeholder="••••••••"
@@ -456,6 +461,7 @@ export default function Register() {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    autoComplete="new-password"
                     required
                     className="w-full px-3 py-2 pr-10 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                     placeholder="••••••••"

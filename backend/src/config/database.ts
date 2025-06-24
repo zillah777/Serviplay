@@ -7,8 +7,8 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL || `postgresql://${process.env.DB_USER || 'serviplay_user'}:${process.env.DB_PASSWORD || 'serviplay_pass'}@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'serviplay_db'}`,
   max: 20,
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
-  ssl: process.env.DATABASE_URL?.includes('railway.internal') || process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  connectionTimeoutMillis: 10000,
+  ssl: process.env.DATABASE_URL?.includes('railway') || process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
 export const connectDB = async () => {

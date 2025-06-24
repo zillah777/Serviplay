@@ -12,34 +12,54 @@ import {
   EyeIcon
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
+import { authService } from '@/services/api';
 
-// Mock user data
-const mockUser = {
-  id: '1',
-  nombre: 'Juan',
-  apellido: 'Pérez',
-  email: 'juan@example.com',
-  tipo: 'explorador', // o 'as'
-  foto_perfil: null,
-  stats: {
-    servicios_contratados: 12,
-    servicios_publicados: 0,
-    rating_promedio: 4.8,
-    total_views: 0
-  }
+// Default user structure
+const defaultUserStats = {
+  servicios_contratados: 0,
+  servicios_publicados: 0,
+  rating_promedio: 0,
+  total_views: 0
 };
 
 export default function Dashboard() {
   const router = useRouter();
-  const [user, setUser] = useState(mockUser);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simular carga de datos
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
+    // Verificar autenticación y cargar datos del usuario
+    const loadUserData = async () => {
+      try {
+        // Verificar si hay sesión activa
+        if (!authService.isAuthenticated()) {
+          router.push('/auth/login');
+          return;
+        }
+
+        // Obtener datos del usuario del localStorage
+        const currentUser = authService.getCurrentUser();
+        if (currentUser) {
+          // Combinar datos del usuario con stats por defecto
+          setUser({
+            ...currentUser,
+            stats: defaultUserStats
+          });
+        } else {
+          // Si no hay datos, redirigir al login
+          router.push('/auth/login');
+          return;
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
+        router.push('/auth/login');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserData();
+  }, [router]);
 
   if (loading) {
     return (
@@ -52,7 +72,12 @@ export default function Dashboard() {
     );
   }
 
-  const isAs = user.tipo === 'as';
+  // Si no hay usuario, no mostrar nada (se redirigirá al login)
+  if (!user) {
+    return null;
+  }
+
+  const isAs = user.tipo_usuario === 'as';
 
   return (
     <>

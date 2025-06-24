@@ -54,7 +54,7 @@ export default function Dashboard() {
           setUser({
             ...currentUser,
             stats: defaultUserStats
-          });
+          } as User);
         } else {
           // Si no hay datos, redirigir al login
           router.push('/auth/login');

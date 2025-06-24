@@ -41,7 +41,7 @@ api.interceptors.response.use(
       window.location.href = '/auth/login';
     } else if (error.response?.status === 429) {
       toast.error('Demasiadas solicitudes. Intenta más tarde.');
-    } else if (error.response?.status >= 500) {
+    } else if (error.response && error.response.status >= 500) {
       toast.error('Error del servidor. Intenta más tarde.');
     }
     

@@ -77,17 +77,20 @@ export interface RegisterData {
   password: string;
   confirmPassword: string;
   tipo_usuario: 'explorador' | 'as';
+  acepta_terminos: boolean;
   nombre: string;
   apellido: string;
-  telefono?: string;
-  // Campos específicos para AS
-  especialidad?: string;
-  descripcion?: string;
-  experiencia?: string;
-  certificaciones?: string[];
+  dni: string;
+  telefono: string;
+  fecha_nacimiento?: string;
   // Ubicación
-  provincia?: string;
-  ciudad?: string;
+  direccion: string;
+  localidad: string;
+  provincia: string;
+  codigo_postal?: string;
+  // Campos específicos para AS
+  nivel_educativo?: string;
+  tiene_movilidad?: boolean;
 }
 
 // Datos para login
@@ -101,7 +104,7 @@ export const authService = {
   // Registro de usuario
   async register(data: RegisterData): Promise<AuthResponse> {
     try {
-      const response = await api.post<AuthResponse>('/auth/register', data);
+      const response = await api.post<AuthResponse>('/api/auth/register', data);
       
       if (response.data.success && response.data.data) {
         // Guardar tokens
@@ -140,7 +143,7 @@ export const authService = {
   // Login de usuario
   async login(data: LoginData): Promise<AuthResponse> {
     try {
-      const response = await api.post<AuthResponse>('/auth/login', data);
+      const response = await api.post<AuthResponse>('/api/auth/login', data);
       
       if (response.data.success && response.data.data) {
         // Guardar tokens
@@ -170,7 +173,7 @@ export const authService = {
   // Logout
   async logout(): Promise<void> {
     try {
-      await api.post('/auth/logout');
+      await api.post('/api/auth/logout');
     } catch (error) {
       console.warn('Error during logout:', error);
     } finally {
@@ -186,7 +189,7 @@ export const authService = {
   // Obtener perfil del usuario
   async getProfile(): Promise<any> {
     try {
-      const response = await api.get('/auth/profile');
+      const response = await api.get('/api/auth/me');
       return response.data;
     } catch (error) {
       console.error('Error getting profile:', error);
@@ -214,7 +217,7 @@ export const authService = {
         throw new Error('No refresh token available');
       }
 
-      const response = await api.post('/auth/refresh', {
+      const response = await api.post('/api/auth/refresh-token', {
         refresh_token: refreshToken
       });
 

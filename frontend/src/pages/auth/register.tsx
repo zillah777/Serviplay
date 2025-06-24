@@ -65,16 +65,20 @@ export default function Register() {
         password: formData.password,
         confirmPassword: formData.confirmPassword,
         tipo_usuario: userType,
+        acepta_terminos: formData.terminos,
         nombre: formData.nombre,
         apellido: formData.apellido,
+        dni: formData.dni,
         telefono: formData.telefono,
+        direccion: formData.direccion,
+        localidad: formData.localidad,
         provincia: formData.provincia,
-        ciudad: formData.localidad,
-        // Para AS agregar campos específicos si están disponibles
+        codigo_postal: formData.codigo_postal,
+        // Para AS agregar campos específicos
         ...(userType === 'as' && {
-          especialidad: '', // Esto se puede agregar en el onboarding
-          descripcion: '',
-          experiencia: '',
+          fecha_nacimiento: formData.fecha_nacimiento,
+          nivel_educativo: formData.nivel_educativo,
+          tiene_movilidad: formData.tiene_movilidad,
         })
       };
 

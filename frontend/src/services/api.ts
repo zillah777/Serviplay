@@ -67,7 +67,14 @@ export interface AuthResponse {
 }
 
 export interface ApiError {
-  message: string;
+  message?: string;
+  error?: string;
+  code?: string;
+  details?: Array<{
+    field: string;
+    message: string;
+    value?: any;
+  }>;
   errors?: Record<string, string[]>;
 }
 
@@ -123,12 +130,16 @@ export const authService = {
         const errorData = error.response.data as ApiError;
         
         // Mostrar errores específicos de validación
-        if (errorData.errors) {
+        if (errorData.details) {
+          errorData.details.forEach(detail => {
+            toast.error(`${detail.field}: ${detail.message}`);
+          });
+        } else if (errorData.errors) {
           Object.values(errorData.errors).flat().forEach(err => {
             toast.error(err);
           });
         } else {
-          toast.error(errorData.message || 'Error en el registro');
+          toast.error(errorData.message || errorData.error || 'Error en el registro');
         }
         
         throw errorData;
@@ -160,7 +171,16 @@ export const authService = {
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const errorData = error.response.data as ApiError;
-        toast.error(errorData.message || 'Credenciales incorrectas');
+        
+        // Mostrar errores específicos de validación
+        if (errorData.details) {
+          errorData.details.forEach(detail => {
+            toast.error(`${detail.field}: ${detail.message}`);
+          });
+        } else {
+          toast.error(errorData.message || errorData.error || 'Credenciales incorrectas');
+        }
+        
         throw errorData;
       } else {
         const errorMessage = 'Error de conexión. Verifica tu internet.';

@@ -46,6 +46,13 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validar requisitos de contraseña
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,128}$/;
+    if (!passwordRegex.test(formData.password)) {
+      toast.error('La contraseña debe tener 8+ caracteres con mayúscula, minúscula, número y carácter especial (@$!%*?&)');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       toast.error('Las contraseñas no coinciden');
       return;
@@ -433,6 +440,9 @@ export default function Register() {
                     )}
                   </button>
                 </div>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Mínimo 8 caracteres, debe incluir: mayúscula, minúscula, número y carácter especial (@$!%*?&)
+                </p>
               </div>
 
               <div>

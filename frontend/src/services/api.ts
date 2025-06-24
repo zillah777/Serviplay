@@ -201,7 +201,7 @@ export const authService = {
   },
 
   // Obtener usuario actual del localStorage
-  getCurrentUser(): any {
+  getCurrentUser(): { id: string; email: string; tipo_usuario: 'explorador' | 'as'; nombre?: string; apellido?: string; } | null {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   },

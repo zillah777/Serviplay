@@ -22,9 +22,19 @@ const defaultUserStats = {
   total_views: 0
 };
 
+// User type definition
+interface User {
+  id: string;
+  email: string;
+  tipo_usuario: 'explorador' | 'as';
+  nombre?: string;
+  apellido?: string;
+  stats: typeof defaultUserStats;
+}
+
 export default function Dashboard() {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

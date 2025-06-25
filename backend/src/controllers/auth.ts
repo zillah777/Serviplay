@@ -70,8 +70,11 @@ export const register = asyncHandler(async (req: Request, res: Response, next: N
 
     await Promise.all(profilePromises);
 
-    // Enviar email de verificación
-    await EmailService.sendVerificationEmail(email, token_verificacion);
+    // Enviar email de verificación (no fallar si no se puede enviar)
+    const emailSent = await EmailService.sendVerificationEmail(email, token_verificacion);
+    if (!emailSent) {
+      console.log(`⚠️ Email de verificación no enviado para ${email}`);
+    }
 
     // Rate limiting para registros
     const registrationKey = `registration_attempts:${req.ip}`;

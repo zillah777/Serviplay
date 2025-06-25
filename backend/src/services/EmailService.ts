@@ -16,7 +16,13 @@ class EmailService {
     });
   }
 
-  private async sendEmail(to: string, subject: string, html: string): Promise<void> {
+  private async sendEmail(to: string, subject: string, html: string): Promise<boolean> {
+    // Si no hay configuración de email, no enviar pero no fallar
+    if (!process.env.EMAIL_HOST || !process.env.EMAIL_USER) {
+      console.log(`⚠️ Email no configurado, saltando envío a ${to}: ${subject}`);
+      return false;
+    }
+
     try {
       await this.transporter.sendMail({
         from: `"Serviplay" <${process.env.EMAIL_FROM}>`,
@@ -26,13 +32,15 @@ class EmailService {
       });
       
       console.log(`✅ Email enviado a ${to}: ${subject}`);
+      return true;
     } catch (error) {
       console.error('❌ Error enviando email:', error);
-      throw createError('Error enviando email', 500);
+      // No lanzar error para que no interrumpa el registro
+      return false;
     }
   }
 
-  async sendVerificationEmail(email: string, token: string): Promise<void> {
+  async sendVerificationEmail(email: string, token: string): Promise<boolean> {
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
     
     const html = `
@@ -81,7 +89,7 @@ class EmailService {
       </div>
     `;
 
-    await this.sendEmail(email, 'Verificá tu email - Serviplay', html);
+    return await this.sendEmail(email, 'Verificá tu email - Serviplay', html);
   }
 
   async sendPasswordResetEmail(email: string, token: string): Promise<void> {

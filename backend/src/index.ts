@@ -10,6 +10,13 @@ import { errorHandler } from './middleware/errorHandler';
 // Routes
 import healthRoutes from './routes/health';
 import authRoutes from './routes/auth';
+import servicesRoutes from './routes/services';
+import busquedasRoutes from './routes/busquedas';
+import usersRoutes from './routes/users';
+import matchesRoutes from './routes/matches';
+import notificationsRoutes from './routes/notifications';
+import paymentsRoutes from './routes/payments';
+import webhooksRoutes from './routes/webhooks';
 
 dotenv.config();
 
@@ -65,6 +72,13 @@ app.get('/health', (_req, res) => {
 // API routes
 app.use('/api', healthRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/services', servicesRoutes);
+app.use('/api/busquedas', busquedasRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/matches', matchesRoutes);
+app.use('/api/notifications', notificationsRoutes);
+app.use('/api/payments', paymentsRoutes);
+app.use('/api/webhooks', webhooksRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

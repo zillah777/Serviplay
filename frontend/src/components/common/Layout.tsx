@@ -2,14 +2,7 @@ import { ReactNode } from 'react';
 import Head from 'next/head';
 import Header from './Header';
 import { APP_CONFIG } from '@/utils/constants';
-
-interface LayoutProps {
-  children: ReactNode;
-  title?: string;
-  description?: string;
-  showSearch?: boolean;
-  user?: any;
-}
+import { LayoutProps } from '@/types';
 
 const Layout = ({ 
   children, 

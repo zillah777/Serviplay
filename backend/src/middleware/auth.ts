@@ -85,10 +85,10 @@ export const authenticateToken = async (req: AuthRequest, res: Response, next: N
       });
     }
 
-    if (user.estado === 'inactivo') {
+    if (user.estado === 'suspendido') {
       return res.status(401).json({ 
-        error: 'Cuenta inactiva',
-        code: 'ACCOUNT_INACTIVE'
+        error: 'Cuenta suspendida',
+        code: 'ACCOUNT_SUSPENDED'
       });
     }
     

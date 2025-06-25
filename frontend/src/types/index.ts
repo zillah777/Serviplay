@@ -1,3 +1,12 @@
+// Tipos básicos
+export interface DisponibilidadHoraria {
+  [key: string]: {
+    activo: boolean;
+    horaInicio: string;
+    horaFin: string;
+  };
+}
+
 export interface Usuario {
   id: string;
   email: string;
@@ -31,7 +40,7 @@ export interface PerfilAs {
   nivel_educativo?: 'primario' | 'secundario' | 'terciario' | 'universitario' | 'posgrado';
   referencias_laborales?: string;
   tiene_movilidad: boolean;
-  disponibilidad_horaria?: any;
+  disponibilidad_horaria?: DisponibilidadHoraria;
   dias_disponibles?: number[];
   radio_notificaciones: number;
   servicios_notificaciones?: string[];
@@ -166,7 +175,7 @@ export interface Notificacion {
   tipo: 'match' | 'mensaje' | 'calificacion' | 'sistema' | 'pago';
   titulo: string;
   mensaje: string;
-  datos_extra?: any;
+  datos_extra?: Record<string, any>;
   leida: boolean;
   enviada_push: boolean;
   created_at: Date;
@@ -189,4 +198,58 @@ export interface AsCardProps {
 export interface ExploradorCardProps {
   explorador: PerfilExplorador;
   onClick: () => void;
+}
+
+// Tipos para componentes de UI
+export interface UserProfile {
+  id: string;
+  email: string;
+  tipo_usuario: 'as' | 'explorador' | 'ambos';
+  nombre?: string;
+  apellido?: string;
+  foto_perfil?: string;
+  telefono?: string;
+  direccion?: string;
+  suscripcion_activa?: boolean;
+  identidad_verificada?: boolean;
+  profesional_verificado?: boolean;
+}
+
+export interface HeaderProps {
+  user?: UserProfile;
+  showSearch?: boolean;
+  onSearchFocus?: () => void;
+}
+
+export interface LayoutProps {
+  children: React.ReactNode;
+  title?: string;
+  description?: string;
+  showSearch?: boolean;
+  user?: UserProfile;
+}
+
+export interface SearchResultsProps {
+  results: Servicio[];
+  loading: boolean;
+  error?: string;
+  onServiceClick: (service: Servicio) => void;
+  onLoadMore?: () => void;
+  hasMore?: boolean;
+}
+
+
+// Tipos para formularios
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+export interface RegisterFormData {
+  email: string;
+  password: string;
+  tipo_usuario: 'as' | 'explorador';
+  nombre: string;
+  apellido: string;
+  telefono: string;
 }

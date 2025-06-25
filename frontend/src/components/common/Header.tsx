@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bars3Icon, 
@@ -9,15 +10,20 @@ import {
   MagnifyingGlassIcon 
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
+import { HeaderProps } from '@/types';
 
-interface HeaderProps {
-  user?: any;
-  showSearch?: boolean;
-}
-
-const Header = ({ user, showSearch = true }: HeaderProps) => {
+const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const router = useRouter();
+
+  const handleSearchFocus = () => {
+    if (onSearchFocus) {
+      onSearchFocus();
+    } else {
+      router.push('/explore');
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-neutral-200">
@@ -46,7 +52,7 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                   type="text"
                   placeholder={`Buscá ${BRAND_TERMS.ASES} o servicios...`}
                   className="w-full pl-10 pr-4 py-2 border border-neutral-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
-                  onFocus={() => window.location.href = '/explore'}
+                  onFocus={handleSearchFocus}
                 />
               </div>
             </div>
@@ -65,13 +71,13 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                   Planes
                 </Link>
                 
-                {user.tipo_usuario === 'as' && (
+                {user?.tipo_usuario === 'as' && (
                   <Link href="/my-services" className="text-neutral-600 hover:text-primary-blue transition-colors">
                     Mis Servicios
                   </Link>
                 )}
                 
-                {user.tipo_usuario === 'explorador' && (
+                {user?.tipo_usuario === 'explorador' && (
                   <Link href="/my-searches" className="text-neutral-600 hover:text-primary-blue transition-colors">
                     Mis Búsquedas
                   </Link>
@@ -92,12 +98,12 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                     className="flex items-center space-x-2 p-2 rounded-full hover:bg-neutral-100 transition-colors"
                   >
                     <img 
-                      src={user.foto_perfil || '/images/default-avatar.png'}
+                      src={user?.foto_perfil || '/images/default-avatar.png'}
                       alt="Profile"
                       className="w-8 h-8 rounded-full object-cover"
                     />
                     <span className="text-sm font-medium text-neutral-700">
-                      {user.nombre}
+                      {user?.nombre || 'Usuario'}
                     </span>
                   </button>
 
@@ -115,7 +121,7 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                         <Link href="/settings" className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
                           Configuración
                         </Link>
-                        {user.tipo_usuario === 'as' && (
+                        {user?.tipo_usuario === 'as' && (
                           <Link href="/subscription" className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
                             Suscripción
                           </Link>
@@ -173,7 +179,7 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                 type="text"
                 placeholder={`Buscá ${BRAND_TERMS.ASES} o servicios...`}
                 className="w-full pl-10 pr-4 py-2 border border-neutral-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent"
-                onFocus={() => window.location.href = '/explore'}
+                onFocus={handleSearchFocus}
               />
             </div>
           </div>
@@ -194,14 +200,14 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                 <>
                   <div className="flex items-center space-x-3 pb-4 border-b border-neutral-200">
                     <img 
-                      src={user.foto_perfil || '/images/default-avatar.png'}
+                      src={user?.foto_perfil || '/images/default-avatar.png'}
                       alt="Profile"
                       className="w-10 h-10 rounded-full object-cover"
                     />
                     <div>
-                      <p className="font-medium text-neutral-900">{user.nombre}</p>
+                      <p className="font-medium text-neutral-900">{user?.nombre || 'Usuario'}</p>
                       <p className="text-sm text-neutral-500 capitalize">
-                        {user.tipo_usuario === 'as' ? BRAND_TERMS.AS : BRAND_TERMS.EXPLORADOR}
+                        {user?.tipo_usuario === 'as' ? BRAND_TERMS.AS : BRAND_TERMS.EXPLORADOR}
                       </p>
                     </div>
                   </div>
@@ -214,7 +220,7 @@ const Header = ({ user, showSearch = true }: HeaderProps) => {
                     Planes
                   </Link>
                   
-                  {user.tipo_usuario === 'as' && (
+                  {user?.tipo_usuario === 'as' && (
                     <Link href="/my-services" className="block py-2 text-neutral-700">
                       Mis Servicios
                     </Link>

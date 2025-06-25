@@ -104,19 +104,19 @@ export function CategoryIcon({
 }
 
 // Componente para badges con emojis
-interface EmojiBadge {
+interface EmojiBadgeProps {
   emoji: string;
   text: string;
   color?: string;
   variant?: 'default' | 'success' | 'warning' | 'danger' | 'info';
 }
 
-export function EmojiB({ 
+export function EmojiBadge({ 
   emoji, 
   text, 
   color,
   variant = 'default' 
-}: EmojiBadge) {
+}: EmojiBadgeProps) {
   const variantClasses = {
     default: 'bg-neutral-100 text-neutral-700',
     success: 'bg-green-100 text-green-800',

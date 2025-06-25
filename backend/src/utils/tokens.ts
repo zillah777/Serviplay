@@ -19,7 +19,9 @@ export const generateVerificationToken = (): string => {
 export const generateAccessToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>): string => {
   const secret = process.env.JWT_SECRET || 'default-secret';
   const options: SignOptions = {
-    expiresIn: '15m'
+    expiresIn: '15m',
+    issuer: 'serviplay',
+    audience: 'serviplay-users'
   };
   return jwt.sign(payload as object, secret, options);
 };
@@ -28,7 +30,9 @@ export const generateAccessToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>):
 export const generateRefreshToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>): string => {
   const secret = process.env.JWT_REFRESH_SECRET || 'default-refresh-secret';
   const options: SignOptions = {
-    expiresIn: '7d'
+    expiresIn: '7d',
+    issuer: 'serviplay',
+    audience: 'serviplay-users'
   };
   return jwt.sign(payload as object, secret, options);
 };

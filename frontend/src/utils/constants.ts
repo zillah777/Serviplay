@@ -7,7 +7,7 @@ export const BRAND_TERMS = {
   EXPLORADORES: 'Exploradores',
   
   // Mensajes de marca
-  BECOME_AS: 'Convertite en un As de Serviplay',
+  BECOME_AS: 'Convertite en un As de Fixialo',
   EXPLORERS_FIND: 'Los Exploradores encuentran todo lo que necesitan',
   MATCH_MESSAGE: 'Match entre Ases y Exploradores',
   
@@ -42,14 +42,14 @@ export const BRAND_TERMS = {
 
 // Configuración de la app
 export const APP_CONFIG = {
-  NAME: 'Serviplay',
+  NAME: 'Fixialo',
   TAGLINE: 'Conectando Ases y Exploradores',
   VERSION: '1.0.0',
   
   // URLs
   WHATSAPP_BASE: 'https://wa.me/',
-  INSTAGRAM_URL: 'https://instagram.com/serviplay',
-  SUPPORT_EMAIL: 'hola@serviplay.com',
+  INSTAGRAM_URL: 'https://instagram.com/fixialo',
+  SUPPORT_EMAIL: 'hola@fixialo.com',
   
   // Límites
   MAX_SERVICES_FREE: 3,

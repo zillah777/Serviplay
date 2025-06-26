@@ -1,37 +1,68 @@
+import sgMail from '@sendgrid/mail';
 import nodemailer from 'nodemailer';
 import { createError } from '@/middleware/errorHandler';
 
 class EmailService {
-  private transporter: nodemailer.Transporter;
+  private transporter: nodemailer.Transporter | null = null;
+  private useSendGrid: boolean;
 
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: parseInt(process.env.EMAIL_PORT || '587'),
-      secure: false, // true para 465, false para otros puertos
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    // Priorizar SendGrid si está configurado
+    if (process.env.SENDGRID_API_KEY) {
+      this.useSendGrid = true;
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      console.log('✅ EmailService configurado con SendGrid');
+    } else if (process.env.EMAIL_HOST && process.env.EMAIL_USER) {
+      this.useSendGrid = false;
+      this.transporter = nodemailer.createTransport({
+        host: process.env.EMAIL_HOST,
+        port: parseInt(process.env.EMAIL_PORT || '587'),
+        secure: false,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+      console.log('✅ EmailService configurado con SMTP');
+    } else {
+      this.useSendGrid = false;
+      console.log('⚠️ EmailService no configurado - emails se simularán');
+    }
   }
 
   private async sendEmail(to: string, subject: string, html: string): Promise<boolean> {
-    // Si no hay configuración de email, no enviar pero no fallar
-    if (!process.env.EMAIL_HOST || !process.env.EMAIL_USER) {
-      console.log(`⚠️ Email no configurado, saltando envío a ${to}: ${subject}`);
+    // Si no hay configuración de email, simular envío
+    if (!this.useSendGrid && !this.transporter) {
+      console.log(`⚠️ Email no configurado, simulando envío a ${to}: ${subject}`);
       return false;
     }
 
     try {
-      await this.transporter.sendMail({
-        from: `"Serviplay" <${process.env.EMAIL_FROM}>`,
-        to,
-        subject,
-        html,
-      });
+      if (this.useSendGrid) {
+        // Usar SendGrid
+        const msg = {
+          to,
+          from: {
+            email: process.env.EMAIL_FROM || 'noreply@fixialo.com',
+            name: 'Fixialo'
+          },
+          subject,
+          html,
+        };
+        
+        await sgMail.send(msg);
+        console.log(`✅ Email enviado con SendGrid a ${to}: ${subject}`);
+      } else {
+        // Usar SMTP
+        await this.transporter!.sendMail({
+          from: `"Fixialo" <${process.env.EMAIL_FROM || 'noreply@fixialo.com'}>`,
+          to,
+          subject,
+          html,
+        });
+        console.log(`✅ Email enviado con SMTP a ${to}: ${subject}`);
+      }
       
-      console.log(`✅ Email enviado a ${to}: ${subject}`);
       return true;
     } catch (error) {
       console.error('❌ Error enviando email:', error);
@@ -51,13 +82,13 @@ class EmailService {
             <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
               <span style="color: white; font-size: 24px; font-weight: bold;">S</span>
             </div>
-            <h1 style="color: #1e293b; font-size: 28px; font-weight: 700; margin: 0;">¡Bienvenido/a a Serviplay!</h1>
+            <h1 style="color: #1e293b; font-size: 28px; font-weight: 700; margin: 0;">¡Bienvenido/a a Fixialo!</h1>
           </div>
 
           <!-- Content -->
           <div style="margin-bottom: 40px;">
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-              Gracias por registrarte en Serviplay, la plataforma que conecta Ases y Exploradores.
+              Gracias por registrarte en Fixialo, la plataforma que conecta Ases y Exploradores.
             </p>
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
               Para completar tu registro y comenzar a usar todas las funcionalidades, necesitás verificar tu email:
@@ -82,14 +113,14 @@ class EmailService {
               Este enlace expira en 24 horas por seguridad.
             </p>
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              © 2024 Serviplay. Todos los derechos reservados.
+              © 2024 Fixialo. Todos los derechos reservados.
             </p>
           </div>
         </div>
       </div>
     `;
 
-    return await this.sendEmail(email, 'Verificá tu email - Serviplay', html);
+    return await this.sendEmail(email, 'Verificá tu email - Fixialo', html);
   }
 
   async sendPasswordResetEmail(email: string, token: string): Promise<void> {
@@ -109,7 +140,7 @@ class EmailService {
           <!-- Content -->
           <div style="margin-bottom: 40px;">
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-              Recibimos una solicitud para restablecer la contraseña de tu cuenta en Serviplay.
+              Recibimos una solicitud para restablecer la contraseña de tu cuenta en Fixialo.
             </p>
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
               Si fuiste vos quien hizo esta solicitud, hacé clic en el botón de abajo para crear una nueva contraseña:
@@ -140,14 +171,14 @@ class EmailService {
               Este enlace expira en 1 hora por seguridad.
             </p>
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              © 2024 Serviplay. Todos los derechos reservados.
+              © 2024 Fixialo. Todos los derechos reservados.
             </p>
           </div>
         </div>
       </div>
     `;
 
-    await this.sendEmail(email, 'Restablecer contraseña - Serviplay', html);
+    await this.sendEmail(email, 'Restablecer contraseña - Fixialo', html);
   }
 
   async sendWelcomeEmail(email: string, nombre: string, tipo_usuario: string): Promise<void> {
@@ -166,7 +197,7 @@ class EmailService {
               ¡Hola ${nombre}! 👋
             </h1>
             <p style="color: #2563eb; font-size: 18px; font-weight: 600; margin: 10px 0 0 0;">
-              ${isAs ? '¡Sos oficialmente un As de Serviplay! 🌟' : '¡Bienvenido/a al equipo de Exploradores! 🔍'}
+              ${isAs ? '¡Sos oficialmente un As de Fixialo! 🌟' : '¡Bienvenido/a al equipo de Exploradores! 🔍'}
             </p>
           </div>
 
@@ -211,14 +242,14 @@ class EmailService {
               ¿Necesitás ayuda? Contactanos en hola@serviplay.com
             </p>
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              © 2024 Serviplay. Todos los derechos reservados.
+              © 2024 Fixialo. Todos los derechos reservados.
             </p>
           </div>
         </div>
       </div>
     `;
 
-    await this.sendEmail(email, `¡Bienvenido/a a Serviplay, ${nombre}!`, html);
+    await this.sendEmail(email, `¡Bienvenido/a a Fixialo, ${nombre}!`, html);
   }
 }
 

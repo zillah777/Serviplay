@@ -1,7 +1,7 @@
 {
-  "name": "fixialo-backend",
+  "name": "fixia-backend",
   "version": "1.0.0",
-  "description": "Backend API para Fixialo",
+  "description": "Backend API para Fixia",
   "main": "dist/index.js",
   "engines": {
     "node": ">=18.0.0",

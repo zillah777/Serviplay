@@ -1,7 +1,7 @@
 {
-  "name": "Serviplay",
-  "short_name": "Serviplay",
-  "description": "Aplicación web progresiva Serviplay",
+  "name": "Fixia",
+  "short_name": "Fixia",
+  "description": "Aplicación web progresiva Fixia",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

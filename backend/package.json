@@ -9,11 +9,11 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "node dist/index.js",
     "postbuild": "npm run migrate || true",
     "lint": "eslint src/**/*.ts",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "npx tsc --noEmit",
     "migrate": "node migrate.js",
     "migrate:down": "node-pg-migrate down",
     "seed": "ts-node seeds/index.ts"
@@ -38,7 +38,6 @@
     "nodemailer": "^6.9.0",
     "pg": "^8.11.0",
     "redis": "^4.6.0",
-    "typescript": "^5.8.3",
     "uuid": "^9.0.0"
   },
   "_moduleAliases": {
@@ -58,6 +57,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
     "nodemon": "^3.0.0",
-    "ts-node": "^10.9.0"
+    "ts-node": "^10.9.0",
+    "typescript": "^5.8.3"
   }
 }

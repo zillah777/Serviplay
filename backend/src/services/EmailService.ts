@@ -239,7 +239,7 @@ class EmailService {
           <!-- Footer -->
           <div style="border-top: 1px solid #e2e8f0; padding-top: 30px; text-align: center;">
             <p style="color: #94a3b8; font-size: 14px; margin: 0 0 10px 0;">
-              ¿Necesitás ayuda? Contactanos en hola@serviplay.com
+              ¿Necesitás ayuda? Contactanos en hola@fixia.com
             </p>
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
               © 2024 Fixia. Todos los derechos reservados.

@@ -460,11 +460,11 @@ export class PaymentService {
       
       const preferenceData = {
         items: [{
-          title: `Suscripción Serviplay - Plan ${planId}`,
+          title: `Suscripción Fixia - Plan ${planId}`,
           quantity: 1,
           unit_price: precio,
           currency_id: 'ARS',
-          description: `Suscripción mensual al plan ${planId} de Serviplay`
+          description: `Suscripción mensual al plan ${planId} de Fixia`
         }],
         payer: {
           email: user.email

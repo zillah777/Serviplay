@@ -68,13 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // App functionality
-class ServiplayApp {
+class FixiaApp {
     constructor() {
         this.init();
     }
     
     init() {
-        console.log('Serviplay PWA inicializada');
+        console.log('Fixia PWA inicializada');
         this.addEventListeners();
     }
     
@@ -84,4 +84,4 @@ class ServiplayApp {
 }
 
 // Initialize app
-const app = new ServiplayApp();
+const app = new FixiaApp();

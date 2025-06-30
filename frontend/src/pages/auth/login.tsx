@@ -59,7 +59,7 @@ export default function Login() {
     <>
       <Head>
         <title>Iniciar Sesión - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Inicia sesión en tu cuenta de Serviplay" />
+        <meta name="description" content="Inicia sesión en tu cuenta de Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center px-4">
@@ -73,7 +73,7 @@ export default function Login() {
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-2 mb-6">
               <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">S</span>
+                <span className="text-white font-bold text-xl">F</span>
               </div>
               <span className="font-display text-2xl font-bold text-neutral-900">
                 {APP_CONFIG.NAME}

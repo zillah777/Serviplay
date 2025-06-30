@@ -10,7 +10,7 @@ export class WhatsAppService {
 
 Soy ${exploradorNombre} y me interesa tu servicio "${match.servicio_titulo}".
 
-Vi tu publicación en Serviplay y me gustaría conocer más detalles.
+Vi tu publicación en Fixia y me gustaría conocer más detalles.
 
 ¿Podrías contarme sobre:
 - Disponibilidad
@@ -19,13 +19,13 @@ Vi tu publicación en Serviplay y me gustaría conocer más detalles.
 
 ¡Gracias! 😊
 
-_Mensaje enviado desde Serviplay_ 🚀`;
+_Mensaje enviado desde Fixia_ 🚀`;
     } else {
       return `¡Hola ${asNombre}! 👋
 
 Soy ${exploradorNombre} y creo que podrías ayudarme con lo que necesito.
 
-Publiqué una búsqueda en Serviplay: "${match.busqueda_titulo}"
+Publiqué una búsqueda en Fixia: "${match.busqueda_titulo}"
 
 ${match.busqueda_descripcion}
 
@@ -33,7 +33,7 @@ ${match.busqueda_descripcion}
 
 Saludos 😊
 
-_Mensaje enviado desde Serviplay_ 🚀`;
+_Mensaje enviado desde Fixia_ 🚀`;
     }
   }
 
@@ -58,7 +58,7 @@ Vi tu servicio de "${match.servicio?.titulo || match.servicio_titulo}" en Servip
 
 ¿Podrías ayudarme? ¡Gracias!
 
-_Mensaje enviado desde Serviplay_ 🚀`;
+_Mensaje enviado desde Fixia_ 🚀`;
     
     // Limpiar y formatear número
     const numeroLimpio = telefono.replace(/\D/g, '');

@@ -43,8 +43,8 @@ class EmailService {
         const msg = {
           to,
           from: {
-            email: process.env.EMAIL_FROM || 'noreply@fixialo.com',
-            name: 'Fixialo'
+            email: process.env.EMAIL_FROM || 'noreply@fixia.com',
+            name: 'Fixia'
           },
           subject,
           html,
@@ -55,7 +55,7 @@ class EmailService {
       } else {
         // Usar SMTP
         await this.transporter!.sendMail({
-          from: `"Fixialo" <${process.env.EMAIL_FROM || 'noreply@fixialo.com'}>`,
+          from: `"Fixia" <${process.env.EMAIL_FROM || 'noreply@fixia.com'}>`,
           to,
           subject,
           html,
@@ -80,15 +80,15 @@ class EmailService {
           <!-- Header -->
           <div style="text-align: center; margin-bottom: 40px;">
             <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-              <span style="color: white; font-size: 24px; font-weight: bold;">S</span>
+              <span style="color: white; font-size: 24px; font-weight: bold;">F</span>
             </div>
-            <h1 style="color: #1e293b; font-size: 28px; font-weight: 700; margin: 0;">¡Bienvenido/a a Fixialo!</h1>
+            <h1 style="color: #1e293b; font-size: 28px; font-weight: 700; margin: 0;">¡Bienvenido/a a Fixia!</h1>
           </div>
 
           <!-- Content -->
           <div style="margin-bottom: 40px;">
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-              Gracias por registrarte en Fixialo, la plataforma que conecta Ases y Exploradores.
+              Gracias por registrarte en Fixia, la plataforma que conecta Ases y Exploradores.
             </p>
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
               Para completar tu registro y comenzar a usar todas las funcionalidades, necesitás verificar tu email:
@@ -113,14 +113,14 @@ class EmailService {
               Este enlace expira en 24 horas por seguridad.
             </p>
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              © 2024 Fixialo. Todos los derechos reservados.
+              © 2024 Fixia. Todos los derechos reservados.
             </p>
           </div>
         </div>
       </div>
     `;
 
-    return await this.sendEmail(email, 'Verificá tu email - Fixialo', html);
+    return await this.sendEmail(email, 'Verificá tu email - Fixia', html);
   }
 
   async sendPasswordResetEmail(email: string, token: string): Promise<void> {
@@ -140,7 +140,7 @@ class EmailService {
           <!-- Content -->
           <div style="margin-bottom: 40px;">
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-              Recibimos una solicitud para restablecer la contraseña de tu cuenta en Fixialo.
+              Recibimos una solicitud para restablecer la contraseña de tu cuenta en Fixia.
             </p>
             <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
               Si fuiste vos quien hizo esta solicitud, hacé clic en el botón de abajo para crear una nueva contraseña:
@@ -171,14 +171,14 @@ class EmailService {
               Este enlace expira en 1 hora por seguridad.
             </p>
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              © 2024 Fixialo. Todos los derechos reservados.
+              © 2024 Fixia. Todos los derechos reservados.
             </p>
           </div>
         </div>
       </div>
     `;
 
-    await this.sendEmail(email, 'Restablecer contraseña - Fixialo', html);
+    await this.sendEmail(email, 'Restablecer contraseña - Fixia', html);
   }
 
   async sendWelcomeEmail(email: string, nombre: string, tipo_usuario: string): Promise<void> {
@@ -191,13 +191,13 @@ class EmailService {
           <!-- Header -->
           <div style="text-align: center; margin-bottom: 40px;">
             <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-              <span style="color: white; font-size: 24px; font-weight: bold;">S</span>
+              <span style="color: white; font-size: 24px; font-weight: bold;">F</span>
             </div>
             <h1 style="color: #1e293b; font-size: 28px; font-weight: 700; margin: 0;">
               ¡Hola ${nombre}! 👋
             </h1>
             <p style="color: #2563eb; font-size: 18px; font-weight: 600; margin: 10px 0 0 0;">
-              ${isAs ? '¡Sos oficialmente un As de Fixialo! 🌟' : '¡Bienvenido/a al equipo de Exploradores! 🔍'}
+              ${isAs ? '¡Sos oficialmente un As de Fixia! 🌟' : '¡Bienvenido/a al equipo de Exploradores! 🔍'}
             </p>
           </div>
 
@@ -242,14 +242,14 @@ class EmailService {
               ¿Necesitás ayuda? Contactanos en hola@serviplay.com
             </p>
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              © 2024 Fixialo. Todos los derechos reservados.
+              © 2024 Fixia. Todos los derechos reservados.
             </p>
           </div>
         </div>
       </div>
     `;
 
-    await this.sendEmail(email, `¡Bienvenido/a a Fixialo, ${nombre}!`, html);
+    await this.sendEmail(email, `¡Bienvenido/a a Fixia, ${nombre}!`, html);
   }
 }
 

@@ -93,7 +93,7 @@ export default function Dashboard() {
     <>
       <Head>
         <title>Dashboard - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Tu panel de control en Serviplay" />
+        <meta name="description" content="Tu panel de control en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
@@ -103,7 +103,7 @@ export default function Dashboard() {
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
                 <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">S</span>
+                  <span className="text-white font-bold text-lg">F</span>
                 </div>
                 <span className="font-display text-xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}

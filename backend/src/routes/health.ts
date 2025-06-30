@@ -15,7 +15,7 @@ router.get('/health', (_req, res) => {
 // Basic API test endpoint
 router.get('/test', (_req, res) => {
   res.json({ 
-    message: 'Serviplay API is working!',
+    message: 'Fixia API is working!',
     version: '1.0.0',
     timestamp: new Date().toISOString()
   });

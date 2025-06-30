@@ -1,4 +1,4 @@
-const CACHE_NAME = 'serviplay-v1';
+const CACHE_NAME = 'fixia-v1';
 const urlsToCache = [
   '/',
   '/index.html',

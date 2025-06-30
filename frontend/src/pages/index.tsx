@@ -49,7 +49,7 @@ export default function Home() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">S</span>
+                  <span className="text-white font-bold text-xl">F</span>
                 </div>
                 <h1 className="font-display text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                   {APP_CONFIG.NAME}
@@ -534,7 +534,7 @@ export default function Home() {
               </h3>
               
               <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-12">
-                Para publicar tus servicios en Serviplay, solo necesitas una <strong>suscripción mensual</strong>. 
+                Para publicar tus servicios en Fixia, solo necesitas una <strong>suscripción mensual</strong>. 
                 Sin comisiones por cada trabajo, sin costos ocultos.
               </p>
 
@@ -751,7 +751,7 @@ export default function Home() {
               <div className="md:col-span-2">
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-xl">S</span>
+                    <span className="text-white font-bold text-xl">F</span>
                   </div>
                   <span className="font-display text-2xl font-bold">{APP_CONFIG.NAME}</span>
                 </div>

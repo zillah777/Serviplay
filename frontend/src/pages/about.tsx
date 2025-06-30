@@ -84,7 +84,7 @@ const stats = [
 const timeline = [
   {
     year: '2024',
-    title: 'Lanzamiento de Serviplay',
+    title: 'Lanzamiento de Fixia',
     description: 'Comenzamos con la visión de conectar personas de forma directa y sin comisiones',
     emoji: '🚀',
     milestone: 'Inicio'
@@ -116,7 +116,7 @@ const team = [
   {
     name: 'Mmata',
     role: 'Fundador & CEO',
-    description: 'Visionario que creó Serviplay para democratizar el acceso a servicios de calidad',
+    description: 'Visionario que creó Fixia para democratizar el acceso a servicios de calidad',
     emoji: '👨‍💼',
     background: 'Con experiencia en tecnología y emprendimientos, lidera la visión estratégica de la plataforma.',
     linkedin: '#'
@@ -155,7 +155,7 @@ export default function About() {
     <>
       <Head>
         <title>Sobre Nosotros - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Conoce la historia, misión y equipo detrás de Serviplay" />
+        <meta name="description" content="Conoce la historia, misión y equipo detrás de Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gray-50">
@@ -165,7 +165,7 @@ export default function About() {
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">S</span>
+                  <span className="text-white font-bold text-xl">F</span>
                 </div>
                 <span className="font-display text-2xl font-bold text-gray-900">
                   {APP_CONFIG.NAME}

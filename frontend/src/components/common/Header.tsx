@@ -36,7 +36,7 @@ const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="text-white font-bold text-xl">S</span>
+              <span className="text-white font-bold text-xl">F</span>
             </motion.div>
             <h1 className="font-display text-xl font-bold text-neutral-900 group-hover:text-primary-blue transition-colors">
               {APP_CONFIG.NAME}

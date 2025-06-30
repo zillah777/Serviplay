@@ -23,9 +23,9 @@ const contactMethods = [
     icon: EnvelopeIcon,
     title: 'Email',
     description: 'Respuesta en 24 horas',
-    value: 'hola@serviplay.com',
+    value: 'hola@fixia.com',
     emoji: '📧',
-    action: 'mailto:hola@serviplay.com'
+    action: 'mailto:hola@fixia.com'
   },
   {
     icon: PhoneIcon,

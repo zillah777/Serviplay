@@ -26,7 +26,7 @@ const Layout = ({
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.NEXT_PUBLIC_APP_URL || 'https://serviplay.vercel.app'} />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_APP_URL || 'https://fixia.vercel.app'} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -85,7 +85,7 @@ const Layout = ({
             <div className="border-t border-neutral-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center space-x-2 mb-4 md:mb-0">
                 <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">S</span>
+                  <span className="text-white font-bold text-lg">F</span>
                 </div>
                 <span className="font-display text-lg font-bold text-neutral-900">{APP_CONFIG.NAME}</span>
               </div>

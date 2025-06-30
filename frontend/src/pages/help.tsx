@@ -162,7 +162,7 @@ const contactOptions = [
     description: 'Respuesta en 4-6 horas',
     icon: EnvelopeIcon,
     emoji: '📧',
-    action: 'ayuda@serviplay.com',
+    action: 'ayuda@fixia.com',
     available: true,
     responseTime: '4-6 horas'
   },

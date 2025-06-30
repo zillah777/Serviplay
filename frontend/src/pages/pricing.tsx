@@ -16,7 +16,7 @@ const plans = [
     emoji: '🚀',
     price: 2900,
     period: 'por mes',
-    description: 'Plan mínimo requerido para publicar servicios en Serviplay',
+    description: 'Plan mínimo requerido para publicar servicios en Fixia',
     color: 'blue',
     popular: true,
     required: true,
@@ -86,7 +86,7 @@ const plans = [
       { text: 'Consultor personal asignado', included: true },
       { text: 'Promociones especiales', included: true },
       { text: 'Acceso anticipado a nuevas funciones', included: true },
-      { text: 'Certificación Serviplay', included: true },
+      { text: 'Certificación Fixia', included: true },
       { text: 'Networking exclusivo', included: true },
       { text: 'Revenue insights', included: true }
     ],
@@ -115,11 +115,11 @@ const faqs = [
   },
   {
     question: '¿Los Exploradores también pagan?',
-    answer: 'No, Serviplay es completamente gratuito para los Exploradores. Los Ases requieren una suscripción mensual mínima de $2900 para publicar servicios.'
+    answer: 'No, Fixia es completamente gratuito para los Exploradores. Los Ases requieren una suscripción mensual mínima de $2900 para publicar servicios.'
   },
   {
     question: '¿Puedo facturar mis servicios a través de Serviplay?',
-    answer: 'Los pagos se realizan directamente entre As y Explorador. Serviplay facilita el contacto pero no procesa pagos de servicios.'
+    answer: 'Los pagos se realizan directamente entre As y Explorador. Fixia facilita el contacto pero no procesa pagos de servicios.'
   }
 ];
 

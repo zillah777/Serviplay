@@ -1,10 +1,38 @@
 const { Pool } = require('pg');
 
+// Debug: Check environment variables
+console.log('🔍 Environment check:');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'SET' : 'NOT SET');
+console.log('PORT:', process.env.PORT);
+
 // Database connection configuration
-const pool = new Pool({
+const connectionConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+};
+
+// Fallback configuration if DATABASE_URL is not set
+if (!process.env.DATABASE_URL) {
+  console.log('⚠️ DATABASE_URL not found, using individual PG variables');
+  connectionConfig.host = process.env.PGHOST || 'localhost';
+  connectionConfig.port = process.env.PGPORT || 5432;
+  connectionConfig.database = process.env.PGDATABASE || 'railway';
+  connectionConfig.user = process.env.PGUSER || 'postgres';
+  connectionConfig.password = process.env.PGPASSWORD;
+  connectionConfig.ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
+}
+
+console.log('🔗 Connection config:', {
+  host: connectionConfig.host,
+  port: connectionConfig.port,
+  database: connectionConfig.database,
+  user: connectionConfig.user,
+  ssl: !!connectionConfig.ssl,
+  connectionString: !!connectionConfig.connectionString
 });
+
+const pool = new Pool(connectionConfig);
 
 // Test database connection
 async function testConnection() {

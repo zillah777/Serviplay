@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://serviplay-production.up.railway.app/api/:path*"
+      "destination": "https://fixia-production.up.railway.app/api/:path*"
     }
   ],
   "headers": [
@@ -30,7 +30,8 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_APP_NAME": "Serviplay",
-    "NEXT_PUBLIC_APP_URL": "https://serviplay-zillah777.vercel.app"
+    "NEXT_PUBLIC_APP_NAME": "Fixia",
+    "NEXT_PUBLIC_APP_URL": "https://fixia.vercel.app",
+    "NEXT_PUBLIC_API_URL": "https://fixia-production.up.railway.app"
   }
 }

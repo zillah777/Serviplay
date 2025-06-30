@@ -4,24 +4,21 @@ const { Pool } = require('pg');
 console.log('🔍 Environment check:');
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'SET' : 'NOT SET');
+console.log('DATABASE_URL value:', process.env.DATABASE_URL);
 console.log('PORT:', process.env.PORT);
 
 // Database connection configuration
+// Use individual variables to avoid IPv6 issues with CONNECTION_STRING
 const connectionConfig = {
-  connectionString: process.env.DATABASE_URL,
+  host: process.env.PGHOST || 'postgres.railway.internal',
+  port: process.env.PGPORT || 5432,
+  database: process.env.PGDATABASE || 'railway',
+  user: process.env.PGUSER || 'postgres',
+  password: process.env.PGPASSWORD,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 };
 
-// Fallback configuration if DATABASE_URL is not set
-if (!process.env.DATABASE_URL) {
-  console.log('⚠️ DATABASE_URL not found, using individual PG variables');
-  connectionConfig.host = process.env.PGHOST || 'localhost';
-  connectionConfig.port = process.env.PGPORT || 5432;
-  connectionConfig.database = process.env.PGDATABASE || 'railway';
-  connectionConfig.user = process.env.PGUSER || 'postgres';
-  connectionConfig.password = process.env.PGPASSWORD;
-  connectionConfig.ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
-}
+console.log('🔧 Using individual PG variables to avoid IPv6 issues');
 
 console.log('🔗 Connection config:', {
   host: connectionConfig.host,

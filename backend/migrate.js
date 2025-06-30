@@ -5,25 +5,24 @@ const path = require('path');
 async function runMigrations() {
   console.log('🚀 Starting database migrations...');
   
-  // Use same connection strategy as main app
-  const connectionConfig = {
-    host: process.env.PGHOST || 'postgres.railway.internal',
-    port: process.env.PGPORT || 5432,
-    database: process.env.PGDATABASE || 'railway',
-    user: process.env.PGUSER || 'postgres',
-    password: process.env.PGPASSWORD,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-  };
+  // For migrations, use DATABASE_PUBLIC_URL or DATABASE_URL
+  const databaseUrl = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
   
-  console.log('🔗 Migration connection config:', {
-    host: connectionConfig.host,
-    port: connectionConfig.port,
-    database: connectionConfig.database,
-    user: connectionConfig.user,
-    ssl: !!connectionConfig.ssl
+  if (!databaseUrl) {
+    console.log('❌ No DATABASE_URL or DATABASE_PUBLIC_URL found');
+    console.log('Available DB env vars:', Object.keys(process.env).filter(key => 
+      key.includes('PG') || key.includes('DATABASE')));
+    return;
+  }
+  
+  console.log('🔗 Using database URL for migrations');
+  console.log('DATABASE_PUBLIC_URL:', process.env.DATABASE_PUBLIC_URL ? 'SET' : 'NOT SET');
+  console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'SET' : 'NOT SET');
+  
+  const pool = new Pool({
+    connectionString: databaseUrl,
+    ssl: { rejectUnauthorized: false } // Always use SSL for external connections
   });
-  
-  const pool = new Pool(connectionConfig);
 
   try {
     console.log('🔗 Connecting to database...');

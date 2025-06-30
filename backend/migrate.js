@@ -5,15 +5,25 @@ const path = require('path');
 async function runMigrations() {
   console.log('🚀 Starting database migrations...');
   
-  if (!process.env.DATABASE_URL) {
-    console.log('⚠️  DATABASE_URL not found, skipping migrations');
-    return;
-  }
+  // Use same connection strategy as main app
+  const connectionConfig = {
+    host: process.env.PGHOST || 'postgres.railway.internal',
+    port: process.env.PGPORT || 5432,
+    database: process.env.PGDATABASE || 'railway',
+    user: process.env.PGUSER || 'postgres',
+    password: process.env.PGPASSWORD,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  };
   
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  console.log('🔗 Migration connection config:', {
+    host: connectionConfig.host,
+    port: connectionConfig.port,
+    database: connectionConfig.database,
+    user: connectionConfig.user,
+    ssl: !!connectionConfig.ssl
   });
+  
+  const pool = new Pool(connectionConfig);
 
   try {
     console.log('🔗 Connecting to database...');

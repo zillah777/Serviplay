@@ -3,18 +3,25 @@ const { Pool } = require('pg');
 async function checkDatabase() {
   console.log('🔍 Checking database connection...');
   
-  if (!process.env.DATABASE_URL) {
-    console.log('❌ DATABASE_URL environment variable not found');
-    console.log('Available env vars:', Object.keys(process.env).filter(key => key.includes('PG') || key.includes('DATABASE')));
-    return;
-  }
+  // Use same connection strategy as main app
+  const connectionConfig = {
+    host: process.env.PGHOST || 'postgres.railway.internal',
+    port: process.env.PGPORT || 5432,
+    database: process.env.PGDATABASE || 'railway',
+    user: process.env.PGUSER || 'postgres',
+    password: process.env.PGPASSWORD,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  };
   
-  console.log('🔗 DATABASE_URL found, attempting connection...');
-  
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  console.log('🔗 Check DB connection config:', {
+    host: connectionConfig.host,
+    port: connectionConfig.port,
+    database: connectionConfig.database,
+    user: connectionConfig.user,
+    ssl: !!connectionConfig.ssl
   });
+  
+  const pool = new Pool(connectionConfig);
 
   try {
     const client = await pool.connect();

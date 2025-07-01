@@ -1,4 +1,4 @@
-# Configuración de SendGrid para Fixialo
+# Configuración de SendGrid para Fixia
 
 ## 📧 Guía Completa de Configuración
 
@@ -17,7 +17,7 @@
 
 2. **Crear Nueva API Key**
    - Haz clic en "Create API Key"
-   - Nombre: `Fixialo Production` (o `Fixialo Development`)
+   - Nombre: `Fixia Production` (o `Fixia Development`)
    - Tipo: **Full Access** (recomendado) o **Restricted Access**
 
 3. **Si eliges Restricted Access, habilita:**
@@ -37,7 +37,7 @@
 ```bash
 # En tu archivo .env
 SENDGRID_API_KEY=SG.tu-api-key-aqui
-EMAIL_FROM=noreply@fixialo.com
+EMAIL_FROM=noreply@fixia.com
 FRONTEND_URL=http://localhost:3000
 ```
 
@@ -46,7 +46,7 @@ FRONTEND_URL=http://localhost:3000
 # Variables de entorno en Railway
 SENDGRID_API_KEY=SG.tu-api-key-aqui
 EMAIL_FROM=noreply@tudominio.com
-FRONTEND_URL=https://fixialo.vercel.app
+FRONTEND_URL=https://fixia.vercel.app
 ```
 
 ### 4. Verificar Dominio (Opcional pero Recomendado)
@@ -81,7 +81,7 @@ npm run dev
 #### Logs Esperados:
 ```bash
 ✅ EmailService configurado con SendGrid
-✅ Email enviado con SendGrid a usuario@test.com: Verificá tu email - Fixialo
+✅ Email enviado con SendGrid a usuario@test.com: Verificá tu email - Fixia
 ```
 
 ### 6. Monitoreo

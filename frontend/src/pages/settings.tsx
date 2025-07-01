@@ -416,7 +416,7 @@ export default function Settings() {
     <>
       <Head>
         <title>Configuración - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Configura tu cuenta y preferencias en Serviplay" />
+        <meta name="description" content="Configura tu cuenta y preferencias en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

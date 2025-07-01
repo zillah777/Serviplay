@@ -57,7 +57,7 @@ export default function Onboarding() {
       try {
         // TODO: Enviar datos al backend
         await new Promise(resolve => setTimeout(resolve, 2000));
-        toast.success('¡Bienvenido a Serviplay!');
+        toast.success('¡Bienvenido a Fixia!');
         router.push('/dashboard');
       } catch (error) {
         toast.error('Error al configurar tu cuenta');
@@ -284,7 +284,7 @@ export default function Onboarding() {
     <>
       <Head>
         <title>Configuración de Cuenta - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Configura tu cuenta en Serviplay" />
+        <meta name="description" content="Configura tu cuenta en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

@@ -129,7 +129,7 @@ const testimonials = [
     profession: 'Limpieza del Hogar',
     image: '👩‍🏭',
     rating: 5,
-    review: 'En 6 meses conseguí más de 40 clientes fijos. Serviplay cambió mi vida, ahora trabajo para mí misma.',
+    review: 'En 6 meses conseguí más de 40 clientes fijos. Fixia cambió mi vida, ahora trabajo para mí misma.',
     earnings: '$35,000/mes',
     location: 'Palermo, CABA'
   },
@@ -155,12 +155,12 @@ const testimonials = [
 
 const faqs = [
   {
-    question: '¿Cuánto cuesta ser As en Serviplay?',
+    question: '¿Cuánto cuesta ser As en Fixia?',
     answer: 'Registrarse y usar el plan básico es completamente gratuito. Puedes publicar hasta 3 servicios sin costo. Los planes premium son opcionales y te dan mayor visibilidad.'
   },
   {
     question: '¿Cómo recibo los pagos?',
-    answer: 'Los pagos se realizan directamente entre vos y el Explorador. Serviplay no cobra comisiones. Podés acordar efectivo, transferencia o el método que prefieras.'
+    answer: 'Los pagos se realizan directamente entre vos y el Explorador. Fixia no cobra comisiones. Podés acordar efectivo, transferencia o el método que prefieras.'
   },
   {
     question: '¿Necesito experiencia previa?',
@@ -189,7 +189,7 @@ export default function BecomeAs() {
     <>
       <Head>
         <title>Convertite en As - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Monetiza tus habilidades y conecta con miles de clientes en Serviplay" />
+        <meta name="description" content="Monetiza tus habilidades y conecta con miles de clientes en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
@@ -474,7 +474,7 @@ export default function BecomeAs() {
             <AnimatedStatus 
               emoji="🎯" 
               text="¡Tu Momento es Ahora!"
-              subtext="Más de 1000 Ases ya están ganando dinero en Serviplay"
+              subtext="Más de 1000 Ases ya están ganando dinero en Fixia"
             />
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">

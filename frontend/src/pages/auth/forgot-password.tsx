@@ -60,7 +60,7 @@ export default function ForgotPassword() {
     <>
       <Head>
         <title>Recuperar Contraseña - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Recupera tu contraseña de Serviplay" />
+        <meta name="description" content="Recupera tu contraseña de Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center px-4">

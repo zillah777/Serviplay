@@ -171,7 +171,7 @@ export default function NewService() {
     <>
       <Head>
         <title>Nuevo Servicio - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Publica un nuevo servicio en Serviplay" />
+        <meta name="description" content="Publica un nuevo servicio en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

@@ -54,7 +54,7 @@ export default function Privacy() {
                   1. Introducción
                 </h2>
                 <p className="text-neutral-700 mb-6">
-                  En Serviplay, respetamos su privacidad y nos comprometemos a proteger sus datos personales. 
+                  En Fixia, respetamos su privacidad y nos comprometemos a proteger sus datos personales. 
                   Esta Política de Privacidad explica cómo recopilamos, utilizamos, almacenamos y protegemos 
                   su información cuando utiliza nuestra plataforma.
                 </p>
@@ -200,7 +200,7 @@ export default function Privacy() {
                   <p className="text-sm text-neutral-600">
                     <strong>Fecha de última actualización:</strong> 22 de diciembre de 2024<br />
                     <strong>Versión:</strong> 1.0<br />
-                    <strong>Responsable del tratamiento:</strong> Serviplay - Marcelo Mata
+                    <strong>Responsable del tratamiento:</strong> Fixia - Marcelo Mata
                   </p>
                 </div>
               </div>

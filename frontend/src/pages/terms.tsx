@@ -54,7 +54,7 @@ export default function Terms() {
                   1. Aceptación de los Términos
                 </h2>
                 <p className="text-neutral-700 mb-6">
-                  Al acceder y utilizar Serviplay, usted acepta estar sujeto a estos Términos y Condiciones 
+                  Al acceder y utilizar Fixia, usted acepta estar sujeto a estos Términos y Condiciones 
                   de Uso. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestros servicios.
                 </p>
 
@@ -62,7 +62,7 @@ export default function Terms() {
                   2. Descripción del Servicio
                 </h2>
                 <p className="text-neutral-700 mb-6">
-                  Serviplay es una plataforma digital que conecta prestadores de servicios ("Ases") con 
+                  Fixia es una plataforma digital que conecta prestadores de servicios ("Ases") con 
                   usuarios que buscan dichos servicios ("Exploradores"). Actuamos como intermediario 
                   facilitando el contacto entre ambas partes.
                 </p>
@@ -112,7 +112,7 @@ export default function Terms() {
                   5. Limitación de Responsabilidad
                 </h2>
                 <p className="text-neutral-700 mb-6">
-                  Serviplay actúa únicamente como plataforma de conexión. No somos responsables por:
+                  Fixia actúa únicamente como plataforma de conexión. No somos responsables por:
                 </p>
                 <div className="text-neutral-700 mb-6">
                   <ul className="list-disc pl-6 space-y-2">

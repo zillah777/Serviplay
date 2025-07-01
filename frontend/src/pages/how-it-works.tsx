@@ -111,8 +111,8 @@ const features = [
 
 const faqs = [
   {
-    question: '¿Serviplay cobra comisiones?',
-    answer: 'No, Serviplay es completamente gratuito para Exploradores. Los Ases pueden usar el plan básico gratis o elegir planes premium para mayor visibilidad. No cobramos comisiones sobre los pagos.'
+    question: '¿Fixia cobra comisiones?',
+    answer: 'No, Fixia es completamente gratuito para Exploradores. Los Ases pueden usar el plan básico gratis o elegir planes premium para mayor visibilidad. No cobramos comisiones sobre los pagos.'
   },
   {
     question: '¿Cómo funciona el sistema de verificación?',
@@ -145,7 +145,7 @@ export default function HowItWorks() {
     <>
       <Head>
         <title>Cómo Funciona - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Descubre cómo funciona Serviplay y conecta con los mejores servicios cerca de ti" />
+        <meta name="description" content="Descubre cómo funciona Fixia y conecta con los mejores servicios cerca de ti" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
@@ -382,7 +382,7 @@ export default function HowItWorks() {
                 <div className="text-4xl mb-3">💻</div>
                 <h3 className="font-semibold mb-2">Juan - Programador</h3>
                 <p className="text-primary-blue-light text-sm">
-                  "Trabajo con empresas de toda Argentina desde mi casa. Serviplay me conectó con proyectos increíbles."
+                  "Trabajo con empresas de toda Argentina desde mi casa. Fixia me conectó con proyectos increíbles."
                 </p>
               </div>
               <div>
@@ -444,7 +444,7 @@ export default function HowItWorks() {
             <AnimatedStatus 
               emoji="🚀" 
               text="¿Listo para comenzar?"
-              subtext="Únete a miles de usuarios que ya están conectando en Serviplay"
+              subtext="Únete a miles de usuarios que ya están conectando en Fixia"
             />
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">

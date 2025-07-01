@@ -332,7 +332,7 @@ export default function Categories() {
     <>
       <Head>
         <title>Categorías de Servicios - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Explora todas las categorías de servicios disponibles en Serviplay" />
+        <meta name="description" content="Explora todas las categorías de servicios disponibles en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

@@ -230,7 +230,7 @@ export default function Profile() {
     <>
       <Head>
         <title>Mi Perfil - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Gestiona tu perfil en Serviplay" />
+        <meta name="description" content="Gestiona tu perfil en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

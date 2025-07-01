@@ -5,6 +5,11 @@ const nextConfig = {
   swcMinify: true,
   images: {
     unoptimized: true
+  },
+  // Disable Vercel Analytics temporarily to fix 404 errors
+  analytics: false,
+  experimental: {
+    optimizeCss: false
   }
 }
 

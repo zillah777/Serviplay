@@ -8,7 +8,7 @@ export default function Terms() {
     <>
       <Head>
         <title>Términos y Condiciones - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Términos y condiciones de uso de Serviplay" />
+        <meta name="description" content="Términos y condiciones de uso de Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

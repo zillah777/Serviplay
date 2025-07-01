@@ -8,7 +8,7 @@ export default function Privacy() {
     <>
       <Head>
         <title>Política de Privacidad - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Política de privacidad de Serviplay" />
+        <meta name="description" content="Política de privacidad de Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

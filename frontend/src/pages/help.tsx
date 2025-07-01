@@ -98,14 +98,14 @@ const helpCategories = [
 
 const popularFaqs = [
   {
-    question: '¿Cómo me registro en Serviplay?',
+    question: '¿Cómo me registro en Fixia?',
     answer: 'Puedes registrarte haciendo clic en "Registrarse" en la parte superior derecha. Elige si quieres ser Explorador (buscar servicios) o As (ofrecer servicios). Solo necesitas email y algunos datos básicos para comenzar.',
     category: 'getting-started',
     views: 1250
   },
   {
-    question: '¿Serviplay cobra comisiones?',
-    answer: 'Serviplay es gratuito para Exploradores. Los Ases requieren una suscripción mensual mínima de $2900 para publicar servicios. No cobramos comisiones sobre los pagos entre As y Explorador.',
+    question: '¿Fixia cobra comisiones?',
+    answer: 'Fixia es gratuito para Exploradores. Los Ases requieren una suscripción mensual mínima de $2900 para publicar servicios. No cobramos comisiones sobre los pagos entre As y Explorador.',
     category: 'payments-billing',
     views: 980
   },
@@ -202,7 +202,7 @@ export default function Help() {
     <>
       <Head>
         <title>Centro de Ayuda - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Encuentra respuestas a todas tus preguntas sobre Serviplay" />
+        <meta name="description" content="Encuentra respuestas a todas tus preguntas sobre Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gray-50">

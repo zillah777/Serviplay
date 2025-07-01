@@ -27,7 +27,7 @@ const steps = [
       'Perfil personalizable',
       'Sin costos ocultos'
     ],
-    forExplorers: 'Los Exploradores siempre usan Serviplay gratis',
+    forExplorers: 'Los Exploradores siempre usan Fixia gratis',
     forAses: 'Los Ases pueden comenzar con plan gratuito',
     color: 'from-blue-500 to-purple-600'
   },

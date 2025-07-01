@@ -118,7 +118,7 @@ const faqs = [
     answer: 'No, Fixia es completamente gratuito para los Exploradores. Los Ases requieren una suscripción mensual mínima de $2900 para publicar servicios.'
   },
   {
-    question: '¿Puedo facturar mis servicios a través de Serviplay?',
+    question: '¿Puedo facturar mis servicios a través de Fixia?',
     answer: 'Los pagos se realizan directamente entre As y Explorador. Fixia facilita el contacto pero no procesa pagos de servicios.'
   }
 ];
@@ -167,7 +167,7 @@ export default function Pricing() {
     <>
       <Head>
         <title>Precios - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Planes y precios para Ases en Serviplay. Desde gratis hasta premium." />
+        <meta name="description" content="Planes y precios para Ases en Fixia. Desde gratis hasta premium." />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
@@ -208,7 +208,7 @@ export default function Pricing() {
               Planes para {BRAND_TERMS.ASES}
             </h1>
             <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto">
-              Para publicar servicios en Serviplay, los {BRAND_TERMS.ASES} requieren una suscripción mensual. 
+              Para publicar servicios en Fixia, los {BRAND_TERMS.ASES} requieren una suscripción mensual. 
               Sin comisiones adicionales, solo el costo de anunciar en la plataforma 🚀
             </p>
 

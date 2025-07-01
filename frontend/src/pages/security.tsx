@@ -156,7 +156,7 @@ const reportReasons = [
 
 const faqSecurity = [
   {
-    question: '¿Cómo verifica Serviplay la identidad de los Ases?',
+    question: '¿Cómo verifica Fixia la identidad de los Ases?',
     answer: 'Utilizamos un proceso de verificación en múltiples etapas que incluye validación de documento oficial con tecnología de reconocimiento facial, verificación de datos con registros públicos, y validación de contacto por SMS y email. Solo los Ases que pasan todas las verificaciones reciben el badge de verificado.'
   },
   {
@@ -168,16 +168,16 @@ const faqSecurity = [
     answer: 'Sí, protegemos tus datos con encriptación de nivel bancario (AES-256), cumplimos con todas las normativas de privacidad, y realizamos auditorías de seguridad regulares. Además, tienes control total sobre qué información compartir y puedes configurar tu privacidad en cualquier momento.'
   },
   {
-    question: '¿Serviplay garantiza la calidad de los servicios?',
-    answer: 'Serviplay facilita la conexión entre Ases y Exploradores, pero no garantiza la calidad del servicio ya que somos una plataforma de conexión. Sin embargo, tenemos sistemas de calificaciones, verificación de identidad, y un equipo de soporte para resolver disputas y mantener estándares de calidad.'
+    question: '¿Fixia garantiza la calidad de los servicios?',
+    answer: 'Fixia facilita la conexión entre Ases y Exploradores, pero no garantiza la calidad del servicio ya que somos una plataforma de conexión. Sin embargo, tenemos sistemas de calificaciones, verificación de identidad, y un equipo de soporte para resolver disputas y mantener estándares de calidad.'
   },
   {
     question: '¿Qué medidas hay contra perfiles falsos?',
     answer: 'Tenemos múltiples sistemas anti-fraude: verificación obligatoria de identidad, validación de teléfono y email, detección automática de perfiles duplicados, monitoreo de comportamientos sospechosos, y un sistema de reportes comunitario. Los perfiles falsos son eliminados inmediatamente.'
   },
   {
-    question: '¿Cómo maneja Serviplay los pagos de forma segura?',
-    answer: 'Los pagos se realizan directamente entre As y Explorador, Serviplay no procesa pagos de servicios. Los Ases solo pagan una suscripción mensual para acceder a la plataforma. Recomendamos usar métodos de pago seguros como transferencias bancarias o efectivo contra entrega.'
+    question: '¿Cómo maneja Fixia los pagos de forma segura?',
+    answer: 'Los pagos se realizan directamente entre As y Explorador, Fixia no procesa pagos de servicios. Los Ases solo pagan una suscripción mensual para acceder a la plataforma. Recomendamos usar métodos de pago seguros como transferencias bancarias o efectivo contra entrega.'
   }
 ];
 
@@ -189,7 +189,7 @@ export default function Security() {
     <>
       <Head>
         <title>Seguridad - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Conoce todas las medidas de seguridad y protección que implementamos en Serviplay" />
+        <meta name="description" content="Conoce todas las medidas de seguridad y protección que implementamos en Fixia" />
       </Head>
 
       <div className="min-h-screen bg-gray-50">
@@ -450,10 +450,10 @@ export default function Security() {
                 Contacto de Emergencia
               </Link>
               <Link
-                href="mailto:security@serviplay.com"
+                href="mailto:security@fixia.com"
                 className="px-10 py-4 border-2 border-white text-white rounded-2xl font-bold hover:bg-white hover:text-gray-900 transition-colors"
               >
-                security@serviplay.com
+                security@fixia.com
               </Link>
             </div>
           </motion.div>

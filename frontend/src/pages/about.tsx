@@ -427,7 +427,7 @@ export default function About() {
             
             <div className="mt-8 text-center">
               <p className="text-blue-100">
-                📍 Buenos Aires, Argentina • 📧 hola@serviplay.com • 📞 +54 11 1234-5678
+                📍 Buenos Aires, Argentina • 📧 hola@fixia.com • 📞 +54 11 1234-5678
               </p>
             </div>
           </motion.div>

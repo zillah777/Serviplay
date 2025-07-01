@@ -37,7 +37,7 @@ export default function VerifyEmailPage() {
       setState('loading');
       
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL || 'https://serviplay-production.up.railway.app'}/api/auth/verify-email`,
+        `${process.env.NEXT_PUBLIC_API_URL || 'https://fixia-production.up.railway.app'}/api/auth/verify-email`,
         { token: verificationToken }
       );
 
@@ -74,7 +74,7 @@ export default function VerifyEmailPage() {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL || 'https://serviplay-production.up.railway.app'}/api/auth/resend-verification`,
+        `${process.env.NEXT_PUBLIC_API_URL || 'https://fixia-production.up.railway.app'}/api/auth/resend-verification`,
         { email }
       );
 

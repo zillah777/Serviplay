@@ -184,7 +184,7 @@ export default function Contact() {
     <>
       <Head>
         <title>Contacto - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Ponte en contacto con el equipo de Serviplay. Estamos aquí para ayudarte." />
+        <meta name="description" content="Ponte en contacto con el equipo de Fixia. Estamos aquí para ayudarte." />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">

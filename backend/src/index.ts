@@ -29,8 +29,9 @@ app.use(helmet());
 // CORS configuration with multiple allowed origins
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://serviplay.vercel.app',
-  'https://serviplay-git-main-zillah777s-projects.vercel.app',
+  'https://fixia.vercel.app',
+  'https://fixia-git-main-zillah777s-projects.vercel.app',
+  'https://fixia-zillah777s-projects.vercel.app',
   process.env.FRONTEND_URL,
   process.env.CORS_ORIGIN
 ].filter(Boolean); // Remove any undefined values
@@ -40,9 +41,14 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
+    console.log(`🔍 CORS Check - Origin: ${origin}`);
+    console.log(`🔍 Allowed origins:`, allowedOrigins);
+    
     if (allowedOrigins.includes(origin)) {
+      console.log(`✅ CORS allowed for: ${origin}`);
       return callback(null, true);
     } else {
+      console.log(`❌ CORS blocked for: ${origin}`);
       return callback(new Error('Not allowed by CORS'));
     }
   },

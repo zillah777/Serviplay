@@ -1,4 +1,4 @@
-// Sistema de iconos modernos y consistente para Serviplay
+// Sistema de iconos modernos y consistente para Fixia
 
 // Categorías de servicios con iconos modernos y atractivos
 export const CATEGORY_ICONS = {

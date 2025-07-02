@@ -46,10 +46,11 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validar requisitos de contraseña
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,128}$/;
-    if (!passwordRegex.test(formData.password)) {
-      toast.error('La contraseña debe tener 8+ caracteres con mayúscula, minúscula, número y carácter especial (@$!%*?&)');
+    console.log('🚀 Registro iniciado:', { userType, formData: { ...formData, password: '***', confirmPassword: '***' } });
+    
+    // Validar requisitos de contraseña (relajada para pruebas)
+    if (formData.password.length < 6) {
+      toast.error('La contraseña debe tener al menos 6 caracteres');
       return;
     }
 
@@ -90,7 +91,9 @@ export default function Register() {
       };
 
       // Llamar al servicio de registro
+      console.log('📤 Enviando datos al backend:', { ...registerData, password: '***', confirmPassword: '***' });
       const response = await authService.register(registerData);
+      console.log('📥 Respuesta del backend:', response);
       
       if (response.success) {
         // Redirigir según el tipo de usuario
@@ -446,7 +449,7 @@ export default function Register() {
                   </button>
                 </div>
                 <p className="text-xs text-neutral-500 mt-1">
-                  Mínimo 8 caracteres, debe incluir: mayúscula, minúscula, número y carácter especial (@$!%*?&)
+                  Mínimo 6 caracteres
                 </p>
               </div>
 

@@ -32,10 +32,8 @@ export const validateRegister = [
     .withMessage('Email demasiado largo'),
   
   body('password')
-    .isLength({ min: 8, max: 128 })
-    .withMessage('La contraseña debe tener entre 8 y 128 caracteres')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
-    .withMessage('La contraseña debe contener al menos: 1 minúscula, 1 mayúscula, 1 número y 1 carácter especial'),
+    .isLength({ min: 6, max: 128 })
+    .withMessage('La contraseña debe tener entre 6 y 128 caracteres'),
   
   body('tipo_usuario')
     .isIn(['as', 'explorador', 'ambos'])

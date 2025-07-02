@@ -58,7 +58,13 @@ export interface AuthResponse {
       id: string;
       email: string;
       tipo_usuario: 'explorador' | 'as';
+      nombre?: string;
+      apellido?: string;
       perfil?: any;
+    };
+    perfiles?: {
+      as?: any;
+      explorador?: any;
     };
     access_token: string;
     refresh_token: string;

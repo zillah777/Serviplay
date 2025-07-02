@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || `postgresql://${process.env.DB_USER || 'serviplay_user'}:${process.env.DB_PASSWORD || 'serviplay_pass'}@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'serviplay_db'}`,
+  connectionString: process.env.DATABASE_URL || `postgresql://${process.env.DB_USER || 'fixia_user'}:${process.env.DB_PASSWORD || 'fixia_pass'}@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'fixia_db'}`,
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 10000,

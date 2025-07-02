@@ -47,18 +47,32 @@ export default function Dashboard() {
           return;
         }
 
-        // Obtener datos del usuario del localStorage
-        const currentUser = authService.getCurrentUser();
-        if (currentUser) {
-          // Combinar datos del usuario con stats por defecto
-          setUser({
-            ...currentUser,
-            stats: defaultUserStats
-          } as User);
-        } else {
-          // Si no hay datos, redirigir al login
-          router.push('/auth/login');
-          return;
+        // Intentar obtener datos frescos del backend
+        try {
+          const profileResponse = await authService.getProfile();
+          if (profileResponse.success && profileResponse.data) {
+            setUser({
+              ...profileResponse.data.user,
+              stats: defaultUserStats
+            } as User);
+          } else {
+            throw new Error('No profile data received');
+          }
+        } catch (profileError) {
+          console.warn('Error fetching fresh profile, using localStorage:', profileError);
+          
+          // Fallback al localStorage si falla la llamada al backend
+          const currentUser = authService.getCurrentUser();
+          if (currentUser) {
+            setUser({
+              ...currentUser,
+              stats: defaultUserStats
+            } as User);
+          } else {
+            // Si no hay datos, redirigir al login
+            router.push('/auth/login');
+            return;
+          }
         }
       } catch (error) {
         console.error('Error loading user data:', error);

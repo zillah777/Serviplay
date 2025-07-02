@@ -20,8 +20,8 @@ export const generateAccessToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>):
   const secret = process.env.JWT_SECRET || 'default-secret';
   const options: SignOptions = {
     expiresIn: '15m',
-    issuer: 'serviplay',
-    audience: 'serviplay-users'
+    issuer: 'fixia',
+    audience: 'fixia-users'
   };
   return jwt.sign(payload as object, secret, options);
 };
@@ -31,8 +31,8 @@ export const generateRefreshToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>)
   const secret = process.env.JWT_REFRESH_SECRET || 'default-refresh-secret';
   const options: SignOptions = {
     expiresIn: '7d',
-    issuer: 'serviplay',
-    audience: 'serviplay-users'
+    issuer: 'fixia',
+    audience: 'fixia-users'
   };
   return jwt.sign(payload as object, secret, options);
 };
@@ -41,8 +41,8 @@ export const generateRefreshToken = (payload: Omit<TokenPayload, 'iat' | 'exp'>)
 export const verifyAccessToken = (token: string): TokenPayload => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET!, {
-      issuer: 'serviplay',
-      audience: 'serviplay-users'
+      issuer: 'fixia',
+      audience: 'fixia-users'
     }) as TokenPayload;
   } catch (error) {
     throw new Error('Token inválido');
@@ -53,8 +53,8 @@ export const verifyAccessToken = (token: string): TokenPayload => {
 export const verifyRefreshToken = (token: string): TokenPayload => {
   try {
     return jwt.verify(token, process.env.JWT_REFRESH_SECRET!, {
-      issuer: 'serviplay',
-      audience: 'serviplay-users'
+      issuer: 'fixia',
+      audience: 'fixia-users'
     }) as TokenPayload;
   } catch (error) {
     throw new Error('Refresh token inválido');

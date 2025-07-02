@@ -169,7 +169,9 @@ export const login = asyncHandler(async (req: Request, res: Response, next: Next
         email: user.email,
         tipo_usuario: user.tipo_usuario,
         estado: user.estado,
-        email_verificado: user.email_verificado
+        email_verificado: user.email_verificado,
+        nombre: userWithProfiles?.perfilAs?.nombre || userWithProfiles?.perfilExplorador?.nombre || null,
+        apellido: userWithProfiles?.perfilAs?.apellido || userWithProfiles?.perfilExplorador?.apellido || null
       },
       perfiles: {
         as: userWithProfiles?.perfilAs || null,
@@ -340,7 +342,11 @@ export const getProfile = asyncHandler(async (req: Request, res: Response, next:
   res.json({
     success: true,
     data: {
-      user: userWithProfiles.user,
+      user: {
+        ...userWithProfiles.user,
+        nombre: userWithProfiles?.perfilAs?.nombre || userWithProfiles?.perfilExplorador?.nombre || null,
+        apellido: userWithProfiles?.perfilAs?.apellido || userWithProfiles?.perfilExplorador?.apellido || null
+      },
       perfiles: {
         as: userWithProfiles.perfilAs || null,
         explorador: userWithProfiles.perfilExplorador || null

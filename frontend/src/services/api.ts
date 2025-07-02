@@ -161,8 +161,9 @@ export const authService = {
         localStorage.setItem('auth_token', response.data.data.access_token);
         localStorage.setItem('refresh_token', response.data.data.refresh_token);
         
-        // Guardar info del usuario
+        // Guardar info del usuario con datos frescos del backend
         localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        localStorage.setItem('user_profiles', JSON.stringify(response.data.data.perfiles || {}));
         
         toast.success(response.data.message || '¡Bienvenido de vuelta!');
       }
@@ -201,6 +202,7 @@ export const authService = {
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user');
+      localStorage.removeItem('user_profiles');
       
       toast.success('Sesión cerrada correctamente');
     }
@@ -210,6 +212,13 @@ export const authService = {
   async getProfile(): Promise<any> {
     try {
       const response = await api.get('/api/auth/me');
+      
+      // Actualizar datos en localStorage con información fresca
+      if (response.data.success && response.data.data) {
+        localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        localStorage.setItem('user_profiles', JSON.stringify(response.data.data.perfiles || {}));
+      }
+      
       return response.data;
     } catch (error) {
       console.error('Error getting profile:', error);

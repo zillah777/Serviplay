@@ -101,9 +101,9 @@ export class FCMService {
         android: {
           notification: {
             icon: 'ic_notification',
-            color: '#6366F1', // Color principal de Serviplay
+            color: '#6366F1', // Color principal de Fixia
             sound: notification.sound || 'default',
-            channel_id: 'serviplay_notifications'
+            channel_id: 'fixia_notifications'
           },
           priority: 'high' as const
         },

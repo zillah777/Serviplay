@@ -12,9 +12,13 @@ import {
   CreditCardIcon,
   QuestionMarkCircleIcon,
   ArrowRightOnRectangleIcon,
-  TrashIcon
+  TrashIcon,
+  KeyIcon,
+  DevicePhoneMobileIcon,
+  EnvelopeIcon
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG } from '@/utils/constants';
+import { authService } from '@/services/api';
 import toast from 'react-hot-toast';
 
 // Default user settings
@@ -23,25 +27,43 @@ const defaultSettings = {
     nuevos_mensajes: true,
     nuevas_solicitudes: true,
     recordatorios: false,
-    marketing: false
+    marketing: false,
+    push_notifications: true,
+    email_notifications: true
   },
   privacidad: {
     perfil_publico: true,
     mostrar_telefono: true,
     mostrar_email: false,
-    indexar_busqueda: true
+    permitir_contacto: true
   },
-  cuenta: {
-    verificacion_dos_pasos: false,
-    sesiones_activas: 3
+  seguridad: {
+    autenticacion_dos_factores: false,
+    sesiones_activas: 1
   }
 };
 
+interface User {
+  id: string;
+  email: string;
+  tipo_usuario: 'explorador' | 'as';
+  nombre?: string;
+  apellido?: string;
+  email_verificado?: boolean;
+  created_at?: string;
+}
+
 export default function Settings() {
   const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
   const [settings, setSettings] = useState(defaultSettings);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('cuenta');
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
 
   const tabs = [
     { id: 'cuenta', label: 'Cuenta', icon: UserIcon },
@@ -52,47 +74,128 @@ export default function Settings() {
     { id: 'ayuda', label: 'Ayuda', icon: QuestionMarkCircleIcon }
   ];
 
-  const handleToggleSetting = (section: string, key: string) => {
+  useEffect(() => {
+    loadUserData();
+  }, []);
+
+  const loadUserData = async () => {
+    try {
+      if (!authService.isAuthenticated()) {
+        router.push('/auth/login');
+        return;
+      }
+
+      const currentUser = authService.getCurrentUser();
+      setUser(currentUser);
+
+      // TODO: Cargar configuraciones del usuario desde el backend
+      console.log('Loading user settings...');
+    } catch (error) {
+      console.error('Error loading user data:', error);
+      router.push('/auth/login');
+    }
+  };
+
+  const handleToggleSetting = async (section: string, key: string) => {
     setSettings(prev => {
       const currentSection = (prev as any)[section];
-      return {
+      const newSettings = {
         ...prev,
         [section]: {
           ...currentSection,
           [key]: !currentSection[key]
         }
       };
+      
+      // TODO: Guardar cambio en backend inmediatamente
+      saveSettingToBackend(section, key, !currentSection[key]);
+      
+      return newSettings;
     });
+    
     toast.success('Configuración actualizada');
   };
 
-  const handleSaveSettings = async () => {
+  const saveSettingToBackend = async (section: string, key: string, value: boolean) => {
+    try {
+      // TODO: Implementar llamada al backend
+      console.log(`Saving setting: ${section}.${key} = ${value}`);
+    } catch (error) {
+      console.error('Error saving setting:', error);
+      toast.error('Error al guardar la configuración');
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!passwordData.currentPassword || !passwordData.newPassword) {
+      toast.error('Completa todos los campos');
+      return;
+    }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      toast.error('Las contraseñas no coinciden');
+      return;
+    }
+
+    if (passwordData.newPassword.length < 8) {
+      toast.error('La nueva contraseña debe tener al menos 8 caracteres');
+      return;
+    }
+
     setLoading(true);
     try {
-      // TODO: Guardar configuración en backend
+      // TODO: Implementar cambio de contraseña en backend
       await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.success('Configuración guardada correctamente');
+      toast.success('Contraseña actualizada correctamente');
+      setPasswordData({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      });
     } catch (error) {
-      toast.error('Error al guardar la configuración');
+      toast.error('Error al cambiar la contraseña');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleLogout = () => {
-    // TODO: Implementar logout
-    toast.success('Sesión cerrada correctamente');
-    router.push('/');
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Error during logout:', error);
+      toast.error('Error al cerrar sesión');
+    }
   };
 
   const handleDeleteAccount = () => {
     const confirmed = window.confirm(
-      '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.'
+      '¿Estás seguro de que querés eliminar tu cuenta? Esta acción no se puede deshacer.'
     );
+    
     if (confirmed) {
-      // TODO: Implementar eliminación de cuenta
+      const doubleConfirm = window.confirm(
+        'Esta acción eliminará permanentemente todos tus datos, servicios y búsquedas. ¿Estás completamente seguro?'
+      );
+      
+      if (doubleConfirm) {
+        deleteAccount();
+      }
+    }
+  };
+
+  const deleteAccount = async () => {
+    setLoading(true);
+    try {
+      // TODO: Implementar eliminación de cuenta en backend
+      await new Promise(resolve => setTimeout(resolve, 2000));
       toast.success('Cuenta eliminada correctamente');
       router.push('/');
+    } catch (error) {
+      toast.error('Error al eliminar la cuenta');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,77 +205,79 @@ export default function Settings() {
         return (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Información Personal</h3>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Información de la cuenta
+              </h3>
               <div className="space-y-4">
-                <Link
-                  href="/profile"
-                  className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors group"
-                >
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Editar Perfil</h4>
-                    <p className="text-sm text-neutral-600">Actualiza tu información personal y foto</p>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    Email
+                  </label>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-neutral-900">{user?.email}</span>
+                    {user?.email_verificado && (
+                      <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                        Verificado
+                      </span>
+                    )}
                   </div>
-                  <div className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</div>
-                </Link>
-                
-                <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Cambiar Contraseña</h4>
-                    <p className="text-sm text-neutral-600">Actualiza tu contraseña de acceso</p>
-                  </div>
-                  <button className="px-4 py-2 text-primary-blue hover:bg-primary-blue/5 rounded-lg transition-colors">
-                    Cambiar
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Sesiones Activas</h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Sesión Actual</h4>
-                    <p className="text-sm text-neutral-600">Chrome en Windows • IP: 192.168.1.1</p>
-                  </div>
-                  <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Activa</span>
                 </div>
                 
-                <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Móvil</h4>
-                    <p className="text-sm text-neutral-600">Chrome Mobile • Última actividad: hace 2 horas</p>
-                  </div>
-                  <button className="text-red-600 hover:bg-red-50 px-3 py-1 rounded transition-colors">
-                    Cerrar
-                  </button>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    Tipo de cuenta
+                  </label>
+                  <span className="text-neutral-900 capitalize">
+                    {user?.tipo_usuario === 'as' ? 'As' : 'Explorador'}
+                  </span>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    Miembro desde
+                  </label>
+                  <span className="text-neutral-900">
+                    {user?.created_at 
+                      ? new Date(user.created_at).toLocaleDateString('es-AR', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })
+                      : 'No disponible'
+                    }
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="border-t pt-6">
-              <h3 className="text-lg font-semibold text-red-600 mb-4">Zona Peligrosa</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Acciones de cuenta
+              </h3>
+              <div className="space-y-3">
+                <Link
+                  href="/profile"
+                  className="flex items-center space-x-3 p-3 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors"
+                >
+                  <UserIcon className="w-5 h-5 text-neutral-500" />
+                  <span>Editar perfil</span>
+                </Link>
+                
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-3 w-full p-4 border border-neutral-200 rounded-lg hover:border-primary-blue hover:bg-blue-50 transition-colors text-left"
+                  className="flex items-center space-x-3 p-3 border border-neutral-200 rounded-lg hover:border-orange-500 transition-colors w-full text-left"
                 >
-                  <ArrowRightOnRectangleIcon className="w-5 h-5 text-primary-blue" />
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Cerrar Sesión</h4>
-                    <p className="text-sm text-neutral-600">Cerrar sesión en este dispositivo</p>
-                  </div>
+                  <ArrowRightOnRectangleIcon className="w-5 h-5 text-orange-500" />
+                  <span>Cerrar sesión</span>
                 </button>
                 
                 <button
                   onClick={handleDeleteAccount}
-                  className="flex items-center space-x-3 w-full p-4 border border-red-200 rounded-lg hover:border-red-300 hover:bg-red-50 transition-colors text-left"
+                  disabled={loading}
+                  className="flex items-center space-x-3 p-3 border border-red-200 rounded-lg hover:border-red-500 transition-colors w-full text-left text-red-600 disabled:opacity-50"
                 >
-                  <TrashIcon className="w-5 h-5 text-red-600" />
-                  <div>
-                    <h4 className="font-medium text-red-900">Eliminar Cuenta</h4>
-                    <p className="text-sm text-red-600">Eliminar permanentemente tu cuenta y todos los datos</p>
-                  </div>
+                  <TrashIcon className="w-5 h-5" />
+                  <span>Eliminar cuenta</span>
                 </button>
               </div>
             </div>
@@ -183,29 +288,38 @@ export default function Settings() {
         return (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Notificaciones Push</h3>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Notificaciones push
+              </h3>
               <div className="space-y-4">
                 {Object.entries(settings.notificaciones).map(([key, value]) => (
-                  <div key={key} className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                  <div key={key} className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-neutral-900 capitalize">
-                        {key.replace('_', ' ')}
-                      </h4>
-                      <p className="text-sm text-neutral-600">
+                      <label className="font-medium text-neutral-900">
+                        {key === 'nuevos_mensajes' && 'Nuevos mensajes'}
+                        {key === 'nuevas_solicitudes' && 'Nuevas solicitudes'}
+                        {key === 'recordatorios' && 'Recordatorios'}
+                        {key === 'marketing' && 'Noticias y promociones'}
+                        {key === 'push_notifications' && 'Notificaciones push'}
+                        {key === 'email_notifications' && 'Notificaciones por email'}
+                      </label>
+                      <p className="text-sm text-neutral-500">
                         {key === 'nuevos_mensajes' && 'Recibir notificaciones de nuevos mensajes'}
-                        {key === 'nuevas_solicitudes' && 'Notificaciones de nuevas solicitudes de servicio'}
+                        {key === 'nuevas_solicitudes' && 'Notificaciones de nuevas solicitudes de trabajo'}
                         {key === 'recordatorios' && 'Recordatorios de citas y trabajos pendientes'}
-                        {key === 'marketing' && 'Ofertas especiales y novedades de la plataforma'}
+                        {key === 'marketing' && 'Recibir información sobre nuevas funciones y ofertas'}
+                        {key === 'push_notifications' && 'Recibir notificaciones en el dispositivo'}
+                        {key === 'email_notifications' && 'Recibir notificaciones por correo electrónico'}
                       </p>
                     </div>
                     <button
                       onClick={() => handleToggleSetting('notificaciones', key)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        value ? 'bg-primary-blue' : 'bg-neutral-300'
+                        value ? 'bg-primary-blue' : 'bg-neutral-200'
                       }`}
                     >
                       <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
                           value ? 'translate-x-6' : 'translate-x-1'
                         }`}
                       />
@@ -221,29 +335,34 @@ export default function Settings() {
         return (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Visibilidad del Perfil</h3>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Configuración de privacidad
+              </h3>
               <div className="space-y-4">
                 {Object.entries(settings.privacidad).map(([key, value]) => (
-                  <div key={key} className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                  <div key={key} className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-neutral-900 capitalize">
-                        {key.replace('_', ' ')}
-                      </h4>
-                      <p className="text-sm text-neutral-600">
+                      <label className="font-medium text-neutral-900">
+                        {key === 'perfil_publico' && 'Perfil público'}
+                        {key === 'mostrar_telefono' && 'Mostrar teléfono'}
+                        {key === 'mostrar_email' && 'Mostrar email'}
+                        {key === 'permitir_contacto' && 'Permitir contacto directo'}
+                      </label>
+                      <p className="text-sm text-neutral-500">
                         {key === 'perfil_publico' && 'Tu perfil será visible para otros usuarios'}
-                        {key === 'mostrar_telefono' && 'Mostrar tu número de teléfono en el perfil'}
-                        {key === 'mostrar_email' && 'Mostrar tu email en el perfil público'}
-                        {key === 'indexar_busqueda' && 'Permitir que tu perfil aparezca en búsquedas'}
+                        {key === 'mostrar_telefono' && 'Otros usuarios podrán ver tu número de teléfono'}
+                        {key === 'mostrar_email' && 'Otros usuarios podrán ver tu email'}
+                        {key === 'permitir_contacto' && 'Otros usuarios podrán contactarte directamente'}
                       </p>
                     </div>
                     <button
                       onClick={() => handleToggleSetting('privacidad', key)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        value ? 'bg-primary-blue' : 'bg-neutral-300'
+                        value ? 'bg-primary-blue' : 'bg-neutral-200'
                       }`}
                     >
                       <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
                           value ? 'translate-x-6' : 'translate-x-1'
                         }`}
                       />
@@ -259,40 +378,98 @@ export default function Settings() {
         return (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Autenticación</h3>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Cambiar contraseña
+              </h3>
+              <div className="space-y-4 max-w-md">
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    Contraseña actual
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordData.currentPassword}
+                    onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    Nueva contraseña
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordData.newPassword}
+                    onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    Confirmar nueva contraseña
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordData.confirmPassword}
+                    onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  />
+                </div>
+                
+                <button
+                  onClick={handleChangePassword}
+                  disabled={loading}
+                  className="px-4 py-2 bg-primary-blue text-white rounded-lg hover:bg-primary-blue-dark transition-colors disabled:opacity-50"
+                >
+                  {loading ? 'Cambiando...' : 'Cambiar contraseña'}
+                </button>
+              </div>
+            </div>
+
+            <div className="border-t pt-6">
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Configuración de seguridad
+              </h3>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-neutral-900">Verificación en Dos Pasos</h4>
-                    <p className="text-sm text-neutral-600">Agrega una capa extra de seguridad a tu cuenta</p>
+                    <label className="font-medium text-neutral-900">
+                      Autenticación de dos factores
+                    </label>
+                    <p className="text-sm text-neutral-500">
+                      Agregar una capa extra de seguridad a tu cuenta
+                    </p>
                   </div>
                   <button
-                    onClick={() => handleToggleSetting('cuenta', 'verificacion_dos_pasos')}
+                    onClick={() => handleToggleSetting('seguridad', 'autenticacion_dos_factores')}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.cuenta.verificacion_dos_pasos ? 'bg-primary-blue' : 'bg-neutral-300'
+                      settings.seguridad.autenticacion_dos_factores ? 'bg-primary-blue' : 'bg-neutral-200'
                     }`}
                   >
                     <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        settings.cuenta.verificacion_dos_pasos ? 'translate-x-6' : 'translate-x-1'
+                      className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                        settings.seguridad.autenticacion_dos_factores ? 'translate-x-6' : 'translate-x-1'
                       }`}
                     />
                   </button>
                 </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Historial de Seguridad</h3>
-              <div className="space-y-3">
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="flex items-center space-x-2 text-green-800">
-                    <ShieldCheckIcon className="w-5 h-5" />
-                    <span className="font-medium">Cuenta Segura</span>
+                
+                <div className="p-4 border border-neutral-200 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="font-medium text-neutral-900">
+                        Sesiones activas
+                      </span>
+                      <p className="text-sm text-neutral-500">
+                        {settings.seguridad.sesiones_activas} sesión activa
+                      </p>
+                    </div>
+                    <button className="text-primary-blue hover:text-primary-blue-dark text-sm">
+                      Ver todas
+                    </button>
                   </div>
-                  <p className="text-sm text-green-700 mt-1">
-                    No se detectaron actividades sospechosas recientes
-                  </p>
                 </div>
               </div>
             </div>
@@ -303,35 +480,32 @@ export default function Settings() {
         return (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Plan Actual</h3>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Plan actual
+              </h3>
               <div className="p-6 border border-neutral-200 rounded-lg">
                 <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-xl font-bold text-neutral-900">Plan Básico</h4>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">$2900/mes</span>
+                  <div>
+                    <h4 className="font-semibold text-neutral-900">Plan Básico</h4>
+                    <p className="text-neutral-500">Gratis para siempre</p>
+                  </div>
+                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                    Activo
+                  </span>
                 </div>
-                <p className="text-neutral-600 mb-4">
-                  Suscripción requerida para publicar servicios en la plataforma
-                </p>
-                <ul className="space-y-2 text-sm text-neutral-600 mb-6">
-                  <li>• Hasta 5 servicios publicados</li>
-                  <li>• Sin comisiones por transacciones</li>
+                
+                <ul className="space-y-2 text-sm text-neutral-600 mb-4">
+                  <li>• Hasta 3 servicios publicados</li>
+                  <li>• Búsquedas ilimitadas</li>
                   <li>• Soporte por email</li>
-                  <li>• Perfil verificado</li>
                 </ul>
-                <button className="w-full px-6 py-3 bg-secondary-green text-white rounded-lg hover:bg-green-600 transition-colors">
-                  Upgrade a Profesional
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Historial de Pagos</h3>
-              <div className="text-center py-8">
-                <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-3xl">💳</span>
-                </div>
-                <p className="text-neutral-600">Plan Básico - $2900/mes</p>
-                <p className="text-sm text-neutral-500">Próximo pago: 22 Enero 2025</p>
+                
+                <Link
+                  href="/pricing"
+                  className="inline-block px-4 py-2 bg-primary-blue text-white rounded-lg hover:bg-primary-blue-dark transition-colors"
+                >
+                  Ver planes premium
+                </Link>
               </div>
             </div>
           </div>
@@ -341,67 +515,52 @@ export default function Settings() {
         return (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Centro de Ayuda</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Centro de ayuda
+              </h3>
+              <div className="space-y-3">
                 <Link
-                  href="/help/faq"
-                  className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors group"
+                  href="/help"
+                  className="flex items-center space-x-3 p-3 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors"
                 >
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Preguntas Frecuentes</h4>
-                    <p className="text-sm text-neutral-600">Encuentra respuestas a las dudas más comunes</p>
-                  </div>
-                  <div className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</div>
+                  <QuestionMarkCircleIcon className="w-5 h-5 text-neutral-500" />
+                  <span>Preguntas frecuentes</span>
                 </Link>
-
+                
                 <Link
-                  href="/help/contact"
-                  className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors group"
+                  href="/contact"
+                  className="flex items-center space-x-3 p-3 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors"
                 >
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Contactar Soporte</h4>
-                    <p className="text-sm text-neutral-600">Envía un mensaje a nuestro equipo de soporte</p>
-                  </div>
-                  <div className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</div>
+                  <EnvelopeIcon className="w-5 h-5 text-neutral-500" />
+                  <span>Contactar soporte</span>
                 </Link>
-
+                
                 <Link
                   href="/terms"
-                  className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors group"
+                  className="flex items-center space-x-3 p-3 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors"
                 >
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Términos y Condiciones</h4>
-                    <p className="text-sm text-neutral-600">Lee nuestros términos de uso</p>
-                  </div>
-                  <div className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</div>
+                  <span className="w-5 h-5 flex items-center justify-center text-neutral-500">📄</span>
+                  <span>Términos de servicio</span>
                 </Link>
-
+                
                 <Link
                   href="/privacy"
-                  className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors group"
+                  className="flex items-center space-x-3 p-3 border border-neutral-200 rounded-lg hover:border-primary-blue transition-colors"
                 >
-                  <div>
-                    <h4 className="font-medium text-neutral-900">Política de Privacidad</h4>
-                    <p className="text-sm text-neutral-600">Conoce cómo protegemos tu información</p>
-                  </div>
-                  <div className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</div>
+                  <ShieldCheckIcon className="w-5 h-5 text-neutral-500" />
+                  <span>Política de privacidad</span>
                 </Link>
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-semibold text-neutral-900 mb-4">Información de la App</h3>
-              <div className="p-4 bg-neutral-50 rounded-lg">
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-neutral-600">Versión:</span>
-                    <span className="font-medium">{APP_CONFIG.VERSION}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-neutral-600">Última actualización:</span>
-                    <span className="font-medium">22 Dic 2024</span>
-                  </div>
-                </div>
+            <div className="border-t pt-6">
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                Información de la app
+              </h3>
+              <div className="space-y-2 text-sm text-neutral-600">
+                <p>Versión de la app: 1.0.0</p>
+                <p>Última actualización: Julio 2024</p>
+                <p>Desarrollado por el equipo de {APP_CONFIG.NAME}</p>
               </div>
             </div>
           </div>
@@ -412,11 +571,22 @@ export default function Settings() {
     }
   };
 
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-neutral-600">Cargando configuración...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
         <title>Configuración - {APP_CONFIG.NAME}</title>
-        <meta name="description" content="Configura tu cuenta y preferencias en Fixia" />
+        <meta name="description" content="Gestiona tu cuenta y configuración" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
@@ -425,8 +595,8 @@ export default function Settings() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
+                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-lg">F</span>
                 </div>
                 <span className="font-display text-xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}
@@ -452,50 +622,47 @@ export default function Settings() {
           </div>
         </nav>
 
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="font-display text-3xl font-bold text-neutral-900 mb-8">
-              Configuración
-            </h1>
-
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* Sidebar */}
-              <div className="lg:col-span-1">
-                <div className="bg-white rounded-2xl shadow-lg p-6">
-                  <nav className="space-y-2">
-                    {tabs.map((tab) => {
-                      const IconComponent = tab.icon;
-                      return (
-                        <button
-                          key={tab.id}
-                          onClick={() => setActiveTab(tab.id)}
-                          className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
-                            activeTab === tab.id
-                              ? 'bg-primary-blue text-white'
-                              : 'text-neutral-600 hover:bg-neutral-50 hover:text-primary-blue'
-                          }`}
-                        >
-                          <IconComponent className="w-5 h-5" />
-                          <span className="font-medium">{tab.label}</span>
-                        </button>
-                      );
-                    })}
-                  </nav>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="lg:col-span-3">
-                <div className="bg-white rounded-2xl shadow-lg p-8">
-                  {renderTabContent()}
-                </div>
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex gap-8">
+            {/* Sidebar */}
+            <div className="w-64 flex-shrink-0">
+              <div className="bg-white rounded-2xl shadow-lg p-6">
+                <h2 className="font-display text-xl font-bold text-neutral-900 mb-6">
+                  Configuración
+                </h2>
+                
+                <nav className="space-y-2">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                        activeTab === tab.id
+                          ? 'bg-primary-blue text-white'
+                          : 'text-neutral-600 hover:bg-neutral-100'
+                      }`}
+                    >
+                      <tab.icon className="w-5 h-5" />
+                      <span>{tab.label}</span>
+                    </button>
+                  ))}
+                </nav>
               </div>
             </div>
-          </motion.div>
+
+            {/* Main Content */}
+            <div className="flex-1">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-2xl shadow-lg p-8"
+              >
+                {renderTabContent()}
+              </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </>

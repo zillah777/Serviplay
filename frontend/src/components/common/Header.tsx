@@ -88,17 +88,34 @@ const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
                 )}
                 
                 {user?.tipo_usuario === 'explorador' && (
-                  <Link href="/my-searches" className="text-neutral-600 hover:text-primary-blue transition-colors">
-                    Mis Búsquedas
-                  </Link>
+                  <>
+                    <Link href="/my-searches" className="text-neutral-600 hover:text-primary-blue transition-colors">
+                      Mis Búsquedas
+                    </Link>
+                    <Link href="/favorites" className="text-neutral-600 hover:text-red-500 transition-colors">
+                      Favoritos
+                    </Link>
+                    <Link href="/reviews" className="text-neutral-600 hover:text-yellow-600 transition-colors">
+                      Calificaciones
+                    </Link>
+                  </>
                 )}
 
                 {/* Notifications */}
-                <button className="relative p-2 text-neutral-600 hover:text-primary-blue transition-colors">
+                <button 
+                  onClick={() => {
+                    // TODO: Implementar sistema de notificaciones
+                    console.log('Opening notifications...');
+                  }}
+                  className="relative p-2 text-neutral-600 hover:text-primary-blue transition-colors"
+                >
                   <BellIcon className="w-6 h-6" />
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-secondary-red text-white text-xs rounded-full flex items-center justify-center">
-                    3
-                  </span>
+                  {/* Solo mostrar badge si hay notificaciones reales */}
+                  {false && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-secondary-red text-white text-xs rounded-full flex items-center justify-center">
+                      0
+                    </span>
+                  )}
                 </button>
 
                 {/* Profile Dropdown */}
@@ -242,6 +259,17 @@ const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
                   <Link href="/profile" className="block py-2 text-neutral-700">
                     Mi Perfil
                   </Link>
+                  
+                  {user?.tipo_usuario === 'explorador' && (
+                    <>
+                      <Link href="/favorites" className="block py-2 text-neutral-700">
+                        Mis Favoritos
+                      </Link>
+                      <Link href="/reviews" className="block py-2 text-neutral-700">
+                        Mis Calificaciones
+                      </Link>
+                    </>
+                  )}
                   
                   <button 
                     onClick={handleLogout}

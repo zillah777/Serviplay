@@ -268,7 +268,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-1">
-                    5
+                    0
                   </h3>
                   <p className="text-neutral-600">Favoritos</p>
                 </div>
@@ -280,7 +280,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-1">
-                    8
+                    0
                   </h3>
                   <p className="text-neutral-600">Reseñas Dadas</p>
                 </div>
@@ -292,7 +292,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-1">
-                    15
+                    0
                   </h3>
                   <p className="text-neutral-600">{BRAND_TERMS.ASES} Contactados</p>
                 </div>
@@ -321,17 +321,34 @@ export default function Dashboard() {
                   <span className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</span>
                 </Link>
 
+                {/* Acciones específicas para Exploradores */}
+                {!isAs && (
+                  <Link
+                    href="/searches/new"
+                    className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:border-secondary-green hover:bg-secondary-green/5 transition-all group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <PlusIcon className="w-6 h-6 text-secondary-green" />
+                      <span className="font-semibold text-neutral-900">Crear Nueva Búsqueda</span>
+                    </div>
+                    <span className="text-neutral-400 group-hover:text-secondary-green transition-colors">→</span>
+                  </Link>
+                )}
+
                 <Link
                   href="/profile"
                   className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:border-primary-blue hover:bg-primary-blue/5 transition-all group"
                 >
                   <div className="flex items-center space-x-3">
                     <UserIcon className="w-6 h-6 text-primary-blue" />
-                    <span className="font-semibold text-neutral-900">Editar Perfil</span>
+                    <span className="font-semibold text-neutral-900">
+                      {isAs ? 'Editar Perfil' : 'Mejorar mi Perfil'}
+                    </span>
                   </div>
                   <span className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</span>
                 </Link>
 
+                {/* Acciones específicas para As */}
                 {isAs && (
                   <Link
                     href="/services/new"
@@ -343,6 +360,44 @@ export default function Dashboard() {
                     </div>
                     <span className="text-neutral-400 group-hover:text-secondary-green transition-colors">→</span>
                   </Link>
+                )}
+
+                {/* Acciones comunes con texto específico */}
+                {!isAs && (
+                  <>
+                    <Link
+                      href="/my-searches"
+                      className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:border-primary-blue hover:bg-primary-blue/5 transition-all group"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <EyeIcon className="w-6 h-6 text-primary-blue" />
+                        <span className="font-semibold text-neutral-900">Ver Mis Búsquedas</span>
+                      </div>
+                      <span className="text-neutral-400 group-hover:text-primary-blue transition-colors">→</span>
+                    </Link>
+
+                    <Link
+                      href="/favorites"
+                      className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:border-red-500 hover:bg-red-50 transition-all group"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <StarIcon className="w-6 h-6 text-red-500" />
+                        <span className="font-semibold text-neutral-900">Mis Favoritos</span>
+                      </div>
+                      <span className="text-neutral-400 group-hover:text-red-500 transition-colors">→</span>
+                    </Link>
+
+                    <Link
+                      href="/reviews"
+                      className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:border-yellow-500 hover:bg-yellow-50 transition-all group"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <StarIcon className="w-6 h-6 text-yellow-500" />
+                        <span className="font-semibold text-neutral-900">Mis Calificaciones</span>
+                      </div>
+                      <span className="text-neutral-400 group-hover:text-yellow-500 transition-colors">→</span>
+                    </Link>
+                  </>
                 )}
               </div>
             </div>

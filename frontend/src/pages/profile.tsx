@@ -296,8 +296,29 @@ export default function Profile() {
                       <UserIcon className="w-12 h-12 text-neutral-400" />
                     )}
                   </div>
+                  
+                  {/* Upload button */}
+                  <label className="absolute -bottom-2 -right-2 w-8 h-8 bg-primary-blue rounded-full flex items-center justify-center cursor-pointer hover:bg-primary-blue-dark transition-colors">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          // TODO: Implementar subida de imagen
+                          console.log('File selected:', file.name);
+                          toast.success('Funcionalidad de subida de foto en desarrollo');
+                        }
+                      }}
+                    />
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </label>
+                  
                   {profile?.identidad_verificada && (
-                    <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-primary-blue rounded-full flex items-center justify-center">
+                    <div className="absolute -top-1 -right-1 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                       <CheckBadgeIcon className="w-5 h-5 text-white" />
                     </div>
                   )}
@@ -460,34 +481,74 @@ export default function Profile() {
                   <span>Miembro desde {user?.created_at ? new Date(user.created_at).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' }) : 'fecha no disponible'}</span>
                 </div>
                 
-                {isAs && hasProfile && (
+                {/* Información para ambos tipos de usuario */}
+                {hasProfile && (
                   <>
-                    {profile?.identidad_verificada && (
+                    {/* Verificación de identidad - Disponible para todos */}
+                    <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3 text-neutral-600">
-                        <CheckBadgeIcon className="w-5 h-5 text-green-500" />
-                        <span>Identidad verificada</span>
+                        <CheckBadgeIcon className={`w-5 h-5 ${profile?.identidad_verificada ? 'text-green-500' : 'text-neutral-400'}`} />
+                        <span>
+                          {profile?.identidad_verificada ? 'Identidad verificada' : 'Identidad no verificada'}
+                        </span>
                       </div>
+                      {!profile?.identidad_verificada && (
+                        <button 
+                          onClick={() => {
+                            // TODO: Implementar proceso de verificación
+                            toast.success('Proceso de verificación en desarrollo');
+                          }}
+                          className="text-sm text-primary-blue hover:text-primary-blue-dark"
+                        >
+                          Verificar
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Información específica para As */}
+                    {isAs && (
+                      <>
+                        {profile?.nivel_educativo && (
+                          <div className="flex items-center space-x-3 text-neutral-600">
+                            <span className="text-sm">🎓</span>
+                            <span className="capitalize">{profile?.nivel_educativo}</span>
+                          </div>
+                        )}
+                        
+                        {profile?.tiene_movilidad && (
+                          <div className="flex items-center space-x-3 text-neutral-600">
+                            <span className="text-sm">🚙</span>
+                            <span>Movilidad propia</span>
+                          </div>
+                        )}
+                        
+                        {profile?.radio_notificaciones && (
+                          <div className="flex items-center space-x-3 text-neutral-600">
+                            <span className="text-sm">🔔</span>
+                            <span>Radio de notificaciones: {profile?.radio_notificaciones}km</span>
+                          </div>
+                        )}
+                      </>
                     )}
-                    
-                    {profile?.nivel_educativo && (
-                      <div className="flex items-center space-x-3 text-neutral-600">
-                        <span className="text-sm">🎓</span>
-                        <span className="capitalize">{profile?.nivel_educativo}</span>
-                      </div>
-                    )}
-                    
-                    {profile?.tiene_movilidad && (
-                      <div className="flex items-center space-x-3 text-neutral-600">
-                        <span className="text-sm">🚙</span>
-                        <span>Movilidad propia</span>
-                      </div>
-                    )}
-                    
-                    {profile?.radio_notificaciones && (
-                      <div className="flex items-center space-x-3 text-neutral-600">
-                        <span className="text-sm">🔔</span>
-                        <span>Radio de notificaciones: {profile?.radio_notificaciones}km</span>
-                      </div>
+
+                    {/* Información específica para Exploradores */}
+                    {!isAs && (
+                      <>
+                        <div className="flex items-center space-x-3 text-neutral-600">
+                          <span className="text-sm">⭐</span>
+                          <span>Calificación como cliente: 0/5 (sin calificaciones aún)</span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3 text-neutral-600">
+                          <span className="text-sm">📊</span>
+                          <span>Servicios contratados: 0</span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3 text-neutral-600">
+                          <span className="text-sm">💼</span>
+                          <span>Perfil de confianza: {profile?.identidad_verificada ? 'Alto' : 'Básico'}</span>
+                        </div>
+                      </>
                     )}
                   </>
                 )}
@@ -495,25 +556,168 @@ export default function Profile() {
             </div>
           </motion.div>
 
-          {/* Upcoming features */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🚧</span>
-              </div>
-              <h3 className="font-semibold text-neutral-900 mb-2">
-                Funcionalidades en desarrollo
+          {/* Secciones específicas por tipo de usuario */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Historial y Estadísticas */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-white rounded-2xl shadow-xl p-8"
+            >
+              <h3 className="font-display text-xl font-bold text-neutral-900 mb-6">
+                {isAs ? 'Mis Servicios' : 'Mi Actividad'}
               </h3>
-              <p className="text-neutral-600 mb-4">
-                Próximamente podrás gestionar servicios, ver estadísticas y más desde tu perfil.
-              </p>
-              <Link
-                href="/dashboard"
-                className="inline-block px-6 py-3 bg-primary-blue text-white rounded-lg hover:bg-primary-blue-dark transition-colors"
-              >
-                Ir al Dashboard
-              </Link>
-            </div>
+              
+              {isAs ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                    <div>
+                      <p className="font-medium text-neutral-900">Servicios Activos</p>
+                      <p className="text-sm text-neutral-500">0 servicios publicados</p>
+                    </div>
+                    <Link
+                      href="/my-services"
+                      className="text-primary-blue hover:text-primary-blue-dark"
+                    >
+                      Ver todos →
+                    </Link>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                    <div>
+                      <p className="font-medium text-neutral-900">Trabajos Completados</p>
+                      <p className="text-sm text-neutral-500">0 trabajos finalizados</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                    <div>
+                      <p className="font-medium text-neutral-900">Búsquedas Activas</p>
+                      <p className="text-sm text-neutral-500">0 búsquedas en curso</p>
+                    </div>
+                    <Link
+                      href="/my-searches"
+                      className="text-primary-blue hover:text-primary-blue-dark"
+                    >
+                      Ver todas →
+                    </Link>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                    <div>
+                      <p className="font-medium text-neutral-900">Servicios Contratados</p>
+                      <p className="text-sm text-neutral-500">0 servicios finalizados</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-4 border border-neutral-200 rounded-lg">
+                    <div>
+                      <p className="font-medium text-neutral-900">Calificaciones Dadas</p>
+                      <p className="text-sm text-neutral-500">0 reseñas escritas</p>
+                    </div>
+                    <Link
+                      href="/reviews"
+                      className="text-primary-blue hover:text-primary-blue-dark"
+                    >
+                      Ver todas →
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+
+            {/* Reputación y Confianza */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-white rounded-2xl shadow-xl p-8"
+            >
+              <h3 className="font-display text-xl font-bold text-neutral-900 mb-6">
+                Reputación y Confianza
+              </h3>
+              
+              <div className="space-y-6">
+                {/* Nivel de Confianza */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-neutral-900">Nivel de Confianza</span>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      profile?.identidad_verificada 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {profile?.identidad_verificada ? 'Alto' : 'Básico'}
+                    </span>
+                  </div>
+                  <div className="w-full bg-neutral-200 rounded-full h-2">
+                    <div 
+                      className={`h-2 rounded-full ${
+                        profile?.identidad_verificada ? 'bg-green-500' : 'bg-yellow-500'
+                      }`}
+                      style={{ width: profile?.identidad_verificada ? '80%' : '40%' }}
+                    ></div>
+                  </div>
+                  <p className="text-sm text-neutral-500 mt-1">
+                    {profile?.identidad_verificada 
+                      ? 'Perfil verificado y confiable' 
+                      : 'Verifica tu identidad para aumentar la confianza'
+                    }
+                  </p>
+                </div>
+
+                {/* Calificación Promedio */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-neutral-900">
+                      {isAs ? 'Calificación como As' : 'Calificación como Cliente'}
+                    </span>
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarIcon
+                          key={star}
+                          className="w-4 h-4 text-neutral-300"
+                        />
+                      ))}
+                      <span className="text-sm text-neutral-500 ml-1">0/5</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-neutral-500">
+                    Sin calificaciones aún. {isAs ? 'Completa tu primer trabajo' : 'Contrata tu primer servicio'} para empezar a construir tu reputación.
+                  </p>
+                </div>
+
+                {/* Acciones para mejorar perfil */}
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                  <h4 className="font-medium text-blue-900 mb-2">
+                    Mejora tu perfil
+                  </h4>
+                  <div className="space-y-2 text-sm">
+                    {!profile?.identidad_verificada && (
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                        <span className="text-blue-700">Verifica tu identidad</span>
+                      </div>
+                    )}
+                    {!profile?.telefono && (
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                        <span className="text-blue-700">Agrega tu número de teléfono</span>
+                      </div>
+                    )}
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                      <span className="text-blue-700">
+                        {isAs ? 'Completa tu primer trabajo' : 'Contrata tu primer servicio'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

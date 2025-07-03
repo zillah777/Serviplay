@@ -170,6 +170,7 @@ export const login = asyncHandler(async (req: Request, res: Response, next: Next
         tipo_usuario: user.tipo_usuario,
         estado: user.estado,
         email_verificado: user.email_verificado,
+        created_at: user.created_at,
         nombre: userWithProfiles?.perfilAs?.nombre || userWithProfiles?.perfilExplorador?.nombre || null,
         apellido: userWithProfiles?.perfilAs?.apellido || userWithProfiles?.perfilExplorador?.apellido || null
       },

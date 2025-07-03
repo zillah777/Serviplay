@@ -24,10 +24,10 @@ interface User {
   id: string;
   email: string;
   tipo_usuario: 'explorador' | 'as';
-  estado: string;
+  estado?: string;
   fecha_registro?: Date;
-  email_verificado: boolean;
-  created_at: string;
+  email_verificado?: boolean;
+  created_at?: string;
   nombre?: string;
   apellido?: string;
 }
@@ -318,7 +318,7 @@ export default function Profile() {
                         }`}>
                           {isAs ? BRAND_TERMS.AS : BRAND_TERMS.EXPLORADOR}
                         </span>
-                        {user.email_verificado && (
+                        {user.email_verificado === true && (
                           <div className="flex items-center space-x-1">
                             <CheckBadgeIcon className="w-4 h-4 text-green-500" />
                             <span className="text-sm text-green-600">Email verificado</span>
@@ -431,7 +431,7 @@ export default function Profile() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-neutral-600">
                   <CalendarIcon className="w-5 h-5" />
-                  <span>Miembro desde {new Date(user.created_at).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' })}</span>
+                  <span>Miembro desde {user.created_at ? new Date(user.created_at).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' }) : 'fecha no disponible'}</span>
                 </div>
                 
                 {isAs && hasProfile && (

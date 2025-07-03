@@ -30,54 +30,11 @@ export default function MyServicesPage() {
   const fetchMyServices = async () => {
     try {
       setLoading(true);
-      // TODO: Reemplazar con llamada real a la API
-      // const response = await api.get('/my-services');
-      // setServices(response.data);
+      // TODO: Implementar llamada real a la API cuando esté disponible
+      console.log('🔍 Loading user services from backend...');
       
-      // Mock data por ahora
-      const mockServices: Servicio[] = [
-        {
-          id: '1',
-          as_id: '1',
-          categoria_id: '1',
-          titulo: 'Limpieza profunda de hogar',
-          descripcion: 'Ofrezco servicios de limpieza profunda para tu hogar. Incluye baños, cocina, dormitorios, y todas las áreas comunes.',
-          tipo_precio: 'por_hora',
-          precio_desde: 2500,
-          precio_hasta: 4000,
-          moneda: 'ARS',
-          disponible: true,
-          urgente: false,
-          requiere_matricula: false,
-          activo: true,
-          destacado: true,
-          created_at: new Date(),
-          updated_at: new Date(),
-          rating: 4.8
-        },
-        {
-          id: '2',
-          as_id: '1',
-          categoria_id: '2',
-          titulo: 'Reparación de electrodomésticos',
-          descripcion: 'Reparo todo tipo de electrodomésticos: lavarropas, heladeras, microondas, etc.',
-          tipo_precio: 'por_trabajo',
-          precio_desde: 5000,
-          precio_hasta: 15000,
-          moneda: 'ARS',
-          disponible: true,
-          urgente: false,
-          requiere_matricula: true,
-          matricula_numero: '12345',
-          activo: false,
-          destacado: false,
-          created_at: new Date(),
-          updated_at: new Date(),
-          rating: 4.5
-        }
-      ];
-      
-      setServices(mockServices);
+      // Por ahora, mostrar lista vacía hasta que se implemente el backend
+      setServices([]);
     } catch (err) {
       console.error('Error fetching services:', err);
     } finally {

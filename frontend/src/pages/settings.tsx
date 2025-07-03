@@ -17,8 +17,8 @@ import {
 import { APP_CONFIG } from '@/utils/constants';
 import toast from 'react-hot-toast';
 
-// Mock user settings
-const mockSettings = {
+// Default user settings
+const defaultSettings = {
   notificaciones: {
     nuevos_mensajes: true,
     nuevas_solicitudes: true,
@@ -39,7 +39,7 @@ const mockSettings = {
 
 export default function Settings() {
   const router = useRouter();
-  const [settings, setSettings] = useState(mockSettings);
+  const [settings, setSettings] = useState(defaultSettings);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('cuenta');
 

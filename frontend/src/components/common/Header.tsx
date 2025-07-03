@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 import { HeaderProps } from '@/types';
+import { authService } from '@/services/api';
 
 const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,6 +23,15 @@ const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
       onSearchFocus();
     } else {
       router.push('/explore');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Error during logout:', error);
     }
   };
 
@@ -127,7 +137,10 @@ const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
                           </Link>
                         )}
                         <hr className="my-2" />
-                        <button className="block w-full text-left px-4 py-2 text-sm text-secondary-red hover:bg-neutral-50">
+                        <button 
+                          onClick={handleLogout}
+                          className="block w-full text-left px-4 py-2 text-sm text-secondary-red hover:bg-neutral-50"
+                        >
                           Cerrar Sesión
                         </button>
                       </motion.div>
@@ -230,7 +243,10 @@ const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
                     Mi Perfil
                   </Link>
                   
-                  <button className="block w-full text-left py-2 text-secondary-red">
+                  <button 
+                    onClick={handleLogout}
+                    className="block w-full text-left py-2 text-secondary-red"
+                  >
                     Cerrar Sesión
                   </button>
                 </>

@@ -9,65 +9,8 @@ import { defaultFilters, calculateRelevance } from '@/utils/searchHelpers';
 import { BRAND_TERMS } from '@/utils/constants';
 import { authService } from '@/services/api';
 
-// Mock data para desarrollo
-const mockServices: Servicio[] = [
-  {
-    id: '1',
-    as_id: '1',
-    categoria_id: '1',
-    titulo: 'Limpieza profunda de hogar',
-    descripcion: 'Servicio completo de limpieza para tu hogar. Incluye todos los ambientes, desinfección y productos ecológicos.',
-    tipo_precio: 'por_trabajo',
-    precio_desde: 8500,
-    precio_hasta: 15000,
-    moneda: 'ARS',
-    disponible: true,
-    urgente: false,
-    requiere_matricula: false,
-    activo: true,
-    destacado: true,
-    created_at: new Date(),
-    updated_at: new Date(),
-    as: {
-      id: '1',
-      usuario_id: '1',
-      nombre: 'María',
-      apellido: 'González',
-      dni: '12345678',
-      fecha_nacimiento: new Date('1985-03-15'),
-      telefono: '+5491234567890',
-      foto_perfil: '/images/avatars/maria.jpg',
-      direccion: 'Av. Corrientes 1234',
-      localidad: 'CABA',
-      provincia: 'Buenos Aires',
-      tiene_movilidad: true,
-      radio_notificaciones: 15,
-      identidad_verificada: true,
-      profesional_verificado: false,
-      suscripcion_activa: true,
-      created_at: new Date(),
-      updated_at: new Date()
-    },
-    categoria: {
-      id: '1',
-      nombre: 'Limpieza',
-      icono: '🧹',
-      color: '#10b981',
-      activa: true,
-      orden: 1
-    },
-    tags: [
-      { id: '1', nombre: 'Limpieza profunda', uso_count: 150, sugerido: true },
-      { id: '2', nombre: 'Productos ecológicos', uso_count: 89, sugerido: true },
-      { id: '3', nombre: 'Hogar completo', uso_count: 200, sugerido: true }
-    ],
-    rating: 4.8,
-    distancia: 2.5
-  },
-  // Agregar más servicios mock...
-];
-
-const mockCategories: Categoria[] = [
+// Basic categories for when no data is available
+const fallbackCategories: Categoria[] = [
   { id: '1', nombre: 'Limpieza', icono: '✨', color: '#10b981', activa: true, orden: 1 },
   { id: '2', nombre: 'Plomería', icono: '🚰', color: '#3b82f6', activa: true, orden: 2 },
   { id: '3', nombre: 'Electricidad', icono: '💡', color: '#f59e0b', activa: true, orden: 3 },
@@ -82,103 +25,30 @@ export default function ExplorePage() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // Cargar servicios iniciales
-    setAllServices(mockServices);
-    
     // Verificar autenticación del usuario
     if (authService.isAuthenticated()) {
       const currentUser = authService.getCurrentUser();
       setUser(currentUser);
     }
+    
+    // TODO: Implementar carga de servicios reales desde backend
+    // Por ahora mostramos un mensaje informativo
+    console.log('🔍 Explore page loaded - services will be loaded from backend when available');
   }, []);
 
   const performSearch = (searchFilters: SearchFilters) => {
     setLoading(true);
     setFilters(searchFilters);
 
-    // Simular búsqueda con delay
+    // TODO: Implementar búsqueda real en backend
     setTimeout(() => {
-      const startTime = Date.now();
-      
-      let filteredServices = [...allServices];
-
-      // Filtrar por query
-      if (searchFilters.query) {
-        const query = searchFilters.query.toLowerCase();
-        filteredServices = filteredServices.filter(service => 
-          service.titulo.toLowerCase().includes(query) ||
-          service.descripcion.toLowerCase().includes(query) ||
-          service.as?.nombre.toLowerCase().includes(query) ||
-          service.categoria?.nombre.toLowerCase().includes(query) ||
-          service.tags?.some(tag => tag.nombre.toLowerCase().includes(query))
-        );
-      }
-
-      // Filtrar por categoría
-      if (searchFilters.categoria) {
-        filteredServices = filteredServices.filter(service => 
-          service.categoria?.nombre.toLowerCase() === searchFilters.categoria.toLowerCase()
-        );
-      }
-
-      // Filtrar por verificación
-      if (searchFilters.verificados_solo) {
-        filteredServices = filteredServices.filter(service => 
-          service.as?.identidad_verificada
-        );
-      }
-
-      // Filtrar por urgencia
-      if (searchFilters.urgentes_solo) {
-        filteredServices = filteredServices.filter(service => service.urgente);
-      }
-
-      // Filtrar por movilidad
-      if (searchFilters.con_movilidad) {
-        filteredServices = filteredServices.filter(service => 
-          service.as?.tiene_movilidad
-        );
-      }
-
-      // Filtrar por precio
-      filteredServices = filteredServices.filter(service => 
-        service.precio_desde >= searchFilters.precio_min &&
-        service.precio_desde <= searchFilters.precio_max
-      );
-
-      // Filtrar por distancia
-      if (searchFilters.ubicacion) {
-        filteredServices = filteredServices.filter(service => 
-          !service.distancia || service.distancia <= searchFilters.radio
-        );
-      }
-
-      // Ordenar resultados
-      if (searchFilters.ordenar_por === 'relevancia') {
-        filteredServices.sort((a, b) => 
-          calculateRelevance(b, searchFilters) - calculateRelevance(a, searchFilters)
-        );
-      } else if (searchFilters.ordenar_por === 'distancia') {
-        filteredServices.sort((a, b) => (a.distancia || 0) - (b.distancia || 0));
-      } else if (searchFilters.ordenar_por === 'precio') {
-        filteredServices.sort((a, b) => a.precio_desde - b.precio_desde);
-      } else if (searchFilters.ordenar_por === 'rating') {
-        filteredServices.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-      } else if (searchFilters.ordenar_por === 'reciente') {
-        filteredServices.sort((a, b) => 
-          new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
-        );
-      }
-
-      const endTime = Date.now();
-
       setSearchResults({
-        servicios: filteredServices,
-        total: filteredServices.length,
+        servicios: [],
+        total: 0,
         pagina: 1,
         por_pagina: 20,
         filtros_aplicados: searchFilters,
-        tiempo_busqueda: endTime - startTime
+        tiempo_busqueda: 100
       });
       
       setLoading(false);

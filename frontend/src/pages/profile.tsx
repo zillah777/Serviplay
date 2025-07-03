@@ -107,11 +107,11 @@ export default function Profile() {
             setEditData({
               nombre: activeProfile.nombre || userData.nombre || '',
               apellido: activeProfile.apellido || userData.apellido || '',
-              telefono: activeProfile.telefono || userData.telefono || '',
-              direccion: activeProfile.direccion || userData.direccion || '',
-              localidad: activeProfile.localidad || userData.localidad || '',
-              provincia: activeProfile.provincia || userData.provincia || '',
-              codigo_postal: activeProfile.codigo_postal || userData.codigo_postal || '',
+              telefono: activeProfile.telefono || '',
+              direccion: activeProfile.direccion || '',
+              localidad: activeProfile.localidad || '',
+              provincia: activeProfile.provincia || '',
+              codigo_postal: activeProfile.codigo_postal || '',
               nivel_educativo: activeProfile.nivel_educativo || '',
               referencias_laborales: activeProfile.referencias_laborales || '',
               tiene_movilidad: activeProfile.tiene_movilidad || false,
@@ -121,8 +121,8 @@ export default function Profile() {
             console.log('✅ Profile data loaded successfully:', { 
               userData, 
               activeProfile,
-              userTelefono: userData.telefono || activeProfile.telefono,
-              userDireccion: activeProfile.direccion,
+              profileTelefono: activeProfile.telefono,
+              profileDireccion: activeProfile.direccion,
               userCreatedAt: userData.created_at
             });
           } else {
@@ -419,7 +419,7 @@ export default function Profile() {
                       className="px-2 py-1 border border-neutral-300 rounded focus:ring-2 focus:ring-primary-blue focus:border-transparent"
                     />
                   ) : (
-                    <span>{profile?.telefono || user?.telefono || 'No especificado'}</span>
+                    <span>{profile?.telefono || 'No especificado'}</span>
                   )}
                 </div>
                 <div className="flex items-center space-x-3 text-neutral-600">

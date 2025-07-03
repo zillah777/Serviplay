@@ -124,7 +124,7 @@ class EmailService {
   }
 
   async sendPasswordResetEmail(email: string, token: string): Promise<void> {
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+    const resetUrl = `${process.env.FRONTEND_URL}/auth/reset-password?token=${token}`;
     
     const html = `
       <div style="max-width: 600px; margin: 0 auto; font-family: 'Inter', sans-serif; background: #f8fafc; padding: 40px 20px;">

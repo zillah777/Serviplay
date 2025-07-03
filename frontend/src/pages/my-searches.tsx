@@ -3,16 +3,15 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
   PlusIcon,
-  MagnifyingGlassIcon,
+  PencilIcon,
+  EyeIcon,
+  TrashIcon,
   MapPinIcon,
   CurrencyDollarIcon,
   ClockIcon,
   CheckCircleIcon,
   XCircleIcon,
-  PauseIcon,
-  PlayIcon,
-  TrashIcon,
-  EyeIcon
+  PauseIcon
 } from '@heroicons/react/24/outline';
 import Layout from '@/components/common/Layout';
 import Loading from '@/components/common/Loading';
@@ -22,7 +21,7 @@ import { BRAND_TERMS } from '@/utils/constants';
 export default function MySearchesPage() {
   const [searches, setSearches] = useState<BusquedaServicio[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'todas' | 'activas' | 'pausadas' | 'completadas'>('todas');
+  const [filter, setFilter] = useState<'todas' | 'activas' | 'pausadas' | 'finalizadas'>('todas');
 
   useEffect(() => {
     fetchMySearches();
@@ -31,63 +30,11 @@ export default function MySearchesPage() {
   const fetchMySearches = async () => {
     try {
       setLoading(true);
-      // TODO: Reemplazar con llamada real a la API
-      // const response = await api.get('/my-searches');
-      // setSearches(response.data);
+      // TODO: Implementar llamada real a la API cuando esté disponible
+      console.log('🔍 Loading user searches from backend...');
       
-      // Mock data por ahora
-      const mockSearches: BusquedaServicio[] = [
-        {
-          id: '1',
-          explorador_id: '1',
-          titulo: 'Limpieza profunda de departamento',
-          descripcion: 'Necesito limpieza profunda de departamento de 2 ambientes. Incluye baños, cocina y habitaciones. Preferiblemente en fin de semana.',
-          categoria_id: '1',
-          direccion_trabajo: 'Palermo, CABA',
-          latitud_trabajo: -34.5755,
-          longitud_trabajo: -58.4338,
-          radio_busqueda: 10,
-          presupuesto_minimo: 3000,
-          presupuesto_maximo: 6000,
-          tipo_precio: 'por_trabajo',
-          fecha_necesaria: new Date('2024-03-15'),
-          urgente: false,
-          estado: 'activa',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          id: '2',
-          explorador_id: '1',
-          titulo: 'Reparación de heladera',
-          descripcion: 'Mi heladera no enfría bien. Busco técnico especializado en electrodomésticos.',
-          categoria_id: '2',
-          radio_busqueda: 15,
-          presupuesto_maximo: 8000,
-          urgente: true,
-          estado: 'completada',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          id: '3',
-          explorador_id: '1',
-          titulo: 'Cuidado de plantas mientras viajo',
-          descripcion: 'Viajo por 2 semanas y necesito alguien que cuide mis plantas. Son unas 15 plantas en total.',
-          direccion_trabajo: 'Villa Crespo, CABA',
-          radio_busqueda: 5,
-          presupuesto_minimo: 2000,
-          presupuesto_maximo: 4000,
-          tipo_precio: 'por_semana',
-          fecha_necesaria: new Date('2024-03-20'),
-          urgente: false,
-          estado: 'pausada',
-          created_at: new Date(),
-          updated_at: new Date()
-        }
-      ];
-      
-      setSearches(mockSearches);
+      // Por ahora, mostrar lista vacía hasta que se implemente el backend
+      setSearches([]);
     } catch (err) {
       console.error('Error fetching searches:', err);
     } finally {
@@ -122,286 +69,177 @@ export default function MySearchesPage() {
   };
 
   const filteredSearches = searches.filter(search => {
-    if (filter === 'activas') return search.estado === 'activa';
-    if (filter === 'pausadas') return search.estado === 'pausada';
-    if (filter === 'completadas') return search.estado === 'completada';
-    return true;
+    if (filter === 'todas') return true;
+    return search.estado === filter;
   });
 
-  const stats = {
-    total: searches.length,
-    activas: searches.filter(s => s.estado === 'activa').length,
-    pausadas: searches.filter(s => s.estado === 'pausada').length,
-    completadas: searches.filter(s => s.estado === 'completada').length
-  };
-
-  const getStatusColor = (estado: string) => {
-    switch (estado) {
-      case 'activa': return 'text-secondary-green';
-      case 'pausada': return 'text-neutral-500';
-      case 'completada': return 'text-primary-blue';
-      case 'cancelada': return 'text-secondary-red';
-      default: return 'text-neutral-600';
-    }
-  };
-
-  const getStatusIcon = (estado: string) => {
-    switch (estado) {
-      case 'activa': return CheckCircleIcon;
-      case 'pausada': return PauseIcon;
-      case 'completada': return CheckCircleIcon;
-      case 'cancelada': return XCircleIcon;
-      default: return ClockIcon;
-    }
-  };
-
   if (loading) {
-    return (
-      <Layout title="Mis Búsquedas">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <Loading />
-        </div>
-      </Layout>
-    );
+    return <Loading />;
   }
 
   return (
-    <Layout title="Mis Búsquedas">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Header */}
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
-            <div>
-              <h1 className="font-display text-3xl font-bold text-neutral-900 mb-2">
-                Mis Búsquedas
-              </h1>
-              <p className="text-neutral-600">
-                Gestioná las búsquedas de servicios que has publicado
-              </p>
-            </div>
-            
-            <Link
-              href="/search/new"
-              className="flex items-center space-x-2 px-6 py-3 bg-primary-blue text-white rounded-lg hover:bg-primary-blue-dark transition-colors"
+    <Layout 
+      title="Mis Búsquedas" 
+      description="Gestiona tus búsquedas de servicios"
+    >
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="font-display text-3xl font-bold text-neutral-900 mb-2">
+              Mis Búsquedas
+            </h1>
+            <p className="text-neutral-600">
+              Gestiona tus solicitudes de servicios y encuentra el {BRAND_TERMS.AS} perfecto
+            </p>
+          </div>
+          
+          <Link
+            href="/searches/new"
+            className="flex items-center space-x-2 bg-primary-blue text-white px-6 py-3 rounded-full hover:bg-primary-blue-dark transition-colors"
+          >
+            <PlusIcon className="w-5 h-5" />
+            <span>Nueva Búsqueda</span>
+          </Link>
+        </div>
+
+        {/* Filters */}
+        <div className="flex items-center space-x-4 mb-8">
+          {['todas', 'activas', 'pausadas', 'finalizadas'].map((filterOption) => (
+            <button
+              key={filterOption}
+              onClick={() => setFilter(filterOption as any)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                filter === filterOption
+                  ? 'bg-primary-blue text-white'
+                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+              }`}
             >
-              <PlusIcon className="w-5 h-5" />
-              <span>Nueva Búsqueda</span>
-            </Link>
-          </div>
+              {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+            </button>
+          ))}
+        </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white rounded-xl border border-neutral-200 p-4">
-              <div className="text-2xl font-bold text-neutral-900">{stats.total}</div>
-              <div className="text-sm text-neutral-600">Total</div>
-            </div>
-            <div className="bg-white rounded-xl border border-neutral-200 p-4">
-              <div className="text-2xl font-bold text-secondary-green">{stats.activas}</div>
-              <div className="text-sm text-neutral-600">Activas</div>
-            </div>
-            <div className="bg-white rounded-xl border border-neutral-200 p-4">
-              <div className="text-2xl font-bold text-neutral-500">{stats.pausadas}</div>
-              <div className="text-sm text-neutral-600">Pausadas</div>
-            </div>
-            <div className="bg-white rounded-xl border border-neutral-200 p-4">
-              <div className="text-2xl font-bold text-primary-blue">{stats.completadas}</div>
-              <div className="text-sm text-neutral-600">Completadas</div>
-            </div>
-          </div>
-
-          {/* Filters */}
-          <div className="flex space-x-1 bg-neutral-100 rounded-lg p-1 mb-6 w-fit">
-            {[
-              { key: 'todas', label: 'Todas' },
-              { key: 'activas', label: 'Activas' },
-              { key: 'pausadas', label: 'Pausadas' },
-              { key: 'completadas', label: 'Completadas' }
-            ].map(({ key, label }) => (
-              <button
-                key={key}
-                onClick={() => setFilter(key as any)}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  filter === key
-                    ? 'bg-white text-primary-blue shadow-sm'
-                    : 'text-neutral-600 hover:text-neutral-800'
-                }`}
+        {/* Searches List */}
+        {filteredSearches.length > 0 ? (
+          <div className="grid gap-6">
+            {filteredSearches.map((search) => (
+              <motion.div
+                key={search.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-2xl shadow-lg p-6 border border-neutral-200 hover:border-primary-blue transition-colors"
               >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {/* Searches List */}
-          {filteredSearches.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-16"
-            >
-              <div className="w-24 h-24 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <MagnifyingGlassIcon className="w-12 h-12 text-neutral-400" />
-              </div>
-              <h3 className="font-display text-2xl font-bold text-neutral-900 mb-4">
-                {filter === 'todas' ? 'No tenés búsquedas aún' : `No tenés búsquedas ${filter}`}
-              </h3>
-              <p className="text-neutral-600 mb-6 max-w-md mx-auto">
-                {filter === 'todas' 
-                  ? 'Creá tu primera búsqueda para encontrar el servicio que necesitás.'
-                  : `Cambiá el filtro para ver otras búsquedas o creá una nueva.`
-                }
-              </p>
-              {filter === 'todas' && (
-                <Link
-                  href="/search/new"
-                  className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-blue text-white rounded-lg hover:bg-primary-blue-dark transition-colors"
-                >
-                  <PlusIcon className="w-5 h-5" />
-                  <span>Crear primera búsqueda</span>
-                </Link>
-              )}
-            </motion.div>
-          ) : (
-            <div className="space-y-4">
-              {filteredSearches.map((search, index) => {
-                const StatusIcon = getStatusIcon(search.estado);
-                
-                return (
-                  <motion.div
-                    key={search.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="bg-white rounded-xl border border-neutral-200 p-6 hover:shadow-sm transition-shadow"
-                  >
-                    <div className="flex flex-col lg:flex-row justify-between gap-4">
-                      {/* Search Info */}
-                      <div className="flex-1 space-y-3">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <h3 className="font-semibold text-lg text-neutral-900 mb-1">
-                              {search.titulo}
-                            </h3>
-                            <p className="text-neutral-600 text-sm line-clamp-2">
-                              {search.descripcion}
-                            </p>
-                          </div>
-                          
-                          {/* Status Badge */}
-                          <div className={`flex items-center space-x-2 ml-4 ${getStatusColor(search.estado)}`}>
-                            <StatusIcon className="w-4 h-4" />
-                            <span className="text-xs capitalize">{search.estado}</span>
-                          </div>
-                        </div>
-                        
-                        {/* Search Details */}
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-600">
-                          {search.direccion_trabajo && (
-                            <div className="flex items-center space-x-1">
-                              <MapPinIcon className="w-4 h-4" />
-                              <span>{search.direccion_trabajo}</span>
-                            </div>
-                          )}
-                          
-                          <div className="flex items-center space-x-1">
-                            <MagnifyingGlassIcon className="w-4 h-4" />
-                            <span>Radio: {search.radio_busqueda} km</span>
-                          </div>
-                          
-                          {search.presupuesto_maximo && (
-                            <div className="flex items-center space-x-1">
-                              <CurrencyDollarIcon className="w-4 h-4" />
-                              <span>
-                                {search.presupuesto_minimo && (
-                                  <>${search.presupuesto_minimo.toLocaleString()} - </>
-                                )}
-                                ${search.presupuesto_maximo.toLocaleString()}
-                              </span>
-                            </div>
-                          )}
-                          
-                          {search.fecha_necesaria && (
-                            <div className="flex items-center space-x-1">
-                              <ClockIcon className="w-4 h-4" />
-                              <span>{new Date(search.fecha_necesaria).toLocaleDateString()}</span>
-                            </div>
-                          )}
-                        </div>
-                        
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2">
-                          {search.urgente && (
-                            <span className="px-2 py-1 bg-secondary-red/10 text-secondary-red text-xs rounded-full">
-                              Urgente
-                            </span>
-                          )}
-                          {search.tipo_precio && (
-                            <span className="px-2 py-1 bg-primary-blue/10 text-primary-blue text-xs rounded-full">
-                              {search.tipo_precio === 'por_hora' && 'Por hora'}
-                              {search.tipo_precio === 'por_trabajo' && 'Por trabajo'}
-                              {search.tipo_precio === 'por_semana' && 'Por semana'}
-                              {search.tipo_precio === 'por_mes' && 'Por mes'}
-                            </span>
-                          )}
-                        </div>
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <h3 className="font-semibold text-neutral-900 text-lg">
+                        {search.titulo}
+                      </h3>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        search.estado === 'activa' 
+                          ? 'bg-green-100 text-green-800'
+                          : search.estado === 'pausada'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : 'bg-neutral-100 text-neutral-800'
+                      }`}>
+                        {search.estado}
+                      </span>
+                    </div>
+                    
+                    <p className="text-neutral-600 mb-4">
+                      {search.descripcion}
+                    </p>
+                    
+                    <div className="flex items-center flex-wrap gap-4 text-sm text-neutral-500">
+                      <div className="flex items-center space-x-1">
+                        <MapPinIcon className="w-4 h-4" />
+                        <span>{search.direccion_trabajo}</span>
                       </div>
                       
-                      {/* Actions */}
-                      <div className="flex flex-col space-y-2 lg:min-w-[200px]">
-                        <div className="flex space-x-2">
-                          <Link
-                            href={`/search/${search.id}`}
-                            className="flex-1 flex items-center justify-center space-x-1 px-3 py-2 bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-colors text-sm"
-                          >
-                            <EyeIcon className="w-4 h-4" />
-                            <span>Ver respuestas</span>
-                          </Link>
-                        </div>
-                        
-                        {search.estado !== 'completada' && search.estado !== 'cancelada' && (
-                          <div className="flex space-x-2">
-                            <button
-                              onClick={() => handleToggleStatus(
-                                search.id, 
-                                search.estado === 'activa' ? 'pausada' : 'activa'
-                              )}
-                              className={`flex-1 flex items-center justify-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                search.estado === 'activa'
-                                  ? 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-                                  : 'bg-secondary-green text-white hover:bg-secondary-green-dark'
-                              }`}
-                            >
-                              {search.estado === 'activa' ? (
-                                <>
-                                  <PauseIcon className="w-4 h-4" />
-                                  <span>Pausar</span>
-                                </>
-                              ) : (
-                                <>
-                                  <PlayIcon className="w-4 h-4" />
-                                  <span>Activar</span>
-                                </>
-                              )}
-                            </button>
-                            <button
-                              onClick={() => handleDeleteSearch(search.id)}
-                              className="flex items-center justify-center px-3 py-2 bg-secondary-red text-white rounded-lg hover:bg-secondary-red-dark transition-colors"
-                            >
-                              <TrashIcon className="w-4 h-4" />
-                            </button>
-                          </div>
-                        )}
+                      <div className="flex items-center space-x-1">
+                        <CurrencyDollarIcon className="w-4 h-4" />
+                        <span>
+                          ${search.presupuesto_minimo?.toLocaleString()} - ${search.presupuesto_maximo?.toLocaleString()}
+                        </span>
                       </div>
+                      
+                      {search.fecha_necesaria && (
+                        <div className="flex items-center space-x-1">
+                          <ClockIcon className="w-4 h-4" />
+                          <span>
+                            Para: {new Date(search.fecha_necesaria).toLocaleDateString()}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  </motion.div>
-                );
-              })}
+                  </div>
+                  
+                  <div className="flex items-center space-x-2 ml-4">
+                    <button
+                      onClick={() => handleToggleStatus(
+                        search.id, 
+                        search.estado === 'activa' ? 'pausada' : 'activa'
+                      )}
+                      className="p-2 text-neutral-400 hover:text-primary-blue transition-colors"
+                      title={search.estado === 'activa' ? 'Pausar' : 'Activar'}
+                    >
+                      {search.estado === 'activa' ? (
+                        <PauseIcon className="w-5 h-5" />
+                      ) : (
+                        <CheckCircleIcon className="w-5 h-5" />
+                      )}
+                    </button>
+                    
+                    <button className="p-2 text-neutral-400 hover:text-primary-blue transition-colors">
+                      <PencilIcon className="w-5 h-5" />
+                    </button>
+                    
+                    <button className="p-2 text-neutral-400 hover:text-primary-blue transition-colors">
+                      <EyeIcon className="w-5 h-5" />
+                    </button>
+                    
+                    <button
+                      onClick={() => handleDeleteSearch(search.id)}
+                      className="p-2 text-neutral-400 hover:text-red-500 transition-colors"
+                    >
+                      <TrashIcon className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          /* Empty State */
+          <div className="text-center py-16">
+            <div className="w-24 h-24 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-4xl">🔍</span>
             </div>
-          )}
-        </motion.div>
+            
+            <h3 className="font-semibold text-neutral-900 text-xl mb-2">
+              {filter === 'todas' 
+                ? 'No has creado ninguna búsqueda aún'
+                : `No tienes búsquedas ${filter}`
+              }
+            </h3>
+            
+            <p className="text-neutral-600 mb-8 max-w-md mx-auto">
+              {filter === 'todas'
+                ? `Crea tu primera búsqueda para encontrar ${BRAND_TERMS.ASES} cerca tuyo`
+                : `Cambia el filtro o crea una nueva búsqueda`
+              }
+            </p>
+            
+            <Link
+              href="/searches/new"
+              className="inline-flex items-center space-x-2 bg-primary-blue text-white px-6 py-3 rounded-full hover:bg-primary-blue-dark transition-colors"
+            >
+              <PlusIcon className="w-5 h-5" />
+              <span>Crear mi primera búsqueda</span>
+            </Link>
+          </div>
+        )}
       </div>
     </Layout>
   );

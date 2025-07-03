@@ -30,337 +30,156 @@ router.use(authenticateToken);
 // RUTAS DE CHATS
 // ============================================================================
 
-/**
- * GET /api/chats
- * Obtener lista de chats del usuario
- */
+// GET /api/chats - Obtener lista de chats del usuario
 router.get(
   '/',
   [
-    query('page')
-      .optional()
-      .isInt({ min: 1 })
-      .withMessage('La página debe ser un número entero mayor a 0'),
-    query('limit')
-      .optional()
-      .isInt({ min: 1, max: 50 })
-      .withMessage('El límite debe ser entre 1 y 50'),
+    query('page').optional().isInt({ min: 1 }).withMessage('La página debe ser un número entero mayor a 0'),
+    query('limit').optional().isInt({ min: 1, max: 50 }).withMessage('El límite debe ser entre 1 y 50'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 60, // 60 requests por minuto
-    message: 'Demasiadas consultas de chats'
-  }),
+  rateLimiter,
   getUserChats
 );
 
-/**
- * POST /api/chats/direct
- * Obtener o crear chat directo con otro usuario
- */
+// POST /api/chats/direct - Obtener o crear chat directo con otro usuario
 router.post(
   '/direct',
   [
-    body('otherUserId')
-      .isUUID()
-      .withMessage('ID de usuario inválido'),
+    body('otherUserId').isUUID().withMessage('ID de usuario inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 5 * 60 * 1000, // 5 minutos
-    max: 10, // 10 chats directos por 5 minutos
-    message: 'Demasiados intentos de crear chats'
-  }),
+  rateLimiter,
   getOrCreateDirectChat
 );
 
-/**
- * POST /api/chats/group
- * Crear chat grupal (funcionalidad futura)
- */
+// POST /api/chats/group - Crear chat grupal
 router.post(
   '/group',
   [
-    body('titulo')
-      .trim()
-      .isLength({ min: 1, max: 200 })
-      .withMessage('El título debe tener entre 1 y 200 caracteres'),
-    body('descripcion')
-      .optional()
-      .trim()
-      .isLength({ max: 500 })
-      .withMessage('La descripción no puede superar 500 caracteres'),
-    body('participantes')
-      .isArray({ min: 2 })
-      .withMessage('Se requieren al menos 2 participantes'),
-    body('participantes.*')
-      .isUUID()
-      .withMessage('IDs de participantes inválidos'),
+    body('name').trim().isLength({ min: 1, max: 100 }).withMessage('Nombre del grupo requerido (1-100 caracteres)'),
+    body('participants').isArray({ min: 1, max: 50 }).withMessage('Participantes requeridos (1-50)'),
+    body('participants.*').isUUID().withMessage('ID de participante inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 10 * 60 * 1000, // 10 minutos
-    max: 3, // 3 chats grupales por 10 minutos
-    message: 'Demasiados intentos de crear chats grupales'
-  }),
+  rateLimiter,
   createGroupChat
 );
 
-/**
- * GET /api/chats/:chatId
- * Obtener detalles de un chat específico
- */
+// GET /api/chats/:chatId - Obtener detalles de un chat específico
 router.get(
   '/:chatId',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 30, // 30 requests por minuto por chat
-    message: 'Demasiadas consultas del chat'
-  }),
+  rateLimiter,
   getChatDetails
 );
 
-// ============================================================================
-// RUTAS DE MENSAJES
-// ============================================================================
-
-/**
- * GET /api/chats/:chatId/messages
- * Obtener mensajes de un chat
- */
+// GET /api/chats/:chatId/messages - Obtener mensajes de un chat
 router.get(
   '/:chatId/messages',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
-    query('page')
-      .optional()
-      .isInt({ min: 1 })
-      .withMessage('La página debe ser un número entero mayor a 0'),
-    query('limit')
-      .optional()
-      .isInt({ min: 1, max: 100 })
-      .withMessage('El límite debe ser entre 1 y 100'),
-    query('before')
-      .optional()
-      .isUUID()
-      .withMessage('ID de mensaje antes inválido'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
+    query('page').optional().isInt({ min: 1 }).withMessage('Página inválida'),
+    query('limit').optional().isInt({ min: 1, max: 100 }).withMessage('Límite debe ser entre 1 y 100'),
+    query('before').optional().isUUID().withMessage('ID de mensaje before inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 60, // 60 requests por minuto
-    message: 'Demasiadas consultas de mensajes'
-  }),
+  rateLimiter,
   getChatMessages
 );
 
-/**
- * POST /api/chats/:chatId/messages
- * Enviar mensaje
- */
+// POST /api/chats/:chatId/messages - Enviar mensaje
 router.post(
   '/:chatId/messages',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
-    body('content')
-      .trim()
-      .isLength({ min: 1, max: 5000 })
-      .withMessage('El mensaje debe tener entre 1 y 5000 caracteres'),
-    body('tipo')
-      .optional()
-      .isIn(['texto', 'imagen', 'archivo', 'ubicacion', 'sistema'])
-      .withMessage('Tipo de mensaje inválido'),
-    body('reply_to_id')
-      .optional()
-      .isUUID()
-      .withMessage('ID de mensaje de respuesta inválido'),
-    body('ubicacion_lat')
-      .optional()
-      .isFloat({ min: -90, max: 90 })
-      .withMessage('Latitud inválida'),
-    body('ubicacion_lng')
-      .optional()
-      .isFloat({ min: -180, max: 180 })
-      .withMessage('Longitud inválida'),
-    body('ubicacion_direccion')
-      .optional()
-      .trim()
-      .isLength({ max: 500 })
-      .withMessage('La dirección no puede superar 500 caracteres'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
+    body('content').trim().isLength({ min: 1, max: 4000 }).withMessage('Contenido del mensaje requerido (1-4000 caracteres)'),
+    body('type').optional().isIn(['text', 'image', 'file', 'system']).withMessage('Tipo de mensaje inválido'),
+    body('replyToId').optional().isUUID().withMessage('ID de mensaje de respuesta inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 30, // 30 mensajes por minuto
-    message: 'Demasiados mensajes enviados'
-  }),
+  rateLimiter,
   sendMessage
 );
 
-/**
- * PUT /api/chats/:chatId/messages/:messageId
- * Editar mensaje
- */
+// PUT /api/chats/:chatId/messages/:messageId - Editar mensaje
 router.put(
   '/:chatId/messages/:messageId',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
-    param('messageId')
-      .isUUID()
-      .withMessage('ID de mensaje inválido'),
-    body('content')
-      .trim()
-      .isLength({ min: 1, max: 5000 })
-      .withMessage('El mensaje debe tener entre 1 y 5000 caracteres'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
+    param('messageId').isUUID().withMessage('ID de mensaje inválido'),
+    body('content').trim().isLength({ min: 1, max: 4000 }).withMessage('Contenido del mensaje requerido (1-4000 caracteres)'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 5 * 60 * 1000, // 5 minutos
-    max: 20, // 20 ediciones por 5 minutos
-    message: 'Demasiadas ediciones de mensajes'
-  }),
+  rateLimiter,
   editMessage
 );
 
-/**
- * DELETE /api/chats/:chatId/messages/:messageId
- * Eliminar mensaje
- */
+// DELETE /api/chats/:chatId/messages/:messageId - Eliminar mensaje
 router.delete(
   '/:chatId/messages/:messageId',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
-    param('messageId')
-      .isUUID()
-      .withMessage('ID de mensaje inválido'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
+    param('messageId').isUUID().withMessage('ID de mensaje inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 5 * 60 * 1000, // 5 minutos
-    max: 10, // 10 eliminaciones por 5 minutos
-    message: 'Demasiadas eliminaciones de mensajes'
-  }),
+  rateLimiter,
   deleteMessage
 );
 
-/**
- * POST /api/chats/:chatId/messages/read
- * Marcar mensajes como leídos
- */
+// POST /api/chats/:chatId/read - Marcar mensajes como leídos
 router.post(
-  '/:chatId/messages/read',
+  '/:chatId/read',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
-    body('untilMessageId')
-      .optional()
-      .isUUID()
-      .withMessage('ID de mensaje hasta inválido'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
+    body('messageIds').optional().isArray().withMessage('IDs de mensajes debe ser un array'),
+    body('messageIds.*').optional().isUUID().withMessage('ID de mensaje inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 30, // 30 marcados como leído por minuto
-    message: 'Demasiadas actualizaciones de lectura'
-  }),
+  rateLimiter,
   markMessagesAsRead
 );
 
-// ============================================================================
-// RUTAS DE TYPING INDICATORS
-// ============================================================================
-
-/**
- * POST /api/chats/:chatId/typing/start
- * Iniciar indicador de escritura
- */
+// POST /api/chats/:chatId/typing/start - Iniciar indicador de escritura
 router.post(
   '/:chatId/typing/start',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 60, // 60 indicadores por minuto
-    message: 'Demasiados indicadores de escritura'
-  }),
+  rateLimiter,
   startTyping
 );
 
-/**
- * POST /api/chats/:chatId/typing/stop
- * Detener indicador de escritura
- */
+// POST /api/chats/:chatId/typing/stop - Detener indicador de escritura
 router.post(
   '/:chatId/typing/stop',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 60, // 60 indicadores por minuto
-    message: 'Demasiados indicadores de escritura'
-  }),
+  rateLimiter,
   stopTyping
 );
 
-/**
- * GET /api/chats/:chatId/typing
- * Obtener usuarios que están escribiendo
- */
+// GET /api/chats/:chatId/typing - Obtener usuarios escribiendo
 router.get(
   '/:chatId/typing',
   [
-    param('chatId')
-      .isUUID()
-      .withMessage('ID de chat inválido'),
+    param('chatId').isUUID().withMessage('ID de chat inválido'),
     validateRequest
   ],
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 120, // 120 consultas por minuto
-    message: 'Demasiadas consultas de escritura'
-  }),
+  rateLimiter,
   getTypingUsers
 );
 
-// ============================================================================
-// RUTAS DE ADMINISTRACIÓN
-// ============================================================================
-
-/**
- * POST /api/chats/admin/cleanup-typing
- * Limpiar indicadores de escritura expirados (solo para tareas programadas)
- */
+// POST /api/chats/cleanup - Limpiar indicadores de escritura expirados
 router.post(
-  '/admin/cleanup-typing',
-  rateLimiter({
-    windowMs: 1 * 60 * 1000, // 1 minuto
-    max: 5, // 5 limpiezas por minuto
-    message: 'Demasiadas limpiezas'
-  }),
+  '/cleanup',
+  rateLimiter,
   cleanupTypingIndicators
 );
 

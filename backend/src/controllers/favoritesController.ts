@@ -1,4 +1,5 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthRequest } from '@/middleware/auth';
 import { 
   FavoritosModel, 
   ListasFavoritosModel, 
@@ -13,7 +14,7 @@ import { validateUUID } from '@/utils/validation';
 export class FavoritesController {
   
   // Agregar servicio a favoritos
-  static async addToFavorites(req: Request, res: Response) {
+  static async addToFavorites(req: AuthRequest, res: Response) {
     try {
       const { servicio_id, nota_personal, metadata } = req.body;
       const usuario_id = req.user?.id;
@@ -44,7 +45,7 @@ export class FavoritesController {
   }
 
   // Remover servicio de favoritos
-  static async removeFromFavorites(req: Request, res: Response) {
+  static async removeFromFavorites(req: AuthRequest, res: Response) {
     try {
       const { servicioId } = req.params;
       const usuario_id = req.user?.id;
@@ -71,7 +72,7 @@ export class FavoritesController {
   }
 
   // Verificar si un servicio es favorito
-  static async checkIsFavorite(req: Request, res: Response) {
+  static async checkIsFavorite(req: AuthRequest, res: Response) {
     try {
       const { servicioId } = req.params;
       const usuario_id = req.user?.id;
@@ -94,7 +95,7 @@ export class FavoritesController {
   }
 
   // Obtener favoritos del usuario con detalles
-  static async getUserFavorites(req: Request, res: Response) {
+  static async getUserFavorites(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
       const page = parseInt(req.query.page as string) || 1;
@@ -135,7 +136,7 @@ export class FavoritesController {
   }
 
   // Actualizar nota personal de favorito
-  static async updateFavoriteNote(req: Request, res: Response) {
+  static async updateFavoriteNote(req: AuthRequest, res: Response) {
     try {
       const { servicioId } = req.params;
       const { nota_personal } = req.body;
@@ -167,7 +168,7 @@ export class FavoritesController {
   }
 
   // Obtener servicios más populares en favoritos
-  static async getPopularFavorites(req: Request, res: Response) {
+  static async getPopularFavorites(req: AuthRequest, res: Response) {
     try {
       const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
       
@@ -188,7 +189,7 @@ export class FavoritesController {
 export class FavoriteListsController {
 
   // Crear nueva lista de favoritos
-  static async createList(req: Request, res: Response) {
+  static async createList(req: AuthRequest, res: Response) {
     try {
       const { nombre, descripcion, color, icono, publica, compartible } = req.body;
       const usuario_id = req.user?.id;
@@ -226,7 +227,7 @@ export class FavoriteListsController {
   }
 
   // Obtener listas del usuario
-  static async getUserLists(req: Request, res: Response) {
+  static async getUserLists(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
 
@@ -244,7 +245,7 @@ export class FavoriteListsController {
   }
 
   // Obtener lista específica con permisos
-  static async getListById(req: Request, res: Response) {
+  static async getListById(req: AuthRequest, res: Response) {
     try {
       const { listaId } = req.params;
       const usuario_id = req.user?.id;
@@ -278,7 +279,7 @@ export class FavoriteListsController {
   }
 
   // Actualizar lista
-  static async updateList(req: Request, res: Response) {
+  static async updateList(req: AuthRequest, res: Response) {
     try {
       const { listaId } = req.params;
       const usuario_id = req.user?.id;
@@ -326,7 +327,7 @@ export class FavoriteListsController {
   }
 
   // Eliminar lista
-  static async deleteList(req: Request, res: Response) {
+  static async deleteList(req: AuthRequest, res: Response) {
     try {
       const { listaId } = req.params;
       const usuario_id = req.user?.id;
@@ -353,7 +354,7 @@ export class FavoriteListsController {
   }
 
   // Agregar favorito a lista
-  static async addFavoriteToList(req: Request, res: Response) {
+  static async addFavoriteToList(req: AuthRequest, res: Response) {
     try {
       const { listaId } = req.params;
       const { favorito_id, orden } = req.body;
@@ -390,7 +391,7 @@ export class FavoriteListsController {
   }
 
   // Remover favorito de lista
-  static async removeFavoriteFromList(req: Request, res: Response) {
+  static async removeFavoriteFromList(req: AuthRequest, res: Response) {
     try {
       const { listaId, favoritoId } = req.params;
       const usuario_id = req.user?.id;
@@ -423,7 +424,7 @@ export class FavoriteListsController {
   }
 
   // Obtener favoritos de una lista
-  static async getListFavorites(req: Request, res: Response) {
+  static async getListFavorites(req: AuthRequest, res: Response) {
     try {
       const { listaId } = req.params;
       const usuario_id = req.user?.id;
@@ -462,7 +463,7 @@ export class FavoriteListsController {
   }
 
   // Reordenar favoritos en lista
-  static async reorderListFavorites(req: Request, res: Response) {
+  static async reorderListFavorites(req: AuthRequest, res: Response) {
     try {
       const { listaId } = req.params;
       const { reordered_items } = req.body;
@@ -503,7 +504,7 @@ export class FavoriteListsController {
 export class SharedFavoritesController {
 
   // Compartir lista con otro usuario
-  static async shareList(req: Request, res: Response) {
+  static async shareList(req: AuthRequest, res: Response) {
     try {
       const { listaId } = req.params;
       const { 
@@ -558,7 +559,7 @@ export class SharedFavoritesController {
   }
 
   // Obtener listas compartidas conmigo
-  static async getSharedWithMe(req: Request, res: Response) {
+  static async getSharedWithMe(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
 
@@ -576,7 +577,7 @@ export class SharedFavoritesController {
   }
 
   // Revocar compartición
-  static async revokeShare(req: Request, res: Response) {
+  static async revokeShare(req: AuthRequest, res: Response) {
     try {
       const { listaId, usuarioId } = req.params;
       const propietario_id = req.user?.id;

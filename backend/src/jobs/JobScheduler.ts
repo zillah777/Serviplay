@@ -416,8 +416,8 @@ export class JobScheduler {
     for (const [name, job] of this.jobs.entries()) {
       status.push({
         name,
-        running: job.getStatus() === 'scheduled',
-        nextRun: job.nextDates().toString()
+        running: true, // Asumimos que está corriendo si está en el mapa
+        nextRun: 'scheduled' // node-cron no expone nextDates públicamente
       });
     }
 

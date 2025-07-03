@@ -1,4 +1,5 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthRequest } from '@/middleware/auth';
 import { CalificacionesModel } from '@/models/Reviews';
 import { validateUUID } from '@/utils/validation';
 
@@ -9,7 +10,7 @@ import { validateUUID } from '@/utils/validation';
 export class ReviewsController {
   
   // Crear nueva calificación
-  static async createReview(req: Request, res: Response) {
+  static async createReview(req: AuthRequest, res: Response) {
     try {
       const {
         match_id,
@@ -86,7 +87,7 @@ export class ReviewsController {
   }
 
   // Obtener calificación por ID
-  static async getReviewById(req: Request, res: Response) {
+  static async getReviewById(req: AuthRequest, res: Response) {
     try {
       const { reviewId } = req.params;
 
@@ -118,7 +119,7 @@ export class ReviewsController {
   }
 
   // Obtener calificaciones recibidas por un usuario
-  static async getUserReviews(req: Request, res: Response) {
+  static async getUserReviews(req: AuthRequest, res: Response) {
     try {
       const { userId } = req.params;
       const page = parseInt(req.query.page as string) || 1;
@@ -159,7 +160,7 @@ export class ReviewsController {
   }
 
   // Obtener calificaciones dadas por un usuario
-  static async getReviewsGivenByUser(req: Request, res: Response) {
+  static async getReviewsGivenByUser(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
       const page = parseInt(req.query.page as string) || 1;
@@ -188,7 +189,7 @@ export class ReviewsController {
   }
 
   // Obtener estadísticas de calificaciones de un usuario
-  static async getUserStats(req: Request, res: Response) {
+  static async getUserStats(req: AuthRequest, res: Response) {
     try {
       const { userId } = req.params;
 
@@ -206,7 +207,7 @@ export class ReviewsController {
   }
 
   // Obtener calificaciones pendientes del usuario
-  static async getPendingReviews(req: Request, res: Response) {
+  static async getPendingReviews(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
 
@@ -227,7 +228,7 @@ export class ReviewsController {
   }
 
   // Actualizar calificación
-  static async updateReview(req: Request, res: Response) {
+  static async updateReview(req: AuthRequest, res: Response) {
     try {
       const { reviewId } = req.params;
       const {
@@ -318,7 +319,7 @@ export class ReviewsController {
   }
 
   // Eliminar calificación
-  static async deleteReview(req: Request, res: Response) {
+  static async deleteReview(req: AuthRequest, res: Response) {
     try {
       const { reviewId } = req.params;
       const calificador_id = req.user?.id;
@@ -347,7 +348,7 @@ export class ReviewsController {
   }
 
   // Obtener calificaciones públicas recientes (para homepage, etc.)
-  static async getRecentPublicReviews(req: Request, res: Response) {
+  static async getRecentPublicReviews(req: AuthRequest, res: Response) {
     try {
       const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
 
@@ -361,7 +362,7 @@ export class ReviewsController {
   }
 
   // Reportar calificación inapropiada
-  static async reportReview(req: Request, res: Response) {
+  static async reportReview(req: AuthRequest, res: Response) {
     try {
       const { reviewId } = req.params;
       const { razon } = req.body;
@@ -400,7 +401,7 @@ export class ReviewsController {
   }
 
   // Obtener resumen de calificaciones para el dashboard
-  static async getDashboardSummary(req: Request, res: Response) {
+  static async getDashboardSummary(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
 

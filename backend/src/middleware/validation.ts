@@ -483,3 +483,6 @@ export const validateSensitiveData = (req: Request, res: Response, next: NextFun
   
   next();
 };
+
+// Export del validador de request para compatibilidad
+export const validateRequest = handleValidationErrors;

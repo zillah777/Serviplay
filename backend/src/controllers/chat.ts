@@ -347,7 +347,7 @@ export const createGroupChat = asyncHandler(async (req: AuthRequest, res: Respon
 });
 
 // Limpiar indicadores de escritura expirados (tarea programada)
-export const cleanupTypingIndicators = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+export const cleanupTypingIndicators = asyncHandler(async (req: AuthRequest, res: Response, next: NextFunction) => {
   await TypingIndicatorModel.cleanupExpired();
 
   res.json({

@@ -1,4 +1,5 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthRequest } from '@/middleware/auth';
 import { 
   ArchivosModel, 
   ArchivosRelacionesModel, 
@@ -21,7 +22,7 @@ import { validateUUID } from '@/utils/validation';
 export class UploadController {
   
   // Subir archivo único
-  static async uploadSingle(req: Request, res: Response) {
+  static async uploadSingle(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
       const { contexto, entidad_tipo, entidad_id, campo, descripcion } = req.body;
@@ -124,7 +125,7 @@ export class UploadController {
   }
 
   // Subir múltiples archivos
-  static async uploadMultiple(req: Request, res: Response) {
+  static async uploadMultiple(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
       const { contexto, entidad_tipo, entidad_id, campo } = req.body;
@@ -254,7 +255,7 @@ export class UploadController {
   }
 
   // Subir archivo temporal (sin asociar a entidad)
-  static async uploadTemporary(req: Request, res: Response) {
+  static async uploadTemporary(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
       const { contexto } = req.body;
@@ -336,7 +337,7 @@ export class UploadController {
   }
 
   // Confirmar archivo temporal
-  static async confirmTemporaryFile(req: Request, res: Response) {
+  static async confirmTemporaryFile(req: AuthRequest, res: Response) {
     try {
       const { token } = req.params;
       const { entidad_tipo, entidad_id, campo, descripcion } = req.body;
@@ -382,7 +383,7 @@ export class UploadController {
   }
 
   // Obtener archivos del usuario
-  static async getUserFiles(req: Request, res: Response) {
+  static async getUserFiles(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
       const page = parseInt(req.query.page as string) || 1;
@@ -417,7 +418,7 @@ export class UploadController {
   }
 
   // Eliminar archivo
-  static async deleteFile(req: Request, res: Response) {
+  static async deleteFile(req: AuthRequest, res: Response) {
     try {
       const { archivoId } = req.params;
       const usuario_id = req.user?.id;
@@ -462,7 +463,7 @@ export class UploadController {
   }
 
   // Obtener estadísticas de archivos del usuario
-  static async getUserStats(req: Request, res: Response) {
+  static async getUserStats(req: AuthRequest, res: Response) {
     try {
       const usuario_id = req.user?.id;
 
@@ -487,7 +488,7 @@ export class UploadController {
 export class FileRelationsController {
   
   // Obtener archivos de una entidad
-  static async getEntityFiles(req: Request, res: Response) {
+  static async getEntityFiles(req: AuthRequest, res: Response) {
     try {
       const { entidadTipo, entidadId } = req.params;
       const { campo } = req.query;
@@ -510,7 +511,7 @@ export class FileRelationsController {
   }
 
   // Asociar archivo existente a entidad
-  static async associateFile(req: Request, res: Response) {
+  static async associateFile(req: AuthRequest, res: Response) {
     try {
       const { archivo_id, entidad_tipo, entidad_id, campo, orden, descripcion } = req.body;
       const usuario_id = req.user?.id;
@@ -549,7 +550,7 @@ export class FileRelationsController {
   }
 
   // Remover asociación archivo-entidad
-  static async removeAssociation(req: Request, res: Response) {
+  static async removeAssociation(req: AuthRequest, res: Response) {
     try {
       const { archivoId, entidadTipo, entidadId } = req.params;
       const { campo } = req.query;
@@ -582,7 +583,7 @@ export class FileRelationsController {
   }
 
   // Reordenar archivos en galería
-  static async reorderFiles(req: Request, res: Response) {
+  static async reorderFiles(req: AuthRequest, res: Response) {
     try {
       const { entidadTipo, entidadId } = req.params;
       const { campo, reordered_items } = req.body;

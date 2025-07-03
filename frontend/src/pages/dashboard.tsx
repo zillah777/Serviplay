@@ -64,7 +64,7 @@ export default function Dashboard() {
             throw new Error('No profile data received');
           }
         } catch (profileError) {
-          console.warn('⚠️ Error fetching fresh profile, using localStorage:', profileError);
+          console.warn('⚠️ Error fetching fresh profile, using localStorage fallback:', profileError);
           
           // Fallback al localStorage si falla la llamada al backend
           const currentUser = authService.getCurrentUser();

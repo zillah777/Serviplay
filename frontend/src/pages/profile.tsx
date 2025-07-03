@@ -165,7 +165,22 @@ export default function Profile() {
     try {
       // TODO: Actualizar datos en backend
       await new Promise(resolve => setTimeout(resolve, 1000));
-      setUser({ ...user, ...editData });
+      
+      // Actualizar solo las propiedades del usuario que corresponden
+      if (user) {
+        setUser({
+          ...user,
+          nombre: editData.nombre,
+          apellido: editData.apellido
+        });
+        
+        // Actualizar el perfil con el resto de datos
+        setProfile({
+          ...profile,
+          ...editData
+        });
+      }
+      
       setEditing(false);
       toast.success('Perfil actualizado correctamente');
     } catch (error) {

@@ -49,26 +49,34 @@ export default function Dashboard() {
 
         // Intentar obtener datos frescos del backend
         try {
+          console.log('🔍 Fetching profile from backend...');
           const profileResponse = await authService.getProfile();
+          console.log('📦 Profile response:', profileResponse);
+          
           if (profileResponse.success && profileResponse.data) {
+            console.log('✅ Using backend profile data:', profileResponse.data.user);
             setUser({
               ...profileResponse.data.user,
               stats: defaultUserStats
             } as User);
           } else {
+            console.warn('❌ Backend response invalid:', profileResponse);
             throw new Error('No profile data received');
           }
         } catch (profileError) {
-          console.warn('Error fetching fresh profile, using localStorage:', profileError);
+          console.warn('⚠️ Error fetching fresh profile, using localStorage:', profileError);
           
           // Fallback al localStorage si falla la llamada al backend
           const currentUser = authService.getCurrentUser();
+          console.log('💾 LocalStorage user data:', currentUser);
+          
           if (currentUser) {
             setUser({
               ...currentUser,
               stats: defaultUserStats
             } as User);
           } else {
+            console.error('🚫 No user data available, redirecting to login');
             // Si no hay datos, redirigir al login
             router.push('/auth/login');
             return;

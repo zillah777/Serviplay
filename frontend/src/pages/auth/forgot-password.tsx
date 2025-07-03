@@ -9,6 +9,7 @@ import {
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG } from '@/utils/constants';
+import { authService } from '@/services/api';
 import toast from 'react-hot-toast';
 
 export default function ForgotPassword() {
@@ -33,12 +34,11 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-      // TODO: Implementar lógica de recuperación con backend
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await authService.forgotPassword(email);
       setEmailSent(true);
-      toast.success('Email de recuperación enviado');
     } catch (error) {
-      toast.error('Error al enviar el email');
+      console.error('Forgot password error:', error);
+      // El error ya se muestra automáticamente por el authService
     } finally {
       setLoading(false);
     }
@@ -47,10 +47,10 @@ export default function ForgotPassword() {
   const handleResendEmail = async () => {
     setLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.success('Email reenviado correctamente');
+      await authService.forgotPassword(email);
     } catch (error) {
-      toast.error('Error al reenviar el email');
+      console.error('Resend email error:', error);
+      // El error ya se muestra automáticamente por el authService
     } finally {
       setLoading(false);
     }

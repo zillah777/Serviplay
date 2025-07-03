@@ -264,6 +264,52 @@ export const authService = {
       this.logout();
       throw error;
     }
+  },
+
+  // Recuperar contraseña
+  async forgotPassword(email: string): Promise<any> {
+    try {
+      const response = await api.post('/api/auth/forgot-password', { email });
+      
+      if (response.data.success) {
+        toast.success(response.data.message || 'Email de recuperación enviado correctamente');
+      }
+      
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorData = error.response.data as ApiError;
+        toast.error(errorData.message || errorData.error || 'Error al enviar email de recuperación');
+        throw errorData;
+      } else {
+        const errorMessage = 'Error de conexión. Verifica tu internet.';
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+    }
+  },
+
+  // Restablecer contraseña
+  async resetPassword(token: string, password: string): Promise<any> {
+    try {
+      const response = await api.post('/api/auth/reset-password', { token, password });
+      
+      if (response.data.success) {
+        toast.success(response.data.message || 'Contraseña restablecida exitosamente');
+      }
+      
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorData = error.response.data as ApiError;
+        toast.error(errorData.message || errorData.error || 'Error al restablecer contraseña');
+        throw errorData;
+      } else {
+        const errorMessage = 'Error de conexión. Verifica tu internet.';
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+    }
   }
 };
 

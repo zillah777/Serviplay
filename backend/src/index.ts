@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { connectDB } from './config/database';
 import { errorHandler } from './middleware/errorHandler';
+import { FileCleanupService } from './middleware/fileCleanup';
 
 // Routes
 import healthRoutes from './routes/health';
@@ -17,6 +18,9 @@ import matchesRoutes from './routes/matches';
 import notificationsRoutes from './routes/notifications';
 import paymentsRoutes from './routes/payments';
 import webhooksRoutes from './routes/webhooks';
+import chatRoutes from './routes/chat';
+import favoritesRoutes from './routes/favorites';
+import uploadRoutes from './routes/upload';
 
 dotenv.config();
 
@@ -85,6 +89,9 @@ app.use('/api/matches', matchesRoutes);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/payments', paymentsRoutes);
 app.use('/api/webhooks', webhooksRoutes);
+app.use('/api/chats', chatRoutes);
+app.use('/api/favorites', favoritesRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -103,6 +110,9 @@ async function startServer() {
     await connectDB();
     console.log('⚡ Skipping Redis connection for development');
     
+    // Start file cleanup service
+    FileCleanupService.start();
+    
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
@@ -117,11 +127,13 @@ async function startServer() {
 // Graceful shutdown
 process.on('SIGTERM', () => {
   console.log('👋 SIGTERM received, shutting down gracefully');
+  FileCleanupService.stop();
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
   console.log('👋 SIGINT received, shutting down gracefully');
+  FileCleanupService.stop();
   process.exit(0);
 });
 

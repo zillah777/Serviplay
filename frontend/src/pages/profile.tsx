@@ -225,7 +225,7 @@ export default function Profile() {
     );
   }
 
-  const isAs = user.tipo_usuario === 'as';
+  const isAs = user?.tipo_usuario === 'as';
   const hasProfile = Object.keys(profile).length > 0;
 
   return (
@@ -333,7 +333,7 @@ export default function Profile() {
                         }`}>
                           {isAs ? BRAND_TERMS.AS : BRAND_TERMS.EXPLORADOR}
                         </span>
-                        {user.email_verificado === true && (
+                        {user?.email_verificado === true && (
                           <div className="flex items-center space-x-1">
                             <CheckBadgeIcon className="w-4 h-4 text-green-500" />
                             <span className="text-sm text-green-600">Email verificado</span>
@@ -400,7 +400,7 @@ export default function Profile() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-neutral-600">
                   <EnvelopeIcon className="w-5 h-5" />
-                  <span>{user.email}</span>
+                  <span>{user?.email}</span>
                 </div>
                 <div className="flex items-center space-x-3 text-neutral-600">
                   <PhoneIcon className="w-5 h-5" />
@@ -446,7 +446,7 @@ export default function Profile() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-neutral-600">
                   <CalendarIcon className="w-5 h-5" />
-                  <span>Miembro desde {user.created_at ? new Date(user.created_at).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' }) : 'fecha no disponible'}</span>
+                  <span>Miembro desde {user?.created_at ? new Date(user.created_at).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' }) : 'fecha no disponible'}</span>
                 </div>
                 
                 {isAs && hasProfile && (

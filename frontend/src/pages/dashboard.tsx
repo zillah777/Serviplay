@@ -109,7 +109,7 @@ export default function Dashboard() {
     return null;
   }
 
-  const isAs = user.tipo_usuario === 'as';
+  const isAs = user?.tipo_usuario === 'as';
 
   return (
     <>
@@ -171,7 +171,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h1 className="font-display text-3xl font-bold text-neutral-900 mb-2">
-                  ¡Hola, {user.nombre}! 👋
+                  ¡Hola, {user?.nombre || 'Usuario'}! 👋
                 </h1>
                 <p className="text-xl text-neutral-600">
                   {isAs ? 
@@ -206,7 +206,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-1">
-                    {user.stats.servicios_publicados}
+                    {user?.stats?.servicios_publicados || 0}
                   </h3>
                   <p className="text-neutral-600">Servicios Publicados</p>
                 </div>
@@ -218,7 +218,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-1">
-                    {user.stats.total_views}
+                    {user?.stats?.total_views || 0}
                   </h3>
                   <p className="text-neutral-600">Vistas Totales</p>
                 </div>
@@ -230,7 +230,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-1">
-                    {user.stats.rating_promedio}
+                    {user?.stats?.rating_promedio || 0}
                   </h3>
                   <p className="text-neutral-600">Rating Promedio</p>
                 </div>
@@ -256,7 +256,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-1">
-                    {user.stats.servicios_contratados}
+                    {user?.stats?.servicios_contratados || 0}
                   </h3>
                   <p className="text-neutral-600">Servicios Contratados</p>
                 </div>

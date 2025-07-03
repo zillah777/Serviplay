@@ -79,7 +79,7 @@ export default function ExplorePage() {
   const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<SearchFilters>(defaultFilters);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     // Cargar servicios iniciales

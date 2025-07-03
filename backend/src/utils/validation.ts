@@ -113,6 +113,84 @@ export const verifyEmailSchema = Joi.object({
   })
 });
 
+// Schema para crear calificación
+export const createReviewSchema = Joi.object({
+  match_id: Joi.string().uuid().required().messages({
+    'string.uuid': 'ID de match inválido',
+    'any.required': 'ID de match es requerido'
+  }),
+  calificado_id: Joi.string().uuid().required().messages({
+    'string.uuid': 'ID de usuario calificado inválido',
+    'any.required': 'ID de usuario calificado es requerido'
+  }),
+  puntuacion: Joi.number().integer().min(1).max(5).required().messages({
+    'number.min': 'La puntuación debe ser mínimo 1',
+    'number.max': 'La puntuación debe ser máximo 5',
+    'any.required': 'Puntuación es requerida'
+  }),
+  comentario: Joi.string().max(1500).optional().messages({
+    'string.max': 'El comentario no puede exceder 1500 caracteres'
+  }),
+  puntualidad: Joi.number().integer().min(1).max(5).required().messages({
+    'number.min': 'La puntualidad debe ser mínimo 1',
+    'number.max': 'La puntualidad debe ser máximo 5',
+    'any.required': 'Puntualidad es requerida'
+  }),
+  calidad: Joi.number().integer().min(1).max(5).required().messages({
+    'number.min': 'La calidad debe ser mínimo 1',
+    'number.max': 'La calidad debe ser máximo 5',
+    'any.required': 'Calidad es requerida'
+  }),
+  comunicacion: Joi.number().integer().min(1).max(5).required().messages({
+    'number.min': 'La comunicación debe ser mínimo 1',
+    'number.max': 'La comunicación debe ser máximo 5',
+    'any.required': 'Comunicación es requerida'
+  }),
+  precio_justo: Joi.number().integer().min(1).max(5).required().messages({
+    'number.min': 'Precio justo debe ser mínimo 1',
+    'number.max': 'Precio justo debe ser máximo 5',
+    'any.required': 'Precio justo es requerido'
+  }),
+  publica: Joi.boolean().default(true)
+});
+
+// Schema para actualizar calificación
+export const updateReviewSchema = Joi.object({
+  puntuacion: Joi.number().integer().min(1).max(5).optional().messages({
+    'number.min': 'La puntuación debe ser mínimo 1',
+    'number.max': 'La puntuación debe ser máximo 5'
+  }),
+  comentario: Joi.string().max(1500).optional().allow('').messages({
+    'string.max': 'El comentario no puede exceder 1500 caracteres'
+  }),
+  puntualidad: Joi.number().integer().min(1).max(5).optional().messages({
+    'number.min': 'La puntualidad debe ser mínimo 1',
+    'number.max': 'La puntualidad debe ser máximo 5'
+  }),
+  calidad: Joi.number().integer().min(1).max(5).optional().messages({
+    'number.min': 'La calidad debe ser mínimo 1',
+    'number.max': 'La calidad debe ser máximo 5'
+  }),
+  comunicacion: Joi.number().integer().min(1).max(5).optional().messages({
+    'number.min': 'La comunicación debe ser mínimo 1',
+    'number.max': 'La comunicación debe ser máximo 5'
+  }),
+  precio_justo: Joi.number().integer().min(1).max(5).optional().messages({
+    'number.min': 'Precio justo debe ser mínimo 1',
+    'number.max': 'Precio justo debe ser máximo 5'
+  }),
+  publica: Joi.boolean().optional()
+});
+
+// Schema para reportar calificación
+export const reportReviewSchema = Joi.object({
+  razon: Joi.string().min(10).max(500).required().messages({
+    'string.min': 'La razón debe tener al menos 10 caracteres',
+    'string.max': 'La razón no puede exceder 500 caracteres',
+    'any.required': 'Razón del reporte es requerida'
+  })
+});
+
 // Validador de UUID
 export const validateUUID = (uuid: string): boolean => {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;

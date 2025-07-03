@@ -21,6 +21,7 @@ import webhooksRoutes from './routes/webhooks';
 import chatRoutes from './routes/chat';
 import favoritesRoutes from './routes/favorites';
 import uploadRoutes from './routes/upload';
+import reviewsRoutes from './routes/reviews';
 
 dotenv.config();
 
@@ -92,6 +93,7 @@ app.use('/api/webhooks', webhooksRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/reviews', reviewsRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

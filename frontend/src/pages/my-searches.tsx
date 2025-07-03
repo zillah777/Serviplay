@@ -70,7 +70,10 @@ export default function MySearchesPage() {
 
   const filteredSearches = searches.filter(search => {
     if (filter === 'todas') return true;
-    return search.estado === filter;
+    if (filter === 'activas') return search.estado === 'activa';
+    if (filter === 'pausadas') return search.estado === 'pausada';
+    if (filter === 'finalizadas') return search.estado === 'completada' || search.estado === 'cancelada';
+    return false;
   });
 
   if (loading) {

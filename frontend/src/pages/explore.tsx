@@ -7,6 +7,7 @@ import { Servicio, Categoria } from '@/types';
 import { SearchFilters, SearchResult } from '@/types/search';
 import { defaultFilters, calculateRelevance } from '@/utils/searchHelpers';
 import { BRAND_TERMS } from '@/utils/constants';
+import { authService } from '@/services/api';
 
 // Mock data para desarrollo
 const mockServices: Servicio[] = [
@@ -78,10 +79,17 @@ export default function ExplorePage() {
   const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<SearchFilters>(defaultFilters);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Cargar servicios iniciales
     setAllServices(mockServices);
+    
+    // Verificar autenticación del usuario
+    if (authService.isAuthenticated()) {
+      const currentUser = authService.getCurrentUser();
+      setUser(currentUser);
+    }
   }, []);
 
   const performSearch = (searchFilters: SearchFilters) => {
@@ -188,6 +196,7 @@ export default function ExplorePage() {
       title="Explorar Servicios" 
       description={`Descubrí los mejores ${BRAND_TERMS.ASES} cerca tuyo`}
       showSearch={false}
+      user={user}
     >
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}

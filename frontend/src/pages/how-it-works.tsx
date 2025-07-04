@@ -148,10 +148,10 @@ export default function HowItWorks() {
         <meta name="description" content="Descubre cómo funciona Fixia y conecta con los mejores servicios cerca de ti" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         {/* Header */}
         <header className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="container mx-auto py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
@@ -177,7 +177,7 @@ export default function HowItWorks() {
           </div>
         </header>
 
-        <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="container mx-auto py-16">
           {/* Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

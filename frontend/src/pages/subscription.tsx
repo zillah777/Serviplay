@@ -164,7 +164,7 @@ export default function SubscriptionPage() {
   if (loading) {
     return (
       <Layout title="Suscripción">
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           <Loading />
         </div>
       </Layout>
@@ -173,7 +173,7 @@ export default function SubscriptionPage() {
 
   return (
     <Layout title="Suscripción">
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="container mx-auto py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

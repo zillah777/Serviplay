@@ -192,7 +192,7 @@ export default function Security() {
         <meta name="description" content="Conoce todas las medidas de seguridad y protección que implementamos en Fixia" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen no-overflow bg-gray-50">
         {/* Header */}
         <header className="bg-white shadow-sm border-b">
           <div className="max-w-7xl mx-auto px-6 py-6">

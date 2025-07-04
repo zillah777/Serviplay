@@ -25,6 +25,7 @@ import uploadRoutes from './routes/upload';
 import reviewsRoutes from './routes/reviews';
 import testUploadRoutes from './routes/test-upload';
 import bookingsRoutes from './routes/bookings';
+import { identityRoutes } from './routes/identity';
 
 dotenv.config();
 
@@ -106,6 +107,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/reviews', reviewsRoutes);
 app.use('/api/test-upload', testUploadRoutes);
 app.use('/api/bookings', bookingsRoutes);
+app.use('/api/identity', identityRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

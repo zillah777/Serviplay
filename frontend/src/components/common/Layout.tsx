@@ -34,16 +34,16 @@ const Layout = ({
         <meta name="twitter:description" content={pageDescription} />
       </Head>
 
-      <div className="min-h-screen bg-neutral-50">
+      <div className="min-h-screen no-overflow bg-neutral-50 no-overflow">
         <Header user={user} showSearch={showSearch} />
         
-        <main className="flex-1">
+        <main className="flex-1 no-overflow">
           {children}
         </main>
         
         {/* Footer (si es necesario) */}
-        <footer className="bg-white border-t border-neutral-200 mt-auto">
-          <div className="max-w-7xl mx-auto px-4 py-8">
+        <footer className="bg-white border-t border-neutral-200 mt-auto no-overflow">
+          <div className="container mx-auto py-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
                 <h3 className="font-semibold text-neutral-900 mb-4">Para Exploradores</h3>

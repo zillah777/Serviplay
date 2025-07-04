@@ -287,7 +287,7 @@ export default function Onboarding() {
         <meta name="description" content="Configura tu cuenta en Fixia" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         <div className="max-w-2xl mx-auto px-4 py-8">
           {/* Header */}
           <div className="text-center mb-8">

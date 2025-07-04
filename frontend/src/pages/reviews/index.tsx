@@ -119,7 +119,7 @@ export default function ReviewsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-neutral-600">Cargando calificaciones...</p>
@@ -135,10 +135,10 @@ export default function ReviewsPage() {
         <meta name="description" content="Gestiona tus calificaciones y comentarios" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="container mx-auto py-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <StarSolidIcon className="w-8 h-8 text-yellow-500" />
@@ -187,7 +187,7 @@ export default function ReviewsPage() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           {/* Search and Filters */}
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="flex-1 relative">

@@ -95,7 +95,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-neutral-600">Cargando dashboard...</p>
@@ -118,10 +118,10 @@ export default function Dashboard() {
         <meta name="description" content="Tu panel de control en Fixia" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         {/* Navigation */}
         <nav className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="container mx-auto">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
                 <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
@@ -160,7 +160,7 @@ export default function Dashboard() {
           </div>
         </nav>
 
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

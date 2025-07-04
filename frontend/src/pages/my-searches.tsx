@@ -85,7 +85,7 @@ export default function MySearchesPage() {
       title="Mis Búsquedas" 
       description="Gestiona tus búsquedas de servicios"
     >
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="container mx-auto py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>

@@ -162,10 +162,10 @@ export default function NewSearchPage() {
         <meta name="description" content="Crea una nueva búsqueda de servicios" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">
-          <div className="max-w-4xl mx-auto px-4 py-4">
+          <div className="container mx-auto py-4">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => router.back()}
@@ -185,7 +185,7 @@ export default function NewSearchPage() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

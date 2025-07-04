@@ -335,10 +335,10 @@ export default function Categories() {
         <meta name="description" content="Explora todas las categorías de servicios disponibles en Fixia" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 no-overflow">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 py-6">
+        <header className="bg-white shadow-sm border-b no-overflow">
+          <div className="container mx-auto py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
@@ -367,7 +367,7 @@ export default function Categories() {
           </div>
         </header>
 
-        <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="container mx-auto py-16">
           {/* Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -583,8 +583,8 @@ export default function Categories() {
         </div>
 
         {/* Footer */}
-        <footer className="bg-neutral-900 text-white px-4 py-12">
-          <div className="max-w-7xl mx-auto text-center">
+        <footer className="bg-neutral-900 text-white py-12 no-overflow">
+          <div className="container mx-auto text-center">
             <p className="text-neutral-500 text-sm">
               © 2024 {APP_CONFIG.NAME} - Mmata. Todos los derechos reservados.
             </p>

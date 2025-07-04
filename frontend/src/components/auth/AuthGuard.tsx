@@ -72,7 +72,7 @@ export default function AuthGuard({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50">
+      <div className="min-h-screen no-overflow flex items-center justify-center bg-neutral-50">
         <Loading />
       </div>
     );

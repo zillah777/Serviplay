@@ -113,10 +113,10 @@ export default function ContactPage() {
         <meta name="description" content="Contacta con nuestro equipo de soporte" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">
-          <div className="max-w-4xl mx-auto px-4 py-6">
+          <div className="container mx-auto py-6">
             <div className="flex items-center space-x-4">
               <Link 
                 href="/help/faq"
@@ -137,7 +137,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Contact Form */}
             <div className="lg:col-span-2">

@@ -202,7 +202,7 @@ export default function NewReviewPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-neutral-600">Cargando información...</p>
@@ -221,10 +221,10 @@ export default function NewReviewPage() {
         <meta name="description" content="Califica tu experiencia de servicio" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">
-          <div className="max-w-4xl mx-auto px-4 py-6">
+          <div className="container mx-auto py-6">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => router.back()}
@@ -245,7 +245,7 @@ export default function NewReviewPage() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

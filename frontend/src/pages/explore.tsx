@@ -68,7 +68,7 @@ export default function ExplorePage() {
       showSearch={false}
       user={user}
     >
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="container mx-auto py-8">
         {/* Header */}
         <div className="mb-8">
           <motion.div

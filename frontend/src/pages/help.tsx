@@ -205,7 +205,7 @@ export default function Help() {
         <meta name="description" content="Encuentra respuestas a todas tus preguntas sobre Fixia" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen no-overflow bg-gray-50">
         {/* Header */}
         <header className="bg-white shadow-sm border-b">
           <div className="max-w-7xl mx-auto px-6 py-6">

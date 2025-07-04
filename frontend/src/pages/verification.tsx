@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -20,6 +20,7 @@ import {
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 import { AnimatedStatus } from '@/components/common/ModernIcon';
 import toast from 'react-hot-toast';
+import { identityService, VerificationStatus } from '@/services/identityService';
 
 const verificationSteps = [
   {
@@ -74,13 +75,7 @@ const verificationSteps = [
   }
 ];
 
-const verificationStatus = {
-  email: 'verified',
-  phone: 'pending',
-  identity: 'not_started',
-  address: 'not_started',
-  professional: 'not_started'
-};
+// Will be replaced with useState in component
 
 const statusConfig = {
   verified: { icon: CheckCircleIcon, color: 'text-green-500', bg: 'bg-green-100', text: 'Verificado' },
@@ -93,6 +88,18 @@ export default function Verification() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState<string>('phone');
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+
+  // Verification status state
+  const [verificationStatus, setVerificationStatus] = useState({
+    email: 'verified',
+    phone: 'pending',
+    identity: 'not_started',
+    address: 'not_started',
+    professional: 'not_started'
+  });
+
+  const [identityStatus, setIdentityStatus] = useState<VerificationStatus | null>(null);
   
   // Form states for different verification types
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -100,6 +107,35 @@ export default function Verification() {
   const [codeSent, setCodeSent] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
   const [documentType, setDocumentType] = useState('dni');
+
+  // Load verification status on component mount
+  useEffect(() => {
+    const loadVerificationStatus = async () => {
+      try {
+        setInitialLoading(true);
+        const status = await identityService.getVerificationStatus();
+        setIdentityStatus(status.verification);
+        
+        // Update verification status based on API response
+        setVerificationStatus(prev => ({
+          ...prev,
+          identity: status.verification.status
+        }));
+        
+        // If identity verification has documents, set document type
+        if (status.verification.document_type) {
+          setDocumentType(status.verification.document_type);
+        }
+      } catch (error) {
+        console.error('Error loading verification status:', error);
+        // Continue with default status
+      } finally {
+        setInitialLoading(false);
+      }
+    };
+
+    loadVerificationStatus();
+  }, []);
 
   const handleSendCode = async () => {
     if (!phoneNumber.trim()) {
@@ -147,19 +183,41 @@ export default function Verification() {
 
     setLoading(true);
     try {
-      // Simular subida de documento
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await identityService.submitDocuments({
+        document_type: documentType,
+        document_front_file: selectedDocument,
+        notes: `Documento ${documentType} subido desde la página de verificación`
+      });
+      
       toast.success('Documento enviado para revisión');
-      // Actualizar estado de verificación
-    } catch (error) {
-      toast.error('Error al subir el documento');
+      
+      // Update verification status
+      setVerificationStatus(prev => ({
+        ...prev,
+        identity: 'pending'
+      }));
+      
+      // Reload verification status
+      const updatedStatus = await identityService.getVerificationStatus();
+      setIdentityStatus(updatedStatus.verification);
+      
+    } catch (error: any) {
+      console.error('Error uploading document:', error);
+      toast.error(error.message || 'Error al subir el documento');
     } finally {
       setLoading(false);
     }
   };
 
   const getCompletionPercentage = () => {
-    const completed = Object.values(verificationStatus).filter(status => status === 'verified').length;
+    const statusMap = { ...verificationStatus };
+    
+    // Update identity status from API
+    if (identityStatus) {
+      statusMap.identity = identityStatus.is_verified ? 'verified' : identityStatus.status;
+    }
+    
+    const completed = Object.values(statusMap).filter(status => status === 'verified').length;
     return Math.round((completed / verificationSteps.length) * 100);
   };
 
@@ -344,6 +402,17 @@ export default function Verification() {
     }
   };
 
+  if (initialLoading) {
+    return (
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-neutral-600">Cargando estado de verificación...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -351,10 +420,10 @@ export default function Verification() {
         <meta name="description" content="Verifica tu identidad para aumentar la confianza y obtener más trabajos" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20">
         {/* Header */}
         <header className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="container mx-auto py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center">
@@ -377,7 +446,7 @@ export default function Verification() {
           </div>
         </header>
 
-        <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="container mx-auto py-16">
           {/* Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -420,8 +489,14 @@ export default function Verification() {
                 
                 <div className="space-y-4">
                   {verificationSteps.map((step, index) => {
-                    const StatusIcon = statusConfig[verificationStatus[step.id as keyof typeof verificationStatus] as keyof typeof statusConfig].icon;
-                    const status = verificationStatus[step.id as keyof typeof verificationStatus] as keyof typeof statusConfig;
+                    let status = verificationStatus[step.id as keyof typeof verificationStatus] as keyof typeof statusConfig;
+                    
+                    // Use API status for identity verification
+                    if (step.id === 'identity' && identityStatus) {
+                      status = identityStatus.is_verified ? 'verified' : identityStatus.status as keyof typeof statusConfig;
+                    }
+                    
+                    const StatusIcon = statusConfig[status].icon;
                     
                     return (
                       <motion.div

@@ -29,10 +29,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen no-overflow bg-gray-50 no-overflow">
         {/* Modern Header with Blur Effect */}
         <motion.header 
-          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 no-overflow ${
             scrolled 
               ? 'bg-white/80 backdrop-blur-lg shadow-lg border-b border-gray-200/50' 
               : 'bg-transparent'
@@ -41,7 +41,7 @@ export default function Home() {
           animate={{ y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+          <div className="container mx-auto py-4">
             <div className="flex items-center justify-between">
               <motion.div 
                 className="flex items-center space-x-3"

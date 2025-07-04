@@ -125,7 +125,7 @@ export default function ServiceDetailPage() {
   if (loading) {
     return (
       <Layout>
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           <Loading />
         </div>
       </Layout>
@@ -135,7 +135,7 @@ export default function ServiceDetailPage() {
   if (error || !service) {
     return (
       <Layout>
-        <div className="max-w-4xl mx-auto px-4 py-8 text-center">
+        <div className="container mx-auto py-8 text-center">
           <ExclamationTriangleIcon className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-neutral-900 mb-2">Servicio no encontrado</h1>
           <p className="text-neutral-600 mb-6">{error || 'El servicio que buscás no existe o ya no está disponible.'}</p>
@@ -172,7 +172,7 @@ export default function ServiceDetailPage() {
 
   return (
     <Layout title={service.titulo}>
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="container mx-auto py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

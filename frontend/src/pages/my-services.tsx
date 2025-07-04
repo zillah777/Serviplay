@@ -84,7 +84,7 @@ export default function MyServicesPage() {
   if (loading) {
     return (
       <Layout title="Mis Servicios">
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="container mx-auto py-8">
           <Loading />
         </div>
       </Layout>
@@ -93,7 +93,7 @@ export default function MyServicesPage() {
 
   return (
     <Layout title="Mis Servicios">
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="container mx-auto py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

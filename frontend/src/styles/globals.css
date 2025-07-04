@@ -42,11 +42,54 @@
   --transition-slow: 0.5s ease-out;
 }
 
+/* Base reset y configuración de viewport */
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* Tipografía adictiva */
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   letter-spacing: -0.01em;
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevenir overflow horizontal en todos los elementos */
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* Contenedor principal responsive */
+.main-container {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .main-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 .font-display {
@@ -70,5 +113,72 @@ body {
   
   .transition-brand {
     transition: var(--transition-normal);
+  }
+
+  /* Utilidades para prevenir overflow y mejorar centrado */
+  .no-overflow {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .centered-container {
+    width: 100%;
+    max-width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Fix para elementos que pueden causar overflow */
+  .safe-area {
+    width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  /* Responsive containers mejorados */
+  .container-responsive {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-responsive {
+      max-width: 640px;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container-responsive {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-responsive {
+      max-width: 1024px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-responsive {
+      max-width: 1280px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container-responsive {
+      max-width: 1536px;
+    }
   }
 }

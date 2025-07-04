@@ -103,7 +103,7 @@ export default function ResetPassword() {
           <meta name="description" content="Token de recuperación inválido" />
         </Head>
 
-        <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center px-4">
+        <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center px-4">
           <div className="max-w-md w-full">
             <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -147,7 +147,7 @@ export default function ResetPassword() {
         <meta name="description" content="Crea una nueva contraseña para tu cuenta" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center px-4">
+      <div className="min-h-screen no-overflow bg-gradient-to-br from-primary-blue-light via-white to-secondary-green/20 flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

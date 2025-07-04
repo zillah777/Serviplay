@@ -235,6 +235,13 @@ export class StorageFactory {
     if (this.instance) return this.instance;
 
     try {
+      // En desarrollo, usar siempre almacenamiento local
+      if (process.env.NODE_ENV === 'development') {
+        console.log('🗂️ Using local storage for development');
+        this.instance = new LocalStorageProvider();
+        return this.instance;
+      }
+
       const config = await ConfiguracionArchivosModel.getConfig();
       
       switch (config.storage_provider) {

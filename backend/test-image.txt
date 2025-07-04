@@ -1,0 +1,4 @@
+Este es un archivo de prueba para testear el sistema de upload.
+Simula ser una imagen para verificar que el sistema funciona correctamente.
+Contenido: Test file upload system
+Fecha: 2025-07-04

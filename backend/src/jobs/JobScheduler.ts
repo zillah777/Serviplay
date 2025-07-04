@@ -3,6 +3,7 @@ import { SubscriptionReminderJob } from './subscriptionReminder';
 import { PaymentService } from '@/services/PaymentService';
 import { ChatNotificationService } from '@/services/ChatNotificationService';
 import { RatingNotificationService } from '@/services/RatingNotificationService';
+import { BookingReminderService } from '@/services/BookingReminderService';
 
 /**
  * Scheduler centralizado para todos los trabajos cron del sistema
@@ -26,6 +27,7 @@ export class JobScheduler {
       // Programar todos los trabajos
       this.scheduleSubscriptionReminders();
       this.schedulePaymentVerification();
+      this.scheduleBookingReminders();
       this.scheduleNotificationCleanup();
       this.schedulePerformanceOptimization();
       this.scheduleHealthChecks();
@@ -75,6 +77,74 @@ export class JobScheduler {
 
     this.jobs.set('weekly-subscription-check', weeklyJob);
     weeklyJob.start();
+  }
+
+  /**
+   * Programar recordatorios de reservas/citas
+   */
+  private static scheduleBookingReminders() {
+    // Recordatorios de 24 horas - cada 2 horas
+    const reminder24hJob = cron.schedule('0 */2 * * *', async () => {
+      try {
+        console.log('🔔 Ejecutando recordatorios de reservas 24h...');
+        await BookingReminderService.enviarRecordatorios24h();
+      } catch (error) {
+        console.error('Error en recordatorios de 24h:', error);
+      }
+    }, {
+      scheduled: false,
+      timezone: 'America/Argentina/Buenos_Aires'
+    });
+
+    this.jobs.set('booking-reminders-24h', reminder24hJob);
+    reminder24hJob.start();
+
+    // Recordatorios de 1 hora - cada 15 minutos
+    const reminder1hJob = cron.schedule('*/15 * * * *', async () => {
+      try {
+        console.log('🔔 Ejecutando recordatorios de reservas 1h...');
+        await BookingReminderService.enviarRecordatorios1h();
+      } catch (error) {
+        console.error('Error en recordatorios de 1h:', error);
+      }
+    }, {
+      scheduled: false,
+      timezone: 'America/Argentina/Buenos_Aires'
+    });
+
+    this.jobs.set('booking-reminders-1h', reminder1hJob);
+    reminder1hJob.start();
+
+    // Seguimiento post-servicio - cada 30 minutos
+    const postServiceJob = cron.schedule('*/30 * * * *', async () => {
+      try {
+        console.log('📝 Ejecutando seguimiento post-servicio...');
+        await BookingReminderService.enviarSeguimientoPostServicio();
+      } catch (error) {
+        console.error('Error en seguimiento post-servicio:', error);
+      }
+    }, {
+      scheduled: false,
+      timezone: 'America/Argentina/Buenos_Aires'
+    });
+
+    this.jobs.set('post-service-followup', postServiceJob);
+    postServiceJob.start();
+
+    // Verificar reservas urgentes - cada 10 minutos
+    const urgentBookingsJob = cron.schedule('*/10 * * * *', async () => {
+      try {
+        await BookingReminderService.verificarReservasUrgentes();
+      } catch (error) {
+        console.error('Error verificando reservas urgentes:', error);
+      }
+    }, {
+      scheduled: false,
+      timezone: 'America/Argentina/Buenos_Aires'
+    });
+
+    this.jobs.set('urgent-bookings-check', urgentBookingsJob);
+    urgentBookingsJob.start();
   }
 
   /**
@@ -391,6 +461,15 @@ export class JobScheduler {
         case 'rating-reminders':
           await RatingNotificationService.programarRecordatoriosCalificacion();
           break;
+        case 'booking-reminders-24h':
+          await BookingReminderService.enviarRecordatorios24h();
+          break;
+        case 'booking-reminders-1h':
+          await BookingReminderService.enviarRecordatorios1h();
+          break;
+        case 'post-service-followup':
+          await BookingReminderService.enviarSeguimientoPostServicio();
+          break;
         case 'performance-optimization':
           await this.optimizeDatabase();
           await this.updateSearchIndexes();
@@ -472,6 +551,10 @@ export class JobScheduler {
     console.log('\n⏰ === TRABAJOS CRON PROGRAMADOS ===');
     console.log('🔔 Recordatorios de suscripción: Cada 4 horas');
     console.log('💳 Verificación de pagos: Cada 6 horas');
+    console.log('🗓️ Recordatorios de reservas 24h: Cada 2 horas');
+    console.log('⏰ Recordatorios de reservas 1h: Cada 15 minutos');
+    console.log('📝 Seguimiento post-servicio: Cada 30 minutos');
+    console.log('⚠️ Verificación reservas urgentes: Cada 10 minutos');
     console.log('🧹 Limpieza de notificaciones: Diario a las 2:00 AM');
     console.log('💬 Mensajes no leídos: Cada 30 minutos');
     console.log('⭐ Recordatorios de calificación: Cada 6 horas');

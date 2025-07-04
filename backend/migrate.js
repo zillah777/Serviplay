@@ -13,22 +13,49 @@ async function runMigrations() {
     console.log('❌ No DATABASE_URL or DATABASE_PUBLIC_URL found');
     console.log('Available DB env vars:', Object.keys(process.env).filter(key => 
       key.includes('PG') || key.includes('DATABASE')));
-    return;
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔧 Development mode: Skipping migrations');
+      return;
+    }
+    process.exit(1);
   }
   
   console.log('🔗 Using database URL for migrations');
   console.log('DATABASE_PUBLIC_URL:', process.env.DATABASE_PUBLIC_URL ? 'SET' : 'NOT SET');
   console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'SET' : 'NOT SET');
   
+  const isRailway = databaseUrl.includes('railway');
+  
   const pool = new Pool({
     connectionString: databaseUrl,
-    ssl: { rejectUnauthorized: false } // Always use SSL for external connections
+    ssl: isRailway ? { 
+      rejectUnauthorized: false,
+      sslmode: 'require'
+    } : false,
+    connectionTimeoutMillis: 10000,
+    idleTimeoutMillis: 10000,
+    max: 3  // Fewer connections for migrations
   });
 
   try {
     console.log('🔗 Connecting to database...');
-    const client = await pool.connect();
-    console.log('✅ Database connection established');
+    
+    // Try connection with retries
+    let client;
+    let retries = 3;
+    for (let i = 0; i < retries; i++) {
+      try {
+        client = await pool.connect();
+        console.log('✅ Database connection established');
+        break;
+      } catch (error) {
+        console.log(`❌ Connection attempt ${i + 1}/${retries} failed:`, error.message);
+        if (i === retries - 1) throw error;
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
+    }
+    
     client.release();
     // Create migrations table if it doesn't exist
     await pool.query(`
@@ -68,9 +95,18 @@ async function runMigrations() {
     console.log('🎉 All migrations completed successfully!');
   } catch (error) {
     console.error('❌ Migration failed:', error);
-    process.exit(1);
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔧 Development mode: Continuing despite migration failure');
+    } else {
+      process.exit(1);
+    }
   } finally {
-    await pool.end();
+    try {
+      await pool.end();
+    } catch (error) {
+      console.error('Error closing pool:', error.message);
+    }
   }
 }
 

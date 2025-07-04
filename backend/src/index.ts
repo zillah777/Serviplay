@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import path from 'path';
 import { connectDB } from './config/database';
 import { errorHandler } from './middleware/errorHandler';
 import { FileCleanupService } from './middleware/fileCleanup';
@@ -22,6 +23,8 @@ import chatRoutes from './routes/chat';
 import favoritesRoutes from './routes/favorites';
 import uploadRoutes from './routes/upload';
 import reviewsRoutes from './routes/reviews';
+import testUploadRoutes from './routes/test-upload';
+import bookingsRoutes from './routes/bookings';
 
 dotenv.config();
 
@@ -70,6 +73,13 @@ app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Servir archivos estáticos desde uploads (solo para desarrollo)
+if (process.env.NODE_ENV === 'development') {
+  const uploadsPath = process.env.UPLOAD_PATH || path.join(process.cwd(), 'uploads');
+  app.use('/uploads', express.static(uploadsPath));
+  console.log(`🗂️ Serving static files from: ${uploadsPath}`);
+}
+
 // Health check
 app.get('/health', (_req, res) => {
   res.status(200).json({ 
@@ -94,6 +104,8 @@ app.use('/api/chats', chatRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/reviews', reviewsRoutes);
+app.use('/api/test-upload', testUploadRoutes);
+app.use('/api/bookings', bookingsRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

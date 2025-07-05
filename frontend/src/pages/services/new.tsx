@@ -13,6 +13,7 @@ import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 import { CategoryIcon } from '@/components/common/ModernIcon';
 import toast from 'react-hot-toast';
 
+import { LogoIcon, LogoWithText } from '@/components/common/Logo';
 // Mock categories con iconos modernos y atractivos
 const mockCategories = [
   { id: '1', nombre: 'Limpieza', icono: '✨', color: '#10b981' },
@@ -180,9 +181,7 @@ export default function NewService() {
           <div className="container mx-auto">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
-                </div>
+                <LogoIcon size="md" />
                 <span className="font-display text-xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}
                 </span>

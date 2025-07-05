@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { APP_CONFIG } from '@/utils/constants';
 
+import { LogoIcon, LogoWithText } from '@/components/common/Logo';
 export default function Privacy() {
   return (
     <>
@@ -17,9 +18,7 @@ export default function Privacy() {
           <div className="container mx-auto py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">S</span>
-                </div>
+                <LogoIcon size="md" />
                 <span className="font-display text-2xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}
                 </span>

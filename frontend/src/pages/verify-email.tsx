@@ -14,6 +14,7 @@ import { APP_CONFIG } from '@/utils/constants';
 import Loading from '@/components/common/Loading';
 import axios from 'axios';
 
+import { LogoIcon, LogoWithText } from '@/components/common/Logo';
 type VerificationState = 'loading' | 'success' | 'error' | 'invalid' | 'expired';
 
 export default function VerifyEmailPage() {
@@ -263,9 +264,7 @@ export default function VerifyEmailPage() {
         <header className="bg-white shadow-sm border-b">
           <div className="container mx-auto py-6">
             <Link href="/" className="flex items-center space-x-2 w-fit">
-              <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">S</span>
-              </div>
+              <LogoIcon size="md" />
               <span className="font-display text-2xl font-bold text-neutral-900">
                 {APP_CONFIG.NAME}
               </span>

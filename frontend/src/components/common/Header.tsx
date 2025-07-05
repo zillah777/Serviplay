@@ -12,6 +12,7 @@ import {
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 import { HeaderProps } from '@/types';
 import { authService } from '@/services/api';
+import { LogoWithText } from '@/components/common/Logo';
 
 const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,17 +41,13 @@ const Header = ({ user, showSearch = true, onSearchFocus }: HeaderProps) => {
       <div className="container mx-auto sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <motion.div 
-              className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg"
+          <Link href="/" className="flex items-center group">
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="text-white font-bold text-xl">F</span>
+              <LogoWithText />
             </motion.div>
-            <h1 className="font-display text-xl font-bold text-neutral-900 group-hover:text-primary-blue transition-colors">
-              {APP_CONFIG.NAME}
-            </h1>
           </Link>
 
           {/* Search Bar (Desktop) */}

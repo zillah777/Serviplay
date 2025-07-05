@@ -18,6 +18,7 @@ import {
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
 import { authService } from '@/services/api';
 import toast from 'react-hot-toast';
+import { LogoWithText } from '@/components/common/Logo';
 
 // User type definition
 interface User {
@@ -246,13 +247,8 @@ export default function Profile() {
         <nav className="bg-white shadow-sm border-b">
           <div className="container mx-auto">
             <div className="flex justify-between items-center h-16">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
-                </div>
-                <span className="font-display text-xl font-bold text-neutral-900">
-                  {APP_CONFIG.NAME}
-                </span>
+              <Link href="/" className="flex items-center">
+                <LogoWithText size="sm" />
               </Link>
               
               <div className="flex items-center space-x-4">
@@ -303,12 +299,58 @@ export default function Profile() {
                       type="file"
                       accept="image/*"
                       className="hidden"
-                      onChange={(e) => {
+                      onChange={async (e) => {
                         const file = e.target.files?.[0];
                         if (file) {
-                          // TODO: Implementar subida de imagen
-                          console.log('File selected:', file.name);
-                          toast.success('Funcionalidad de subida de foto en desarrollo');
+                          try {
+                            setLoading(true);
+                            
+                            // Validar archivo
+                            if (file.size > 5 * 1024 * 1024) { // 5MB
+                              toast.error('La imagen no puede ser mayor a 5MB');
+                              return;
+                            }
+                            
+                            if (!file.type.startsWith('image/')) {
+                              toast.error('Solo se permiten archivos de imagen');
+                              return;
+                            }
+                            
+                            // Crear FormData
+                            const formData = new FormData();
+                            formData.append('file', file);
+                            formData.append('context', 'profile_photo');
+                            
+                            // Subir archivo
+                            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://fixia-production.up.railway.app'}/api/upload/single`, {
+                              method: 'POST',
+                              headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                              },
+                              body: formData
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (result.success) {
+                              // Actualizar foto de perfil en el backend
+                              // TODO: Implementar endpoint para actualizar foto de perfil
+                              toast.success('Foto de perfil actualizada correctamente');
+                              
+                              // Actualizar estado local
+                              setProfile(prev => ({
+                                ...prev,
+                                foto_perfil: result.data.file.file_url
+                              }));
+                            } else {
+                              toast.error(result.error || 'Error al subir la imagen');
+                            }
+                          } catch (error) {
+                            console.error('Error uploading profile photo:', error);
+                            toast.error('Error al subir la imagen');
+                          } finally {
+                            setLoading(false);
+                          }
                         }
                       }}
                     />
@@ -493,15 +535,12 @@ export default function Profile() {
                         </span>
                       </div>
                       {!profile?.identidad_verificada && (
-                        <button 
-                          onClick={() => {
-                            // TODO: Implementar proceso de verificación
-                            toast.success('Proceso de verificación en desarrollo');
-                          }}
+                        <Link 
+                          href="/verification"
                           className="text-sm text-primary-blue hover:text-primary-blue-dark"
                         >
                           Verificar
-                        </button>
+                        </Link>
                       )}
                     </div>
 

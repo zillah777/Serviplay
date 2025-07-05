@@ -368,7 +368,8 @@ export const updateProfile = asyncHandler(async (req: Request, res: Response, ne
   }
 
   // Extraer datos del usuario vs datos del perfil
-  const userFields = ['nombre', 'apellido'];
+  // Note: nombre and apellido are stored in profile tables, not usuarios table
+  const userFields = []; // usuarios table doesn't have nombre/apellido fields
   const userUpdates: any = {};
   const profileUpdates: any = {};
 
@@ -389,7 +390,7 @@ export const updateProfile = asyncHandler(async (req: Request, res: Response, ne
 
     // Actualizar perfil según el tipo de usuario
     if (Object.keys(profileUpdates).length > 0) {
-      if (user.tipo_usuario === 'as') {
+      if (user.tipo_usuario === 'as' || user.tipo_usuario === 'ambos') {
         // Actualizar perfil de AS
         if (userWithProfiles.perfilAs) {
           await PerfilAsModel.update(user.id, profileUpdates);
@@ -400,7 +401,9 @@ export const updateProfile = asyncHandler(async (req: Request, res: Response, ne
             ...profileUpdates
           });
         }
-      } else if (user.tipo_usuario === 'explorador') {
+      }
+      
+      if (user.tipo_usuario === 'explorador' || user.tipo_usuario === 'ambos') {
         // Actualizar perfil de Explorador
         if (userWithProfiles.perfilExplorador) {
           await PerfilExploradorModel.update(user.id, profileUpdates);

@@ -84,13 +84,6 @@ export const authenticateToken = async (req: AuthRequest, res: Response, next: N
         code: 'USER_SUSPENDED'
       });
     }
-
-    if (user.estado === 'suspendido') {
-      return res.status(401).json({ 
-        error: 'Cuenta suspendida',
-        code: 'ACCOUNT_SUSPENDED'
-      });
-    }
     
     // Verificar email verificado
     if (!user.email_verificado) {

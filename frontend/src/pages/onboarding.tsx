@@ -292,7 +292,7 @@ export default function Onboarding() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <span className="text-white font-bold text-xl">S</span>
+              <span className="text-white font-bold text-xl">F</span>
             </div>
             <h1 className="font-display text-2xl font-bold text-neutral-900">
               {APP_CONFIG.NAME}

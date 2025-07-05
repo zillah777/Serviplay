@@ -279,12 +279,7 @@ export default function Profile() {
           <div className="container mx-auto">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center">
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-primary-blue rounded-full shadow-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">F</span>
-                  </div>
-                  <span className="font-display text-lg font-bold text-neutral-900">Fixia</span>
-                </div>
+                <LogoWithText size="sm" />
               </Link>
               
               <div className="flex items-center space-x-4">

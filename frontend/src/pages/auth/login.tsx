@@ -7,6 +7,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { APP_CONFIG } from '@/utils/constants';
 import toast from 'react-hot-toast';
 import { authService, LoginData } from '@/services/api';
+import { LogoWithText } from '@/components/common/Logo';
 
 export default function Login() {
   const router = useRouter();
@@ -72,12 +73,7 @@ export default function Login() {
           {/* Header */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-2 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">F</span>
-              </div>
-              <span className="font-display text-2xl font-bold text-neutral-900">
-                {APP_CONFIG.NAME}
-              </span>
+              <LogoWithText />
             </Link>
             
             <h1 className="font-display text-3xl font-bold text-neutral-900 mb-2">

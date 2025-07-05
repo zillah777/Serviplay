@@ -17,6 +17,7 @@ import {
   InformationCircleIcon
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG, BRAND_TERMS } from '@/utils/constants';
+import { LogoWithText } from '@/components/common/Logo';
 import { AnimatedStatus } from '@/components/common/ModernIcon';
 
 const securityFeatures = [
@@ -198,12 +199,7 @@ export default function Security() {
           <div className="max-w-7xl mx-auto px-6 py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">S</span>
-                </div>
-                <span className="font-display text-2xl font-bold text-gray-900">
-                  {APP_CONFIG.NAME}
-                </span>
+                <LogoWithText />
               </Link>
               
               <div className="flex items-center space-x-4">

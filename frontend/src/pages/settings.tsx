@@ -19,6 +19,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { APP_CONFIG } from '@/utils/constants';
 import { authService } from '@/services/api';
+import { LogoWithText } from '@/components/common/Logo';
 import toast from 'react-hot-toast';
 
 // Default user settings
@@ -595,12 +596,7 @@ export default function Settings() {
           <div className="container mx-auto">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">F</span>
-                </div>
-                <span className="font-display text-xl font-bold text-neutral-900">
-                  {APP_CONFIG.NAME}
-                </span>
+                <LogoWithText size="sm" />
               </Link>
               
               <div className="flex items-center space-x-4">

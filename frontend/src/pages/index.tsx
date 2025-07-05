@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { MagnifyingGlassIcon, StarIcon, UserGroupIcon, SparklesIcon, RocketLaunchIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 import { BRAND_TERMS, APP_CONFIG } from '@/utils/constants';
 import { useEffect, useState } from 'react';
+import { LogoWithText } from '@/components/common/Logo';
 
 export default function Home() {
   const router = useRouter();
@@ -48,12 +49,7 @@ export default function Home() {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">F</span>
-                </div>
-                <h1 className="font-display text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                  {APP_CONFIG.NAME}
-                </h1>
+                <LogoWithText />
               </motion.div>
               
               <div className="flex items-center space-x-1 sm:space-x-3">
@@ -749,11 +745,8 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
               {/* Brand */}
               <div className="md:col-span-2">
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-xl">F</span>
-                  </div>
-                  <span className="font-display text-2xl font-bold">{APP_CONFIG.NAME}</span>
+                <div className="mb-6">
+                  <LogoWithText />
                 </div>
                 <p className="text-gray-400 text-lg leading-relaxed mb-6 max-w-md">
                   {APP_CONFIG.TAGLINE}

@@ -208,7 +208,7 @@ export default function PublicProfile() {
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-primary-blue rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">S</span>
+                  <span className="text-white font-bold">F</span>
                 </div>
                 <span className="font-display text-xl font-bold text-neutral-900">
                   {APP_CONFIG.NAME}

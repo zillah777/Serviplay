@@ -170,28 +170,59 @@ export default function Profile() {
   const handleSave = async () => {
     setLoading(true);
     try {
-      // TODO: Actualizar datos en backend
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Actualizar solo las propiedades del usuario que corresponden
-      if (user) {
-        setUser({
-          ...user,
-          nombre: editData.nombre,
-          apellido: editData.apellido
-        });
-        
-        // Actualizar el perfil con el resto de datos
-        setProfile({
-          ...profile,
-          ...editData
-        });
+      // Llamar al backend para actualizar el perfil
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        throw new Error('No hay token de autenticación');
       }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://fixia-backend-production.up.railway.app'}/api/auth/profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(editData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al actualizar el perfil');
+      }
+
+      const result = await response.json();
       
-      setEditing(false);
-      toast.success('Perfil actualizado correctamente');
-    } catch (error) {
-      toast.error('Error al actualizar el perfil');
+      if (result.success) {
+        // Actualizar solo las propiedades del usuario que corresponden
+        if (user) {
+          setUser({
+            ...user,
+            nombre: editData.nombre,
+            apellido: editData.apellido
+          });
+          
+          // Actualizar el perfil con el resto de datos
+          setProfile({
+            ...profile,
+            ...editData
+          });
+          
+          // Actualizar localStorage con datos frescos
+          localStorage.setItem('user', JSON.stringify({
+            ...user,
+            nombre: editData.nombre,
+            apellido: editData.apellido
+          }));
+        }
+        
+        setEditing(false);
+        toast.success('Perfil actualizado correctamente');
+      } else {
+        throw new Error(result.message || 'Error al actualizar el perfil');
+      }
+    } catch (error: any) {
+      console.error('Error updating profile:', error);
+      toast.error(error.message || 'Error al actualizar el perfil');
     } finally {
       setLoading(false);
     }
@@ -248,7 +279,12 @@ export default function Profile() {
           <div className="container mx-auto">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="flex items-center">
-                <LogoWithText size="sm" />
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center relative overflow-hidden">
+                    <span className="text-white font-bold text-sm">F</span>
+                  </div>
+                  <span className="font-display text-lg font-bold text-neutral-900">Fixia</span>
+                </div>
               </Link>
               
               <div className="flex items-center space-x-4">
@@ -325,7 +361,7 @@ export default function Profile() {
                             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://fixia-production.up.railway.app'}/api/upload/single`, {
                               method: 'POST',
                               headers: {
-                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
                               },
                               body: formData
                             });

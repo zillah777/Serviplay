@@ -355,3 +355,85 @@ export const getProfile = asyncHandler(async (req: Request, res: Response, next:
     }
   });
 });
+
+export const updateProfile = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  const user = (req as any).user;
+  const updateData = req.body;
+
+  // Validar que el usuario existe
+  const userWithProfiles = await User.getUserWithProfiles(user.id);
+  
+  if (!userWithProfiles) {
+    throw createError('Usuario no encontrado', 404);
+  }
+
+  // Extraer datos del usuario vs datos del perfil
+  const userFields = ['nombre', 'apellido'];
+  const userUpdates: any = {};
+  const profileUpdates: any = {};
+
+  // Separar campos de usuario vs perfil
+  Object.keys(updateData).forEach(key => {
+    if (userFields.includes(key)) {
+      userUpdates[key] = updateData[key];
+    } else {
+      profileUpdates[key] = updateData[key];
+    }
+  });
+
+  try {
+    // Actualizar datos del usuario si hay cambios
+    if (Object.keys(userUpdates).length > 0) {
+      await User.update(user.id, userUpdates);
+    }
+
+    // Actualizar perfil según el tipo de usuario
+    if (Object.keys(profileUpdates).length > 0) {
+      if (user.tipo_usuario === 'as') {
+        // Actualizar perfil de AS
+        if (userWithProfiles.perfilAs) {
+          await PerfilAsModel.update(user.id, profileUpdates);
+        } else {
+          // Crear perfil AS si no existe
+          await PerfilAsModel.create({
+            usuario_id: user.id,
+            ...profileUpdates
+          });
+        }
+      } else if (user.tipo_usuario === 'explorador') {
+        // Actualizar perfil de Explorador
+        if (userWithProfiles.perfilExplorador) {
+          await PerfilExploradorModel.update(user.id, profileUpdates);
+        } else {
+          // Crear perfil Explorador si no existe
+          await PerfilExploradorModel.create({
+            usuario_id: user.id,
+            ...profileUpdates
+          });
+        }
+      }
+    }
+
+    // Obtener datos actualizados
+    const updatedUserWithProfiles = await User.getUserWithProfiles(user.id);
+
+    res.json({
+      success: true,
+      message: 'Perfil actualizado correctamente',
+      data: {
+        user: {
+          ...updatedUserWithProfiles!.user,
+          nombre: updatedUserWithProfiles?.perfilAs?.nombre || updatedUserWithProfiles?.perfilExplorador?.nombre || null,
+          apellido: updatedUserWithProfiles?.perfilAs?.apellido || updatedUserWithProfiles?.perfilExplorador?.apellido || null
+        },
+        perfiles: {
+          as: updatedUserWithProfiles!.perfilAs || null,
+          explorador: updatedUserWithProfiles!.perfilExplorador || null
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    throw createError('Error al actualizar el perfil', 500);
+  }
+});

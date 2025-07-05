@@ -7,7 +7,8 @@ import {
   resetPassword, 
   refreshToken, 
   logout, 
-  getProfile 
+  getProfile,
+  updateProfile 
 } from '@/controllers/auth';
 import { authenticate, preventBruteForce } from '@/middleware/auth';
 import { createRateLimiter } from '@/middleware/rateLimiter';
@@ -80,6 +81,7 @@ router.post('/refresh-token',
 
 // Protected routes
 router.get('/me', authenticate, getProfile);
+router.put('/profile', authenticate, updateProfile);
 router.post('/logout', authenticate, logout);
 
 export default router;

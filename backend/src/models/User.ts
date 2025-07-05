@@ -161,6 +161,21 @@ export class User {
 
     return response;
   }
+
+  static async update(userId: string, updates: Partial<Usuario>): Promise<Usuario | null> {
+    const setClause = Object.keys(updates)
+      .map((key, index) => `${key} = $${index + 2}`)
+      .join(', ');
+    
+    const values = [userId, ...Object.values(updates)];
+    
+    const result = await query(
+      `UPDATE usuarios SET ${setClause}, updated_at = NOW() WHERE id = $1 RETURNING *`,
+      values
+    );
+    
+    return result.rows[0] || null;
+  }
 }
 
 export class PerfilAsModel {

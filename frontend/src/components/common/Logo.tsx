@@ -28,14 +28,11 @@ export function Logo({ size = 'md', showText = true, className = '' }: LogoProps
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       {/* Logo Icon */}
-      <div className={`${sizeClasses[size]} bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl shadow-lg flex items-center justify-center relative overflow-hidden`}>
+      <div className={`${sizeClasses[size]} bg-primary-blue rounded-full shadow-lg flex items-center justify-center relative overflow-hidden`}>
         {/* Logo con la F de Fixia */}
         <div className="relative z-10">
           <span className={`text-white font-bold ${logoTextSizeClasses[size]}`}>F</span>
         </div>
-        
-        {/* Efecto de brillo */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
       </div>
       
       {/* Text */}

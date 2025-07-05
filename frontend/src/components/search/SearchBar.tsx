@@ -8,6 +8,7 @@ import {
   MapPinIcon 
 } from '@heroicons/react/24/outline';
 import { SearchFilters, SearchSuggestion } from '@/types/search';
+import { Categoria } from '@/types';
 import { 
   quickFilters, 
   defaultFilters, 
@@ -24,6 +25,7 @@ interface SearchBarProps {
   placeholder?: string;
   showQuickFilters?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  categories?: Categoria[];
 }
 
 const SearchBar = ({ 
@@ -31,7 +33,8 @@ const SearchBar = ({
   initialFilters = {}, 
   placeholder = "¿Qué servicio necesitás? ej: 'plomero urgente', 'niñera esta noche'",
   showQuickFilters = true,
-  size = 'lg'
+  size = 'lg',
+  categories = []
 }: SearchBarProps) => {
   const [filters, setFilters] = useState<SearchFilters>({ ...defaultFilters, ...initialFilters });
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -68,12 +71,12 @@ const SearchBar = ({
   // Generar sugerencias cuando cambia el query
   useEffect(() => {
     if (filters.query.length >= 2) {
-      const newSuggestions = generateSuggestions(filters.query);
+      const newSuggestions = generateSuggestions(filters.query, categories);
       setSuggestions(newSuggestions);
     } else {
       setSuggestions([]);
     }
-  }, [filters.query]);
+  }, [filters.query, categories]);
 
   const handleInputChange = (value: string) => {
     setFilters(prev => ({ ...prev, query: value }));

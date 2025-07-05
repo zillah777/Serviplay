@@ -18,6 +18,8 @@ import Layout from '@/components/common/Layout';
 import Loading from '@/components/common/Loading';
 import { Servicio, PerfilAs } from '@/types';
 import { BRAND_TERMS, APP_CONFIG } from '@/utils/constants';
+import { servicesApi } from '@/services/api';
+import toast from 'react-hot-toast';
 
 export default function ServiceDetailPage() {
   const router = useRouter();
@@ -36,56 +38,21 @@ export default function ServiceDetailPage() {
   const fetchService = async (serviceId: string) => {
     try {
       setLoading(true);
-      // TODO: Reemplazar con llamada real a la API
-      // const response = await api.get(`/services/${serviceId}`);
-      // setService(response.data);
+      setError(null);
       
-      // Mock data por ahora
-      const mockService: Servicio = {
-        id: serviceId,
-        as_id: '1',
-        categoria_id: '1',
-        titulo: 'Limpieza profunda de hogar',
-        descripcion: 'Ofrezco servicios de limpieza profunda para tu hogar. Incluye baños, cocina, dormitorios, y todas las áreas comunes. Uso productos ecológicos y me especializo en dejar todo impecable.',
-        tipo_precio: 'por_hora',
-        precio_desde: 2500,
-        precio_hasta: 4000,
-        moneda: 'ARS',
-        disponible: true,
-        urgente: false,
-        requiere_matricula: false,
-        activo: true,
-        destacado: true,
-        created_at: new Date(),
-        updated_at: new Date(),
-        rating: 4.8,
-        distancia: 2.3,
-        as: {
-          id: '1',
-          usuario_id: '1',
-          nombre: 'María',
-          apellido: 'González',
-          dni: '',
-          fecha_nacimiento: new Date(),
-          telefono: '+54 11 1234-5678',
-          foto_perfil: '/images/profiles/maria.jpg',
-          direccion: 'Palermo, CABA',
-          localidad: 'CABA',
-          provincia: 'Buenos Aires',
-          tiene_movilidad: true,
-          radio_notificaciones: 10,
-          identidad_verificada: true,
-          profesional_verificado: false,
-          suscripcion_activa: true,
-          created_at: new Date(),
-          updated_at: new Date()
-        }
-      };
+      // Llamada real a la API
+      const response = await servicesApi.getService(serviceId);
       
-      setService(mockService);
-    } catch (err) {
-      setError('Error al cargar el servicio');
-      console.error(err);
+      if (response.success && response.data) {
+        setService(response.data);
+      } else {
+        setError('Servicio no encontrado');
+      }
+      
+    } catch (error) {
+      console.error('Error fetching service:', error);
+      setError('Error al cargar el servicio. Por favor, inténtalo de nuevo.');
+      toast.error('Error al cargar el servicio');
     } finally {
       setLoading(false);
     }

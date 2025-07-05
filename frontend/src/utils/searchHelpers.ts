@@ -135,7 +135,7 @@ export const parseNaturalQuery = (query: string): Partial<SearchFilters> => {
 };
 
 // Generar sugerencias basadas en el input
-export const generateSuggestions = (query: string): SearchSuggestion[] => {
+export const generateSuggestions = (query: string, categories: any[] = []): SearchSuggestion[] => {
   if (query.length < 2) return [];
 
   const suggestions: SearchSuggestion[] = [];
@@ -167,27 +167,40 @@ export const generateSuggestions = (query: string): SearchSuggestion[] => {
       });
     });
 
-  // Sugerencias de categorías
-  const categories = [
-    { nombre: 'Limpieza', icono: '🧹' },
-    { nombre: 'Plomería', icono: '🔧' },
-    { nombre: 'Electricidad', icono: '⚡' },
-    { nombre: 'Jardinería', icono: '🌱' },
-    { nombre: 'Pintura', icono: '🎨' },
-    { nombre: 'Tecnología', icono: '💻' }
-  ];
-
-  categories
-    .filter(cat => cat.nombre.toLowerCase().includes(lowerQuery))
-    .slice(0, 2)
-    .forEach(cat => {
-      suggestions.push({
-        id: `category-${cat.nombre}`,
-        type: 'categoria',
-        texto: `Todos los servicios de ${cat.nombre}`,
-        icono: cat.icono
+  // Sugerencias de categorías (usar categorías reales del backend)
+  if (categories && categories.length > 0) {
+    categories
+      .filter(cat => cat.nombre.toLowerCase().includes(lowerQuery))
+      .slice(0, 2)
+      .forEach(cat => {
+        suggestions.push({
+          id: `category-${cat.nombre}`,
+          type: 'categoria',
+          texto: `Todos los servicios de ${cat.nombre}`,
+          icono: cat.icono || '📂'
+        });
       });
-    });
+  } else {
+    // Fallback a categorías básicas si no hay categorías del backend
+    const fallbackCategories = [
+      { nombre: 'Limpieza', icono: '🧹' },
+      { nombre: 'Plomería', icono: '🔧' },
+      { nombre: 'Electricidad', icono: '⚡' },
+      { nombre: 'Jardinería', icono: '🌱' }
+    ];
+
+    fallbackCategories
+      .filter(cat => cat.nombre.toLowerCase().includes(lowerQuery))
+      .slice(0, 2)
+      .forEach(cat => {
+        suggestions.push({
+          id: `category-${cat.nombre}`,
+          type: 'categoria',
+          texto: `Todos los servicios de ${cat.nombre}`,
+          icono: cat.icono
+        });
+      });
+  }
 
   return suggestions.slice(0, 5);
 };

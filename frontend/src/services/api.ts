@@ -313,5 +313,148 @@ export const authService = {
   }
 };
 
+// ===========================================
+// SERVICIOS API
+// ===========================================
+
+export const servicesApi = {
+  // Buscar servicios con filtros
+  async searchServices(filters: any): Promise<any> {
+    try {
+      const params = new URLSearchParams();
+      
+      // Agregar filtros como parámetros de consulta
+      if (filters.query) params.append('q', filters.query);
+      if (filters.categoria) params.append('categoria', filters.categoria);
+      if (filters.ubicacion?.lat && filters.ubicacion?.lng) {
+        params.append('lat', filters.ubicacion.lat.toString());
+        params.append('lng', filters.ubicacion.lng.toString());
+      }
+      if (filters.radio) params.append('radio', filters.radio.toString());
+      if (filters.precio_min) params.append('precio_min', filters.precio_min.toString());
+      if (filters.precio_max) params.append('precio_max', filters.precio_max.toString());
+      if (filters.verificado !== undefined) params.append('verificado', filters.verificado.toString());
+      if (filters.disponible !== undefined) params.append('disponible', filters.disponible.toString());
+      if (filters.urgente !== undefined) params.append('urgente', filters.urgente.toString());
+      if (filters.orden) params.append('orden', filters.orden);
+      if (filters.pagina) params.append('pagina', filters.pagina.toString());
+      if (filters.por_pagina) params.append('por_pagina', filters.por_pagina.toString());
+      
+      const response = await api.get(`/api/services?${params.toString()}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error searching services:', error);
+      throw error;
+    }
+  },
+
+  // Obtener servicio por ID
+  async getService(id: string): Promise<any> {
+    try {
+      const response = await api.get(`/api/services/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error getting service:', error);
+      throw error;
+    }
+  },
+
+  // Obtener categorías
+  async getCategories(): Promise<any> {
+    try {
+      const response = await api.get('/api/services/categories');
+      return response.data;
+    } catch (error) {
+      console.error('Error getting categories:', error);
+      throw error;
+    }
+  },
+
+  // Obtener servicios destacados
+  async getFeaturedServices(): Promise<any> {
+    try {
+      const response = await api.get('/api/services/featured');
+      return response.data;
+    } catch (error) {
+      console.error('Error getting featured services:', error);
+      throw error;
+    }
+  },
+
+  // Crear nuevo servicio (solo para AS)
+  async createService(serviceData: any): Promise<any> {
+    try {
+      const response = await api.post('/api/services', serviceData);
+      if (response.data.success) {
+        toast.success('Servicio creado exitosamente');
+      }
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorData = error.response.data as ApiError;
+        toast.error(errorData.message || errorData.error || 'Error al crear servicio');
+        throw errorData;
+      } else {
+        const errorMessage = 'Error de conexión. Verifica tu internet.';
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+    }
+  },
+
+  // Actualizar servicio
+  async updateService(id: string, serviceData: any): Promise<any> {
+    try {
+      const response = await api.put(`/api/services/${id}`, serviceData);
+      if (response.data.success) {
+        toast.success('Servicio actualizado exitosamente');
+      }
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorData = error.response.data as ApiError;
+        toast.error(errorData.message || errorData.error || 'Error al actualizar servicio');
+        throw errorData;
+      } else {
+        const errorMessage = 'Error de conexión. Verifica tu internet.';
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+    }
+  },
+
+  // Eliminar servicio
+  async deleteService(id: string): Promise<any> {
+    try {
+      const response = await api.delete(`/api/services/${id}`);
+      if (response.data.success) {
+        toast.success('Servicio eliminado exitosamente');
+      }
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorData = error.response.data as ApiError;
+        toast.error(errorData.message || errorData.error || 'Error al eliminar servicio');
+        throw errorData;
+      } else {
+        const errorMessage = 'Error de conexión. Verifica tu internet.';
+        toast.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+    }
+  },
+
+  // Obtener mis servicios
+  async getMyServices(): Promise<any> {
+    try {
+      const response = await api.get('/api/services/my/services');
+      return response.data;
+    } catch (error) {
+      console.error('Error getting my services:', error);
+      throw error;
+    }
+  }
+};
+
 // Exportar instancia de API para otros usos
 export default api;

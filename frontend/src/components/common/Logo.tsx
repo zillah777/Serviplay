@@ -28,7 +28,7 @@ export function Logo({ size = 'md', showText = true, className = '' }: LogoProps
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       {/* Logo Icon */}
-      <div className={`${sizeClasses[size]} bg-primary-blue rounded-full shadow-lg flex items-center justify-center relative overflow-hidden`}>
+      <div className={`${sizeClasses[size]} bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg relative overflow-hidden`}>
         {/* Logo con la F de Fixia */}
         <div className="relative z-10">
           <span className={`text-white font-bold ${logoTextSizeClasses[size]}`}>F</span>

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from './Header';
 import { APP_CONFIG } from '@/utils/constants';
 import { LayoutProps } from '@/types';
+import { LogoWithText } from '@/components/common/Logo';
 
 const Layout = ({ 
   children, 
@@ -83,11 +84,8 @@ const Layout = ({
             </div>
             
             <div className="border-t border-neutral-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-              <div className="flex items-center space-x-2 mb-4 md:mb-0">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary-blue to-secondary-green rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">F</span>
-                </div>
-                <span className="font-display text-lg font-bold text-neutral-900">{APP_CONFIG.NAME}</span>
+              <div className="mb-4 md:mb-0">
+                <LogoWithText size="sm" />
               </div>
               
               <p className="text-sm text-neutral-500">
